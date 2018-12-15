@@ -111,7 +111,7 @@
     </div>
     <!-- component berita terkini -->
     <div class="container text-left">    
-      <h3>Latest Videos</h3>
+      <h3>Berita Terkini</h3>
       <br>
       <div class="row">
         <div class="col-sm-3">
@@ -141,6 +141,19 @@ export default {
   data() {
     return {
       msg: '',
+      berita: [
+        {
+            "title": "Berita 1",
+            "image": "",
+            "content": "content berita 1"
+        },
+        {
+            "title": "Berita 2",
+            "image": "",
+            "content": "content berita 2"
+        }
+    ],
+
     };
   },
 };
