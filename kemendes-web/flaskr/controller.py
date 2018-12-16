@@ -6,7 +6,7 @@ from mongoengine import DoesNotExist
 from .constants import StatusCodes
 from .model import *
 from .helpers import *
-from .services import create_berita, create_unit_kerja, get_rencana_kerja
+from .services import create_berita, create_unit_kerja, get_rencana_kerja, update_rencana_kerja
 
 
 class RegisterView(object):
@@ -122,3 +122,14 @@ class RiskFormView(object):
         except Exception as e:
             return e.__str__(), StatusCodes.HTTP_500_INTERNAL_SERVER_ERROR
         return result
+
+    def post(self, data):
+        data = json.loads(data)
+        try:
+            tujuan_id = update_rencana_kerja(data)
+        except Exception as e:
+            print(e)
+            return {'status': 'failed'}, StatusCodes.HTTP_400_BAD_REQUEST
+        return json.dumps({'status': 'success', 'tujuan_id': tujuan_id})
+
+
