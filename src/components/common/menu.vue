@@ -12,33 +12,40 @@
               <li class="active">
                 <a href="#">
                     <font-awesome-icon icon="home" size="4x"></font-awesome-icon>
-                    <h4>Beranda</h4>
+                    <h4>BERANDA</h4>
                 </a>
               </li>
               <li>
                 <a href="#">
                   <div class="dropdown">
                     <font-awesome-icon icon="cog" size="4x"></font-awesome-icon>
-                    <h4>Tentang DitjenPKP</h4>
-                    <div class="dropdown-content">
-                      <h4>Tugas & Fungsi</h4>
-                      <h4>Struktur Organisasi</h4>
+                    <h4>TENTANG DITJENPKP</h4>
+                    <div class="dropdown-content text-left">
+                      <h4>TUGAS & FUNGSI</h4>
+                      <h4>STRUKTUR ORGANISASI</h4>
                     </div>
                   </div>
                 </a>
               </li>
               <li>
                 <a href="#">
+                  <div class="dropdown">
                     <font-awesome-icon icon="pen" size="4x"></font-awesome-icon>
-                    <h4>Unit kerja</h4>
+                    <h4>UNIT KERJA</h4>
+                    <div class="dropdown-content text-left">
+                      <h4 v-for="unit in unitKerja">
+                        {{ unit['name'] }}
+                      </h4>
+                    </div>
+                  </div>
                 </a>
               </li>
               <li>
                 <a href="#">
                   <div class="dropdown">
                     <font-awesome-icon icon="lightbulb" size="4x"></font-awesome-icon>
-                    <h4>Berita</h4>
-                    <div class="dropdown-content">
+                    <h4>BERITA</h4>
+                    <div class="dropdown-content text-left">
                         <h4 v-for="itemBerita in berita">
                         {{ itemBerita['title'] }}
                         </h4>
@@ -48,8 +55,14 @@
               </li>
               <li>
                 <a href="#">
-                  <font-awesome-icon icon="concierge-bell" size="4x"></font-awesome-icon>
-                  <h4>Layanan</h4>
+                  <div class="dropdown">
+                    <font-awesome-icon icon="concierge-bell" size="4x"></font-awesome-icon>
+                    <h4>LAYANAN</h4>
+                    <div class="dropdown-content text-left">
+                        <h4>DOWNLOAD</h4>
+                        <h4>GALERI</h4>
+                    </div>
+                  </div>
                 </a>
               </li>
             </ul>
@@ -66,18 +79,54 @@ export default {
       msg: '',
       berita: [
         {
-            "title": "Berita 1",
-            "image": "",
-            "content": "content berita 1"
+            'title': 'Berita 1',
+            'image': '',
+            'content': 'content berita 1'
         },
         {
-            "title": "Berita 2",
-            "image": "",
-            "content": "content berita 2"
+            'title': 'Berita 2',
+            'image': '',
+            'content': 'content berita 2'
         }
     ],
+    unitKerja: [],
 
     };
+  },
+  created() {
+    const opt = {
+      method: 'GET',
+      headers: new Headers({
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'mode': 'no-cors'
+      })
+    }
+    fetch('http://localhost:5000/title-berita', opt)
+      .then((response) => {
+        if(response.status == 200){
+          return response.json();
+        } 
+        
+      }).then((res) => {
+        console.log(res);
+        this.berita = res;
+      }).catch((err)=>{
+        console.log('err', err);
+      });
+
+    fetch('http://localhost:5000/title-unitkerja', opt)
+      .then((response) => {
+        if(response.status == 200){
+          return response.json();
+        } 
+        
+      }).then((res) => {
+        console.log(res);
+        this.unitKerja = res;
+      }).catch((err)=>{
+        console.log('err', err);
+      });
   },
 };
 </script>

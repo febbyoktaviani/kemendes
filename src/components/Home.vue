@@ -17,7 +17,7 @@
                      alt="Image"
                      class="slide-caro">
                 <div class="carousel-caption">
-                </div>      
+                </div>
               </div>
 
               <div class="item">
@@ -27,7 +27,7 @@
                 <div class="carousel-caption">
                   <h3>More Sell $</h3>
                   <p>Lorem ipsum...</p>
-                </div>    
+                </div>
               </div>
             </div>
 
@@ -69,7 +69,7 @@
           </a>
         </div>
         <div class="col-sm-4 linkapp-container">
-          <div class="linkapp">
+          <div class="linkapp light-color">
             <h3> SI & Pembelajaran Pendamping Perdesaan </h3>
             <br>
             <font-awesome-icon icon="clock" size="6x"></font-awesome-icon>
@@ -81,7 +81,7 @@
             <br>
             <font-awesome-icon icon="globe" size="6x"></font-awesome-icon>
           </div>
-        </div>  
+        </div>
       </div>
       <hr>
     </div>
@@ -95,41 +95,38 @@
           <iframe src="https://www.youtube.com/embed/kzzMvetlB-Y" width="268" height="181" frameborder="0" allowfullscreen=""></iframe>
           <p>video-1</p>
         </div>
-        <div class="col-sm-3"> 
+        <div class="col-sm-3">
           <iframe src="https://www.youtube.com/embed/xnuftoxO_G0" width="268" height="181" frameborder="0" allowfullscreen=""></iframe>
-          <p>Video 2</p>    
+          <p>Video 2</p>
         </div>
-        <div class="col-sm-3"> 
+        <div class="col-sm-3">
           <iframe src="https://www.youtube.com/embed/9EP_IqZ6SoQ" width="268" height="181" frameborder="0" allowfullscreen=""></iframe>
           <p>Video 3</p>
         </div>
-        <div class="col-sm-3"> 
+        <div class="col-sm-3">
           <iframe src="https://www.youtube.com/embed/Mi0AHT-01eU" width="268" height="181" frameborder="0" allowfullscreen=""></iframe>
           <p>Video 4</p>
-        </div>  
+        </div>
       </div>
     </div>
     <!-- component berita terkini -->
-    <div class="container text-left">    
+    <div class="container text-left">
       <h3>Berita Terkini</h3>
       <br>
       <div class="row">
         <div class="col-sm-3">
-          
           <p>video-1</p>
         </div>
-        <div class="col-sm-3"> 
-          
-          <p>Video 2</p>    
+        <div class="col-sm-3">
+          <p>Video 2</p>
         </div>
-        <div class="col-sm-3"> 
-          
+        <div class="col-sm-3">
           <p>Video 3</p>
         </div>
         <div class="col-sm-3"> 
           
           <p>Video 4</p>
-        </div>  
+        </div>
       </div>
     </div>
   </div>
@@ -143,14 +140,14 @@ export default {
       msg: '',
       berita: [
         {
-            "title": "Berita 1",
-            "image": "",
-            "content": "content berita 1"
+            'title': 'Berita 1',
+            'image': '',
+            'content': 'content berita 1'
         },
         {
-            "title": "Berita 2",
-            "image": "",
-            "content": "content berita 2"
+            'title': 'Berita 2',
+            'image': '',
+            'content': 'content berita 2'
         }
     ],
 
