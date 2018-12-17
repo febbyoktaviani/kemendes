@@ -72,6 +72,8 @@
     </div>
 </template>
 <script>
+import {base_url} from '@/store/config'
+
 export default {
   name: 'Menu',
   data() {
@@ -104,7 +106,7 @@ export default {
         'mode': 'no-cors'
       })
     }
-    fetch('http://localhost:5000/title-berita', opt)
+    fetch(`${base_url}/title-berita`, opt)
       .then((response) => {
         if(response.status == 200){
           return response.json();
@@ -117,7 +119,7 @@ export default {
         console.log('err', err);
       });
 
-    fetch('http://localhost:5000/title-unitkerja', opt)
+    fetch(`${base_url}/title-unitkerja`, opt)
       .then((response) => {
         if(response.status == 200){
           return response.json();
