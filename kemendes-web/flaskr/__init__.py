@@ -115,11 +115,23 @@ def create_app(test_config=None):
                 print(e)
                 return e, 500
 
-    @app.route('/rencana-kerja', methods=['GET'])
+    @app.route('/rencana-kerja', methods=['GET', 'POST'])
     def rencana_kerja():
         rencana_kerja = RiskFormView(app)
-        tujuan_id = request.args.get('tujuan_id')
-        return json.dumps(rencana_kerja.get(tujuan_id))
+
+        if request.method == 'GET':
+            tujuan_id = request.args.get('tujuan_id')
+            return json.dumps(rencana_kerja.get(tujuan_id))
+
+        if request.method == 'POST':
+            print('post', request.get_json())
+            print('post', request.data.decode('utf8').replace("'", '"'))
+            data = request.data.decode('utf8').replace("'", '"')
+            # print(request.json['name'])
+            result = rencana_kerja.post(data)
+            print(result)
+            return result
+            
 
 
     return app

@@ -48,6 +48,11 @@ class UnitKerja(Document, TimeStampModel):
 
 class Tujuan(Document, TimeStampModel):
     name = StringField(max_length=500000, required=True)
+    unit_pemilik_resiko = StringField(max_length=500000, required=True)
+    unit_eselon = StringField(max_length=500000, required=True)
+    periode = StringField(max_length=500000, required=True)
+    kegiatan = StringField(max_length=500000, required=True)
+
 
 class Indikator(Document, TimeStampModel):
     name = StringField(max_length=500, required=True)
@@ -64,12 +69,22 @@ class ResikoKegiatan(Document, TimeStampModel):
     kegiatan = ReferenceField(Kegiatan)
     sumber_resiko = StringField(max_length=500, required=True)
     kategori_resiko = StringField(max_length=500, required=True)
+    resiko = StringField(max_length=500, required=True)
     penyebab_resiko = StringField(max_length=500000, required=True)
-    dampak_resiko = StringField(max_length=500000, required=True)
+    dampak_resiko = StringField(max_length=500000, required=True, default='')
     pengendalian_uraian = StringField(max_length=500000, required=True)
-    penyebab_kategori = StringField(max_length=500000, required=True)
+    pengendalian_kategori = StringField(max_length=500000, required=True)
     resiko_residual = StringField(max_length=500000, required=True)
+    pemilik_resiko = StringField(max_length=500000, required=True)
+    pengukuran_kemungkinan = StringField(max_length=500000, required=True)
+    pengukuran_dampak = StringField(max_length=500000, required=True)
+    pengukuran_status_resiko = StringField(max_length=500000, required=True)
+    level_resiko = StringField(max_length=500000, required=True)
+    peringkat_resiko = StringField(max_length=500000, required=True)
     rtp = StringField(max_length=500000, required=True)
     penangung_jawab = StringField(max_length=500000, required=True)
+    target_waktu = StringField(max_length=500000, required=True)
     komunikasi = StringField(max_length=500000, required=True)
     pemantauan = StringField(max_length=500000, required=True)
+
+    

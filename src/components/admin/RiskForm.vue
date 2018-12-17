@@ -4,34 +4,42 @@
       <br>
       <div class="row">
         <div class="col-sm-12 linkapp-container">
-          <div class="panel panel-success">
-            <div class="panel-heading">
-              <h4>Tujuan</h4>
-            </div>
-            <div class="panel-body">
-              <input class="form-control" type="text" v-model="tujuan" />
-            </div>
-            <div class="panel panel-success" v-for="idk in indikatorList">
-              <div class="panel-heading">
-                <h4>{{ indikators[idk] }}</h4>
-              </div>
-              <div class="panel-body">
-                <div class="panel panel-success" v-for="kg in kegiatanList" v-if="kegiatan[kg]['indikator_id'] == idk">
-                  <div class="panel-heading">
-                    <h4>{{ kegiatan[kg]['desc'] }}</h4>
-                  </div>
-                  <div class="panel-body">
-                    <div class="panel panel-success" v-for="sr in srList" v-if="srData[sr]['keg_id'] == kg">
-                      <div class="panel-heading">
-                        <h4>{{ srData[sr]['desc'] }}</h4>
-                      </div>
-                      <div class="panel-body">
-                        <div class="row sub-field" v-for="field in sr_fields">
-                          <label>{{ field }}</label>
-                          <input type="text" name="" class="form-control" />
-                        </div>
-                      </div>
-                    </div>
+          <div class="container text-left">    
+            <br>
+            <div class="row">
+              <div class="col-sm-12 linkapp-container">
+                <div class="panel panel-success">
+                  <TujuanForm v-if="step == 0" :tujuanId="tujuanId" :tujuan="tujuan"/>
+                  <IndikatorForm v-if="step == 1"
+                                 :tujuanId="tujuanId"
+                                 :indikators="tujuan.indikators"
+                                 :tujuanName="tujuan.name"/>
+                  <KegiatanForm v-if="step == 2"
+                                 :tujuanId="tujuanId"
+                                 :indikators="tujuan.indikators"
+                                 :tujuanName="tujuan.name"/>
+                  <ResikoForm v-if="step == 3"
+                                 :tujuanId="tujuanId"
+                                 :indikators="tujuan.indikators"
+                                 :tujuanName="tujuan.name"/>
+                  <div class="panel-footer">
+                    <!-- <div class="btn-group" style="padding: 20px"> -->
+                      <button v-if="step > 0"
+                              type="button"
+                              class="btn btn-info"
+                              v-on:click="back()">Back
+                      </button>
+                      &nbsp;&nbsp;&nbsp;
+                      <button v-if="step < 3"
+                              type="button"
+                              class="btn btn-info"
+                              v-on:click="next()">Next</button>
+                      &nbsp;
+                      <button v-if="step == 3"
+                              type="button"
+                              class="btn btn-success"
+                              v-on:click="save()">Save</button>
+                    <!-- </div> -->
                   </div>
                 </div>
               </div>
@@ -43,36 +51,65 @@
   </div>
 </template>
 <script>
+  import TujuanForm from '@/components/admin/TujuanForm';
+  import IndikatorForm from '@/components/admin/IndikatorForm';
+  import KegiatanForm from '@/components/admin/KegiatanForm';
+  import ResikoForm from '@/components/admin/ResikoForm';
+  import { mapGetters } from 'vuex';
   export default {
+    props: ['tujuanId'],
+    components: {TujuanForm, IndikatorForm, KegiatanForm, ResikoForm},
     name: 'RiskForm',
     data() {
       return {
-        tujuan: 'Tujuan 1',
-        indikators: {1: 'indikator 1', 2: 'indikator 2'},
-        indikatorList: [1, 2],
-        kegiatan: {
-          1: {'indikator_id': 1, 'desc': 'kegiatan 1.1'},
-          2: {'indikator_id': 1, 'desc': 'kegiatan 1.2'},
-        },
-        kegiatanList: [1, 2],
-        srList: [1, 2],
-        srData: {
-          1: {'indikator_id': 1, 'keg_id': 1, 'desc': 'Sumber Resiko 1.1'},
-          2: {'indikator_id': 1, 'keg_id': 1, 'desc': 'Sumber Resiko 1.2'}
-        },
-        sr_fields: [
-          "kategori resiko",
-          "penyebab resiko",
-          "dampak resiko",
-          "pengendalian uraian"
-        ]
+        step: 0,
       };
     },
-    watch() {
+    created() {
+        this.$store.dispatch('getTujuan', this.tujuanId);
+        console.log('tujuan')
 
     },
     methods: {
-      
+      next() {
+        this.step += 1
+      },
+      back() {
+        this.step -= 1
+      },
+      save() {
+        console.log(JSON.stringify(this.tujuan))
+        let header = new Headers({
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'mode': 'no-cors'
+        });
+        const opt = {
+          method: 'POST',
+          headers: header,
+          body: JSON.stringify(this.tujuan)
+        }
+        fetch('http://localhost:5000/rencana-kerja', opt)
+          .then((response) => {
+            if(response.status == 200){
+              console.log(response)
+              return response.json();
+            } 
+            
+          }).then((res) => {
+            console.log(res);
+            window.location.href = `/#/admin/tujuan/${res.tujuan_id}`
+            
+          }).catch((err)=>{
+            console.log('err', err);
+          });
+      }
+    },
+    computed: {
+        ...mapGetters({
+          tujuan: 'tujuan',
+          riskFormList: 'riskFormList',
+        })
     },
   };
 </script>
