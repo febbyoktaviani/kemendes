@@ -68,7 +68,6 @@
     created() {
         this.$store.dispatch('getTujuan', this.tujuanId);
         console.log('tujuan')
-
     },
     methods: {
       next() {

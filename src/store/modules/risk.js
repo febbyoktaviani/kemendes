@@ -1,7 +1,7 @@
 import { base_url, staticToken } from '../config';
 
 const state = {
-  tujuan: {},
+  tujuan: {'indikators':[{'kegiatans':[]}]},
   token: staticToken,
   riskFormList: [
     'sumber_resiko',
