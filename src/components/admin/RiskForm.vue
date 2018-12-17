@@ -66,8 +66,10 @@
       };
     },
     created() {
-        this.$store.dispatch('getTujuan', this.tujuanId);
-        console.log('tujuan')
+        if (this.tujuanId != '1') {
+          this.$store.dispatch('getTujuan', this.tujuanId);
+          console.log('tujuan')
+        }
     },
     methods: {
       next() {
@@ -88,7 +90,7 @@
           headers: header,
           body: JSON.stringify(this.tujuan)
         }
-        fetch('http://localhost:5000/rencana-kerja', opt)
+        fetch('http://kemendesapi.detase.men/rencana-kerja', opt)
           .then((response) => {
             if(response.status == 200){
               console.log(response)
