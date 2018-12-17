@@ -87,9 +87,11 @@ export default {
             'title': 'Berita 2',
             'image': '',
             'content': 'content berita 2'
-        }
+        },
     ],
     unitKerja: [],
+    username: '',
+    password: ''
 
     };
   },
