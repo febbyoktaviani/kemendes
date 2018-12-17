@@ -61,32 +61,49 @@ def get_rencana_kerja(id):
     return data
 
 def update_rencana_kerja(data):
-    tujuan = Tujuan.objects.get(id=data['id'])
-    tujuan.update(name=data['name'],
-                  periode=data['periode'],
-                  unit_pemilik_resiko=data['unit_pemilik_resiko'],
-                  unit_eselon=data['unit_eselon'])
+    print('service', data)
+    print('service2', data.get('id') == '')
+    if data.get('id') != '' and data.get('id') is not None:
+        tujuan = Tujuan.objects.get(id=data.get('id'))
+        tujuan.update(name=data['name'],
+                      periode=data['periode'],
+                      unit_pemilik_resiko=data['unit_pemilik_resiko'],
+                      unit_eselon=data['unit_eselon'],
+                      kegiatan=data['kegiatan'])
+    else:
+        tujuan = Tujuan(name=data['name'],
+                        periode=data['periode'],
+                        unit_pemilik_resiko=data['unit_pemilik_resiko'],
+                        unit_eselon=data['unit_eselon'],
+                        kegiatan=data['kegiatan'])
+        tujuan.save()
+        print('tj', tujuan)
     indikators = data['indikators']
     for indikator in indikators:
-        if indikator['id'] != '':
-            indikator_obj = Indikator.objects.get(id=indikator['id'])
+        if indikator.get('id') != '' and indikator.get('id') is not None:
+            indikator_obj = Indikator.objects.get(id=indikator.get('id'))
             indikator_obj.update(name=indikator['name'])
         else:
             indikator_obj = Indikator(name=indikator['name'], tujuan=tujuan)
             indikator_obj.save()
-        kegiatans = indikator['kegiatans']
+        print('idk', indikator_obj)
+        kegiatans = indikator.get('kegiatans')
+        print('kgs', kegiatans)
         for kegiatan in kegiatans:
-            if kegiatan['id'] != '':
-                kegiatan_obj = Kegiatan.objects.get(id=kegiatan['id'])
-                if kegiatan_obj.name != kegiatan['name']:
-                    kegiatan_obj.update(name=kegiatan['name'])
+            if kegiatan.get('id') != '' and kegiatan.get('id') is not None:
+                kegiatan_obj = Kegiatan.objects.get(id=kegiatan.get('id'))
+                if kegiatan_obj.name != kegiatan.get('name'):
+                    kegiatan_obj.update(name=kegiatan.get('name'))
             else:
-                kegiatan_obj = Kegiatan(name=kegiatan['name'], indikator=indikator, tujuan=tujuan)
+                kegiatan_obj = Kegiatan(name=kegiatan.get('name'),
+                                        indikator=indikator_obj,
+                                        tujuan=tujuan)
                 kegiatan_obj.save()
-            resiko_kegiatan = kegiatan['resiko_kegiatan']
+            print('kg', kegiatan_obj)
+            resiko_kegiatan = kegiatan.get('resiko_kegiatan')
             for resiko in resiko_kegiatan:
                 print(resiko)
-                if resiko['id'] != '':
+                if resiko.get('id') != '' and resiko.get('id') is not None:
                     resiko_obj = ResikoKegiatan.objects.get(id=resiko['id'])
                     resiko_obj.update(sumber_resiko=resiko['sumber_resiko'],
                                       kategori_resiko=resiko['kategori_resiko'],
@@ -103,7 +120,7 @@ def update_rencana_kerja(data):
                                       level_resiko=resiko['level_resiko'],
                                       peringkat_resiko=resiko['peringkat_resiko'],
                                       rtp=resiko['rtp'],
-                                      penangung_jawab=resiko['penangung_jawab'],
+                                      penangung_jawab=resiko['penanggung_jawab'],
                                       target_waktu=resiko['target_waktu'],
                                       komunikasi=resiko['komunikasi'],
                                       pemantauan=resiko['pemantauan'])
@@ -126,7 +143,7 @@ def update_rencana_kerja(data):
                                                 level_resiko=resiko['level_resiko'],
                                                 peringkat_resiko=resiko['peringkat_resiko'],
                                                 rtp=resiko['rtp'],
-                                                penangung_jawab=resiko['penangung_jawab'],
+                                                penangung_jawab=resiko['penanggung_jawab'],
                                                 target_waktu=resiko['target_waktu'],
                                                 komunikasi=resiko['komunikasi'],
                                                 pemantauan=resiko['pemantauan'])

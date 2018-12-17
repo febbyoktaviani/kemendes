@@ -124,8 +124,6 @@ def create_app(test_config=None):
             return json.dumps(rencana_kerja.get(tujuan_id))
 
         if request.method == 'POST':
-            print('post', request.get_json())
-            print('post', request.data.decode('utf8').replace("'", '"'))
             data = request.data.decode('utf8').replace("'", '"')
             # print(request.json['name'])
             result = rencana_kerja.post(data)
