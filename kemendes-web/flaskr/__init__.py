@@ -58,7 +58,7 @@ def create_app(test_config=None):
             return e.__str__(), 500
 
     @app.route('/user')
-    @jwt_required
+    # @jwt_required
     def user():
         try:
             login = LoginView(app)
@@ -68,7 +68,7 @@ def create_app(test_config=None):
             return e, 500
 
     @app.route('/berita', methods=['POST', 'GET'])
-    @jwt_required
+    # @jwt_required
     def berita():
         berita = BeritaView(app)
         if request.method == 'POST':
@@ -102,7 +102,7 @@ def create_app(test_config=None):
             return unit_kerja.get_title(search_text)
     
     @app.route('/unitkerja', methods=['GET', 'POST'])
-    @jwt_required
+    # @jwt_required
     def unit_kerja(): 
         if request.method == 'POST':  
             if 'bagan' in request.files:
