@@ -28,6 +28,7 @@ const actions = {
     localStorage.setItem('user', JSON.stringify(res))
     router.push('/admin')
   },
+}
 
 const mutations = {
     loginRequest(state, user) {
