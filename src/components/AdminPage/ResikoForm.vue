@@ -1,7 +1,7 @@
 <template>
   <div class='resiko-form'>
     <div class="panel-heading">
-      <h4>{{tujuanName}}</h4>
+      <h4>Resiko Kegiatan</h4>
     </div>
     <div class="panel-body">
       <div class="panel panel-success" v-for="(indikator, idx) in indikators">

@@ -1,9 +1,9 @@
 <template>
   <div class="tujuan-detail">
-    <div class="container text-left">    
+    <!-- <div class="container text-left">     -->
       <br>
-      <div class="row">
-        <div class="col-sm-12 linkapp-container">
+      <!-- <div class="row"> -->
+        <div class="container-table text-left">
           <div class="panel panel-success">
             <div class="panel-heading">
               <p><strong>Unit pemilik resiko : {{ tujuan.unit_pemilik_resiko }}</strong></p>
@@ -286,12 +286,12 @@
                 </tr>
               </table>
             </div>
-            <div class="panel-heading">Panel Footer</div>
+            <div class="panel-heading"></div>
           </div>
         </div>
-      </div>
+      <!-- </div> -->
     </div>
-  </div>
+  <!-- </div> -->
 </template>
 <script>
   import { mapGetters } from 'vuex';
@@ -353,5 +353,10 @@
   }
   td {
     vertical-align: middle;
+  }
+  .container-table {
+    min-width: 90%;
+    margin-left: 5%;
+    margin-right: 95%;
   }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class='indikator-form'>
     <div class="panel-heading">
-      <h4>Tujuan {{tujuanName}}</h4>
+      <h4>Indikator</h4>
     </div>
     <div class="panel-body">
       <button type="button" class="btn btn-info" v-on:click="add()">+</button>

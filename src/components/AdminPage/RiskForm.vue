@@ -55,9 +55,10 @@
   import IndikatorForm from '@/components/AdminPage/IndikatorForm';
   import KegiatanForm from '@/components/AdminPage/KegiatanForm';
   import ResikoForm from '@/components/AdminPage/ResikoForm';
-  import AdminMenu from '@/components/AdminPage/common/AdminMenu'
+  import AdminMenu from '@/components/AdminPage/common/AdminMenu';
   import { mapGetters } from 'vuex';
-  import {base_url} from '@/store/config'
+  import {base_url} from '@/store/config';
+  import router from '@/router';
   export default {
     props: ['tujuanId'],
     components: {AdminMenu, TujuanForm, IndikatorForm, KegiatanForm, ResikoForm},
@@ -101,7 +102,7 @@
             
           }).then((res) => {
             console.log(res);
-            window.location.href = `/#/admin/tujuan/${res.tujuan_id}`
+            router.push(`/admin/tujuan/${res.tujuan_id}`)
             
           }).catch((err)=>{
             console.log('err', err);

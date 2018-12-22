@@ -1,7 +1,7 @@
 <template>
   <div class='kegiatan-form'>
     <div class="panel-heading">
-      <h4>Tujuan {{tujuanName}}</h4>
+      <h4>Kegiatan</h4>
     </div>
     <div class="panel-body">
       <form class="form-horizontal" v-for="(indikator, idx) in indikators">

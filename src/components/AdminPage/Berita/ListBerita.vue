@@ -1,5 +1,5 @@
 <template>
-  <div class="list-tujuan">
+  <div class="list-berita">
     <div class="container-table">
       <div class="container text-left">    
         <br>
@@ -8,7 +8,7 @@
             <div class="panel panel-success">
               <!-- Content Here -->
               <div class="panel-heading">
-                <h3> List Tujuan </h3>
+                <h3> List Berita </h3>
               </div>
               <div class="panel-body">
                 <button class="btn-success">
@@ -19,11 +19,9 @@
                   <table class="table">
                     <thead>
                       <tr class="success text-left">
-                        <th>Tujuan</th>
-                        <th>Unit Pemilik Resiko</th>
-                        <th>Unit Eselon III/IV</th>
-                        <th>Periode</th>
-                        <th>Kegiatan</th>
+                        <th>Judul</th>
+                        <th>Content</th>
+                        <th>Posted By</th>
                         <th></th>
                       </tr>
                     </thead>
@@ -32,8 +30,6 @@
                         <td>{{ tujuan.name }}</td>
                         <td>{{ tujuan.unit_pemilik_resiko }}</td>
                         <td>{{ tujuan.unit_eselon }}</td>
-                        <td>{{ tujuan.periode }}</td>
-                        <td>{{ tujuan.kegiatan }}</td>
                         <td>
                           <a :href="'/admin/tujuan/'+tujuan._id.$oid">
                             <i class="far fa-eye fa-lg"></i>
@@ -59,7 +55,7 @@
   import { mapGetters } from 'vuex';
   export default {
       props: [],
-      name: 'ListTujuan',
+      name: 'ListBerita',
       data() {
         return {
         };
