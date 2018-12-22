@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import App from './App';
+import Header from './components/WebPage/common/Header'
 import store from './store';
 import router from './router';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -40,4 +41,12 @@ new Vue({
   router,
   components: { App },
   template: '<App/>',
+});
+
+new Vue({
+  el: '#header',
+  store,
+  router,
+  components: { Header },
+  template: '<Header/>',
 });

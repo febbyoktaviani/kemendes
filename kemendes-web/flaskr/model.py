@@ -82,7 +82,7 @@ class ResikoKegiatan(Document, TimeStampModel):
     level_resiko = StringField(max_length=500000, required=True)
     peringkat_resiko = StringField(max_length=500000, required=True)
     rtp = StringField(max_length=500000, required=True)
-    penangung_jawab = StringField(max_length=500000, required=True)
+    penanggung_jawab = StringField(max_length=500000, required=True)
     target_waktu = StringField(max_length=500000, required=True)
     komunikasi = StringField(max_length=500000, required=True)
     pemantauan = StringField(max_length=500000, required=True)

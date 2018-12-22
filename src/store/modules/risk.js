@@ -31,6 +31,7 @@ const state = {
     { text: 'Hampir Pasti', value: 4 },
     { text: 'Pasti Terjadi/ sangat Sering', value: 5 },
   ],
+  listTujuan: [],
 };
 
 const actions = {
@@ -52,11 +53,32 @@ const actions = {
     ).then(response => response.json());
     commit('TUJUAN', res);
   },
+  async getListTujuan({ commit }) {
+    console.log('url', base_url);
+    const header = new Headers({
+      // 'Authorization': `Bearer ${state.token}`,
+      Accept: 'application/json',
+    });
+
+    const opt = {
+      method: 'GET',
+      headers: header,
+    };
+
+    const res = await fetch(
+      `${base_url}/list-rencana-kerja`,
+      opt,
+    ).then(response => response.json());
+    commit('LIST_TUJUAN', res);
+  },
 };
 
 const mutations = {
   TUJUAN: (state, res) => {
     state.tujuan = res;
+  },
+  LIST_TUJUAN: (state, res) => {
+    state.listTujuan = JSON.parse(res);
   },
 };
 
@@ -66,6 +88,9 @@ const getters = {
   },
   riskFormList(state) {
     return state.riskFormList;
+  },
+  listTujuan(state) {
+    return state.listTujuan;
   },
 };
 

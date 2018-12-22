@@ -6,7 +6,11 @@ from mongoengine import DoesNotExist
 from .constants import StatusCodes
 from .model import *
 from .helpers import *
-from .services import create_berita, create_unit_kerja, get_rencana_kerja, update_rencana_kerja
+from .services import create_berita
+from .services import create_unit_kerja
+from .services import get_rencana_kerja
+from .services import get_list_rencana_kerja
+from .services import update_rencana_kerja
 
 
 class RegisterView(object):
@@ -14,8 +18,8 @@ class RegisterView(object):
         self.app = app
 
     def post(self, user_data):
-        username = user_data['username']
-        password = user_data['password']
+        username = user_data.get('username')
+        password = user_data.get('password')
         email = user_data['email']
 
         if not username or not password or not email:
@@ -33,8 +37,9 @@ class LoginView(object):
         self.app = app
 
     def post(self, user_data):
-        username = user_data['username']
-        password = user_data['password']
+        user_data = json.loads(user_data)
+        username = user_data.get('username')
+        password = user_data.get('password')
 
         if not username or not password:
             return 'all field must be filled', StatusCodes.HTTP_404_BAD_REQUEST
@@ -47,7 +52,10 @@ class LoginView(object):
         if not check_password(self.app, db_user['password'], password):
             return 'wrong password', StatusCodes.HTTP_400_BAD_REQUEST
 
-        return jsonify(access_token=create_token(username))
+        result = {}
+        result['username'] = db_user.username
+        result['access_token'] = create_token(username)
+        return jsonify(result)
 
     def get(self):
         identity = authenticate_user()
@@ -128,8 +136,19 @@ class RiskFormView(object):
         try:
             tujuan_id = update_rencana_kerja(data)
         except Exception as e:
-            print(e)
+            print('error', e)
             return {'status': 'failed'}, StatusCodes.HTTP_400_BAD_REQUEST
         return json.dumps({'status': 'success', 'tujuan_id': tujuan_id})
 
 
+class RencanaKerjaListView(object):
+    def __init__(self, app):
+        self.app = app
+        self.identity = authenticate_user()
+
+    def get(self):
+        try:
+            result = get_list_rencana_kerja()
+        except Exception as e:
+            return e.__str__(), StatusCodes.HTTP_500_INTERNAL_SERVER_ERROR
+        return result

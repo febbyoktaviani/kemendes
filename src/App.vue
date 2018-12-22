@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    <Menu/>
-    <router-view/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Menu from '@/components/common/menu'
+import Menu from '@/components/WebPage/common/menu'
 export default {
   name: 'App',
   components: {

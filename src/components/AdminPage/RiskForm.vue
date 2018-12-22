@@ -51,11 +51,12 @@
   </div>
 </template>
 <script>
-  import TujuanForm from '@/components/admin/TujuanForm';
-  import IndikatorForm from '@/components/admin/IndikatorForm';
-  import KegiatanForm from '@/components/admin/KegiatanForm';
-  import ResikoForm from '@/components/admin/ResikoForm';
+  import TujuanForm from '@/components/AdminPage/TujuanForm';
+  import IndikatorForm from '@/components/AdminPage/IndikatorForm';
+  import KegiatanForm from '@/components/AdminPage/KegiatanForm';
+  import ResikoForm from '@/components/AdminPage/ResikoForm';
   import { mapGetters } from 'vuex';
+  import {base_url} from '@/store/config'
   export default {
     props: ['tujuanId'],
     components: {TujuanForm, IndikatorForm, KegiatanForm, ResikoForm},
@@ -90,7 +91,7 @@
           headers: header,
           body: JSON.stringify(this.tujuan)
         }
-        fetch('http://kemendesapi.detase.men/rencana-kerja', opt)
+        fetch(`${base_url}/rencana-kerja`, opt)
           .then((response) => {
             if(response.status == 200){
               console.log(response)

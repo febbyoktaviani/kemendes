@@ -9,6 +9,7 @@
               <p><strong>Unit pemilik resiko : {{ tujuan.unit_pemilik_resiko }}</strong></p>
               <p><strong>Unit Eselon III/IV : {{ tujuan.unit_eselon }}</strong></p>
               <p><strong>Periode : {{ tujuan.periode }}</strong></p>
+              <p><strong>Kegiatan : {{ tujuan.kegiatan }}</strong></p>
             </div>
             <div class="panel-body scroll">
               <table border="1px" width="200%">
@@ -21,7 +22,7 @@
                   </th>
                 </tr>
                 <tr v-for="(indikator, idx) in tujuan.indikators" >
-                  <td v-if="idx==0" :rowspan="indikator.kegiatans.length">
+                  <td v-if="idx==0" :rowspan="tujuan.rowspan">
                     {{ tujuan.name }}
                   </td>
                   <td> {{ indikator.name }} </td>
@@ -275,7 +276,7 @@
                         <td>
                           <table>
                             <tr v-for="resiko in kegiatan.resiko_kegiatan">
-                              <td>{{ resiko.rencana_pemantauan }}</td>
+                              <td>{{ resiko.pemantauan }}</td>
                             </tr>
                           </table>
                         </td>

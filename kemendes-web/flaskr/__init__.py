@@ -49,12 +49,15 @@ def create_app(test_config=None):
             return e.__str__(), 500
 
 
-    @app.route('/login', methods=['POST'])
+    @app.route('/user/login', methods=['POST'])
     def login():
         try:
             login = LoginView(app)
-            return login.post(request.form)
+            data = request.data.decode('utf8').replace("'", '"')
+            print('login', data)
+            return login.post(data)
         except Exception as e:
+            print(e)
             return e.__str__(), 500
 
     @app.route('/user')
@@ -129,7 +132,12 @@ def create_app(test_config=None):
             result = rencana_kerja.post(data)
             print(result)
             return result
-            
 
-
+    @app.route('/list-rencana-kerja', methods=['GET'])
+    def rencana_kerja_list():
+        rencana_kerja_list = RencanaKerjaListView(app)
+        result = rencana_kerja_list.get()
+        print('get', result)
+        return json.dumps(result)
+     
     return app

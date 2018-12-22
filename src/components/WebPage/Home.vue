@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <Menu/>
     <div class="container">
       <div class="row">
         <div class="col-sm-8">
@@ -133,8 +134,10 @@
 </template>
 
 <script>
+import Menu from '@/components/WebPage/common/menu'
 export default {
   name: 'Home',
+  components: {Menu},
   data() {
     return {
       msg: '',

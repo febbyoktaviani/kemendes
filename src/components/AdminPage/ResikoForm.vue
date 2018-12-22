@@ -12,8 +12,11 @@
           <label>{{ kegiatan.name }}</label> 
           <button type="button" class="btn btn-info" v-on:click="add(idx, kgidx)">+</button>
           <div class="panel-body">
-            <div class="panel panel-success" v-for="resiko in kegiatan.resiko_kegiatan">
+            <div class="panel panel-success" v-for="(resiko, r_idx) in kegiatan.resiko_kegiatan">
               <div class="panel-body">
+                <button type="button" class="btn btn-info" v-on:click="remove(idx, kgidx, r_idx)">
+                  -
+                </button>
                 <form class="form-horizontal">
                   <div class="form-group">
                     <label class="control-label col-sm-3">Sumber Resiko:</label>
@@ -201,6 +204,9 @@
           'pemantauan': ''
         }
         this.indikators[idx].kegiatans[kgidx].resiko_kegiatan.push(data_resiko)
+      },
+      remove(idx, kgidx, r_idx) {
+        this.indikators[idx].kegiatans[kgidx].resiko_kegiatan.splice(r_idx, 1)
       }
     }
   };
