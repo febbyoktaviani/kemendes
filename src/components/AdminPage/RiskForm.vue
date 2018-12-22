@@ -55,11 +55,12 @@
   import IndikatorForm from '@/components/AdminPage/IndikatorForm';
   import KegiatanForm from '@/components/AdminPage/KegiatanForm';
   import ResikoForm from '@/components/AdminPage/ResikoForm';
+  import AdminMenu from '@/components/AdminPage/common/AdminMenu'
   import { mapGetters } from 'vuex';
   import {base_url} from '@/store/config'
   export default {
     props: ['tujuanId'],
-    components: {TujuanForm, IndikatorForm, KegiatanForm, ResikoForm},
+    components: {AdminMenu, TujuanForm, IndikatorForm, KegiatanForm, ResikoForm},
     name: 'RiskForm',
     data() {
       return {

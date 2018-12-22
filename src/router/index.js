@@ -20,13 +20,27 @@ const router = new Router({
       path: '/admin',
       name: 'AdminHome',
       component: AdminHome,
+      children: [
+        {
+          path: 'list-tujuan',
+          component: ListTujuan
+        },
+        {
+          path: 'riskform/:tujuanId',
+          component: RiskForm
+        },
+        {
+          path: 'tujuan/:tujuanId',
+          component: TujuanDetail
+        },
+      ]
     },
-    {
-      path: '/admin/riskform/:tujuanId',
-      name: 'RiskForm',
-      component: RiskForm,
-      props: true
-    },
+    // {
+    //   path: '/admin/riskform/:tujuanId',
+    //   name: 'RiskForm',
+    //   component: RiskForm,
+    //   props: true
+    // },
     {
       path: '/admin/tujuan/:tujuanId',
       name: 'TujuanDetail',

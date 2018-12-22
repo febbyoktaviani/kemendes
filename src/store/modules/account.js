@@ -28,6 +28,11 @@ const actions = {
     localStorage.setItem('user', JSON.stringify(res))
     router.push('/admin')
   },
+  logout({ commit }) {
+    localStorage.setItem('user', null);
+    commit('logout');
+    router.push('/');
+  }
 }
 
 const mutations = {

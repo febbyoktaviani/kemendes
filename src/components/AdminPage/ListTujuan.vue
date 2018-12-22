@@ -38,11 +38,11 @@
                             <td>{{ tujuan.periode }}</td>
                             <td>{{ tujuan.kegiatan }}</td>
                             <td>
-                              <a :href="'/#/admin/tujuan/'+tujuan._id.$oid">
+                              <a :href="'/admin/tujuan/'+tujuan._id.$oid">
                                 <i class="far fa-eye fa-lg"></i>
                               </a>
                               &nbsp;&nbsp;
-                              <a :href="'/#/admin/riskForm/'+tujuan._id.$oid">
+                              <a :href="'/admin/riskForm/'+tujuan._id.$oid">
                                 <i class="fas fa-edit fa-lg"></i>
                               </a>
                             </td>
@@ -64,7 +64,6 @@
   import { mapGetters } from 'vuex';
   export default {
       props: [],
-      components: {},
       name: 'ListTujuan',
       data() {
         return {
