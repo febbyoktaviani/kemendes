@@ -70,10 +70,32 @@ def create_app(test_config=None):
             print(e)
             return e, 500
 
-    @app.route('/berita', methods=['POST', 'GET'])
-    # @jwt_required
-    def berita():
+    # post berita
+    @app.route('/post-berita', methods=['POST'])
+    @jwt_required
+    def post_berita():
         berita = BeritaView(app)
+        if 'image' in request.files:
+            file = request.files['image']
+        else:
+            file = None
+        try:
+            return berita.post(request.form, file)
+        except Exception as e:
+            print(e)
+            return e, 500
+
+    # api get berita
+    @app.route('/berita/<berita_id>', methods=['GET'])
+    def berita(berita_id):
+        berita = BeritaView(app)
+        print(berita_id)
+        return berita.get(berita_id)
+
+    @app.route('/list-berita', methods=['GET'])
+    # @jwt_required
+    def list_berita():
+        berita = BeritaListView(app)
         if request.method == 'POST':
             if 'image' in request.files:
                 file = request.files['image']
@@ -91,7 +113,7 @@ def create_app(test_config=None):
 
     @app.route('/title-berita', methods=['GET'])
     def title_berita():
-        berita = BeritaView(app)
+        berita = BeritaListView(app)
         search_text = request.args.get('search')
         print(search_text)
         return berita.get_title(search_text)

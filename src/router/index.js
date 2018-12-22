@@ -6,7 +6,8 @@ import RiskForm from '@/components/AdminPage/RiskForm';
 import TujuanDetail from '@/components/AdminPage/TujuanDetail';
 import ListTujuan from '@/components/AdminPage/ListTujuan';
 // Berita
-import ListBerita from '@/components/AdminPage/Berita/ListBerita';
+import BeritaList from '@/components/AdminPage/Berita/BeritaList';
+import BeritaEdit from '@/components/AdminPage/Berita/BeritaEdit';
 
 Vue.use(Router);
 
@@ -38,8 +39,13 @@ const router = new Router({
           props: true,
         },
         {
-          path: 'berita/list-berita',
-          component: ListBerita,
+          path: 'berita/list',
+          component: BeritaList,
+        },
+        {
+          path: 'berita/edit/:beritaId',
+          component: BeritaEdit,
+          props: true,
         },
       ]
     },

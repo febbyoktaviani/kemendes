@@ -65,6 +65,27 @@ class LoginView(object):
             'email':user['email']
             })
 
+class BeritaListView(object):
+    def __init__(self, app):
+        self.app = app
+        self.identity = authenticate_user()
+
+    def get(self, query_param=None):
+        # user = User.objects.get(username=self.identity)
+        if query_param:
+            beritas = Berita.objects.search_text(query_param).to_json()
+        else:
+            beritas = Berita.objects.to_json()
+        print(beritas)
+        return beritas
+
+    def get_title(self, query_param=None):
+        if query_param:
+            beritas = Berita.objects.only('title').search_text(query_param).to_json()
+        else:
+            beritas = Berita.objects.only('title').to_json()
+        return beritas
+
 class BeritaView(object):
     def __init__(self, app):
         self.app = app
@@ -80,21 +101,11 @@ class BeritaView(object):
             return e.__str__(), StatusCodes.HTTP_500_INTERNAL_SERVER_ERROR
         return 'success insert berita'
 
-    def get(self, query_param=None):
-        user = User.objects.get(username=self.identity)
-        if query_param:
-            beritas = Berita.objects.search_text(query_param).to_json()
-        else:
-            beritas = Berita.objects.to_json()
-        return beritas
-
-    def get_title(self, query_param=None):
-        if query_param:
-            beritas = Berita.objects.only('title').search_text(query_param).to_json()
-        else:
-            beritas = Berita.objects.only('title').to_json()
-        return beritas
-
+    def get(self, berita_id):
+        # user = User.objects.get(username=self.identity)
+        berita = Berita.objects.get(id=berita_id).to_json()
+        return berita
+        
 
 class UnitKerjaView(object):
     def __init__(self, app):

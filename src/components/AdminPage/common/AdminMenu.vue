@@ -16,7 +16,7 @@
                 </a>
               </li>
               <li>
-                <a href="/admin/list-tujuan">
+                <a href="/admin/berita/list">
                     <font-awesome-icon icon="cog" size="2x"></font-awesome-icon>
                     <h4>Berita</h4>
                 </a>

@@ -1,5 +1,5 @@
 <template>
-  <div class="list-berita">
+  <div class="berita-list">
     <div class="container-table">
       <div class="container text-left">    
         <br>
@@ -20,22 +20,20 @@
                     <thead>
                       <tr class="success text-left">
                         <th>Judul</th>
-                        <th>Content</th>
-                        <th>Posted By</th>
+                        <th>Created at</th>
                         <th></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="tujuan in ListTujuan">
-                        <td>{{ tujuan.name }}</td>
-                        <td>{{ tujuan.unit_pemilik_resiko }}</td>
-                        <td>{{ tujuan.unit_eselon }}</td>
+                      <tr v-for="berita in listBerita">
+                        <td>{{ berita.title }}</td>
+                        <td>{{ toDate(berita.created_at.$date) }}</td>
                         <td>
-                          <a :href="'/admin/tujuan/'+tujuan._id.$oid">
+                          <a :href="'/admin/tujuan/'">
                             <i class="far fa-eye fa-lg"></i>
                           </a>
                           &nbsp;&nbsp;
-                          <a :href="'/admin/riskForm/'+tujuan._id.$oid">
+                          <a :href="'/admin/riskForm/'">
                             <i class="fas fa-edit fa-lg"></i>
                           </a>
                         </td>
@@ -52,24 +50,31 @@
   </div>
 </template>
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapActions } from 'vuex';
   export default {
       props: [],
-      name: 'ListBerita',
+      name: 'BeritaList',
       data() {
         return {
         };
       },
       created() {
-          this.$store.dispatch('getListTujuan');
-          console.log('list-tujuan');
+        this.$store.dispatch('fetchListBerita');
+        // console.log('list-berita');
       },
       methods: {
+        toDate(ms) {
+          const date = new Date(ms)
+          const date_str = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
+          const time_str = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+          // return date
+          return `${date_str} ${time_str}`
+        }
 
       },
       computed: {
         ...mapGetters({
-          ListTujuan: 'listTujuan',
+          listBerita: 'listBerita',
         })
     },
   };
