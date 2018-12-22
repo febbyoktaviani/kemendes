@@ -8,6 +8,7 @@ import ListTujuan from '@/components/AdminPage/ListTujuan';
 // Berita
 import BeritaList from '@/components/AdminPage/Berita/BeritaList';
 import BeritaEdit from '@/components/AdminPage/Berita/BeritaEdit';
+import BeritaAdd from '@/components/AdminPage/Berita/BeritaAdd';
 
 Vue.use(Router);
 
@@ -46,6 +47,10 @@ const router = new Router({
           path: 'berita/edit/:beritaId',
           component: BeritaEdit,
           props: true,
+        },
+        {
+          path: 'berita/add',
+          component: BeritaAdd,
         },
       ]
     },

@@ -11,9 +11,9 @@
                 <h3> List Berita </h3>
               </div>
               <div class="panel-body">
-                <button class="btn-success">
+                <a href="/admin/berita/add">
                   Add <i class="fas fa-plus-circle fa-lg"></i>
-                </button>
+                </a>
                 <br/><br>
                 <div class="table-responsive">
                   <table class="table">
