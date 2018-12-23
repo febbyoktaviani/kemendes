@@ -29,7 +29,7 @@
                 <div class="col-sm-5">
                   <input class="form-control" type="file" v-on:change="onFileChanged" />
                   <span> {{ unitkerja.bagan }} </span><br/>
-                  <!-- <img :src="getImageUrl(unitkerja.bagan)" width="200px" height="200px"/> -->
+                  <img :src="url_new ? url_new : getImageUrl(unitkerja.bagan)" class="holder"/>
                 </div>
                 <div class="col-sm-4">
                   <button type="button" class="btn btn-success" v-on:click="onUpload">Upload!</button>
@@ -52,6 +52,7 @@
     data() {
       return {
         bagan: null,
+        url_new: URL.createObjectURL(this.unitkerja.bagan),
       };
     },
     methods: {
@@ -59,6 +60,7 @@
         const file = event.target.files[0]
         this.bagan = file
         console.log(file)
+        this.url_new = URL.createObjectURL(file)
 
       },
       onUpload() {
@@ -92,5 +94,9 @@
     min-width: 90%;
     margin-left: 5%;
     margin-right: 95%;
+  }
+  .holder {
+    width: 80%;
+    height: auto;
   }
 </style>

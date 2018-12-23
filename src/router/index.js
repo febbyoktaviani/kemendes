@@ -15,6 +15,8 @@ import UnitKerjaEdit from '@/components/AdminPage/UnitKerja/UnitKerjaEdit';
 import UnitKerjaAdd from '@/components/AdminPage/UnitKerja/UnitKerjaAdd';
 // User
 import UserList from '@/components/AdminPage/User/UserList';
+import UserAdd from '@/components/AdminPage/User/UserAdd';
+import UserEdit from '@/components/AdminPage/User/UserEdit';
 
 Vue.use(Router);
 
@@ -79,13 +81,13 @@ const router = new Router({
           component: UserList,
         },
         {
-          path: 'unit-kerja/edit/:unitkerjaId',
-          component: UnitKerjaEdit,
+          path: 'user/edit/:userId',
+          component: UserEdit,
           props: true,
         },
         {
-          path: 'unit-kerja/add',
-          component: UnitKerjaAdd,
+          path: 'user/add',
+          component: UserAdd,
         },
       ]
     },

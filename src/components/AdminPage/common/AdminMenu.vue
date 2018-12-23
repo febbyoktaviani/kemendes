@@ -54,7 +54,7 @@
                 </a>
               </li>
               <li>
-                <a href="/admin/list-tujuan">
+                <a href="/admin/user/list">
                     <i class="fas fa-users-cog fa-2x"></i>
                     <h4>User</h4>
                 </a>

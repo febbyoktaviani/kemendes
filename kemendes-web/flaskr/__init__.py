@@ -71,6 +71,16 @@ def create_app(test_config=None):
             print(e)
             return e, 500
 
+    @app.route('/user/<user_id>', methods=['GET'])
+    @jwt_required
+    def user(user_id):
+        try:
+            user_view = UserView(app)
+            return user_view.get(user_id)
+        except Exception as e:
+            print(e)
+            return e, 500
+
 ##################################################### BERITA #####################################
     # post berita
     @app.route('/post-berita', methods=['POST'])

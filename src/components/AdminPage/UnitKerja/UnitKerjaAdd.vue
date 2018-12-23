@@ -3,7 +3,7 @@
     <div class="container-table text-left">
       <div class="panel panel-success">
         <div class="panel-heading">
-          <h4>Input Unit Kerja</h4>
+          <h4>Add Unit Kerja</h4>
         </div>
         <div class="panel-body">
           <form class="form-horizontal">
@@ -42,6 +42,7 @@
 </template>
 <script>
   import Editor from '@tinymce/tinymce-vue';
+  import swal from 'sweetalert';
   export default {
     props: [],
     name: 'UnitKerjaAdd',
@@ -62,6 +63,14 @@
         console.log(file)
       },
       onUpload() {
+        if (!this.bagan) {
+          swal({
+            title:'Error Upload!',
+            text: 'bagan could not be empty!!',
+            icon: 'error',
+            button: 'OK',
+          })
+        }
         const formData = new FormData()
         formData.append('bagan', this.bagan, this.bagan.name)
         formData.append('name', this.unitkerja.name)

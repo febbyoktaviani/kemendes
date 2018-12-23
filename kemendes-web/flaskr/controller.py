@@ -37,6 +37,7 @@ class UserView(object):
 
     def get(self, user_id):
         user = User.objects.get(id=user_id).to_json()
+        print('us', user)
         return user
 
 

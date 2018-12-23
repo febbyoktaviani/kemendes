@@ -3,7 +3,7 @@
     <div class="container-table text-left">
       <div class="panel panel-success">
         <div class="panel-heading">
-          <h4>Input Berita</h4>
+          <h4>Add Berita</h4>
         </div>
         <div class="panel-body">
           <form class="form-horizontal">
