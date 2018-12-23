@@ -1,9 +1,10 @@
-import { getListBerita, getBerita } from '@/api/berita';
+import { getListBerita, getBerita, postBerita } from '@/api/berita';
 
 
 const state = {
   listBerita: [],
   berita: {},
+  is_uploaded: false,
 }
 
 const mutations = {
@@ -13,6 +14,9 @@ const mutations = {
   GET_BERITA: (state, res) => {
     state.berita = res;
   },
+  UPLOAD_BERITA: (state, res) => {
+    state.is_uploaded = true;
+  }
 }
 
 const actions = {
@@ -24,7 +28,12 @@ const actions = {
     let res = await getBerita(berita_id)
     console.log('berita', res)
     commit('GET_BERITA', res)
-  }
+  },
+  async uploadBerita(context, formData) {
+    let res = await postBerita(formData)
+    console.log('upload berita', res)
+    context.commit('UPLOAD_BERITA', res)
+  },
 }
 
 const getters = {
@@ -34,7 +43,10 @@ const getters = {
     },
     berita(state) {
         return state.berita
-    }
+    },
+    isUploaded(state) {
+        return state.is_uploaded
+    },
 }
 
 export default { state, mutations, actions, getters }

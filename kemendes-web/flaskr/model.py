@@ -19,7 +19,7 @@ class User(Document, TimeStampModel):
 class Berita(Document, TimeStampModel):
     title = StringField(max_length=100, required=True)
     content = StringField(max_length=20000)
-    image = ImageField()
+    image = StringField(max_length=2000)
     created_by = ReferenceField(User)
 
     search_field = ("title", 'created_by',)

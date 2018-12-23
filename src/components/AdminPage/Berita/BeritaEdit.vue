@@ -27,7 +27,9 @@
               <div class="form-group">
                 <label class="control-label col-sm-2">Image:</label>
                 <div class="col-sm-5">
-                  <input class="form-control" type="file" v-on:change="onFileChanged">
+                  <input class="form-control" type="file" v-on:change="onFileChanged" />
+                  <span> {{ berita.image }} </span><br/>
+                  <img :src="getImageUrl(berita.image)" width="200px" height="200px"/>
                 </div>
                 <div class="col-sm-4">
                   <button type="button" class="btn btn-success" v-on:click="onUpload">Upload!</button>
@@ -59,9 +61,22 @@
         const file = event.target.files[0]
         this.image = file
         console.log(file)
+
       },
       onUpload() {
+        const formData = new FormData()
+        formData.append('image', this.image, this.image.name)
+        formData.append('id', this.berita._id.$oid)
+        formData.append('title', this.berita.title)
+        formData.append('content', this.berita.content)
+        console.log('frm', formData)
+        this.$store.dispatch('uploadBerita', formData)
 
+      },
+      getImageUrl(filepath) {
+        const file_folder = filepath.split('/')
+        const image_url = `/${file_folder[4]}/${file_folder[5]}`
+        return image_url
       }
     },
     created() {

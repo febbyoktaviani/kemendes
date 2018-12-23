@@ -1,7 +1,10 @@
 import json
+import os
+import pdb
 
 from flask import jsonify
 from mongoengine import DoesNotExist
+from werkzeug.utils import secure_filename
 
 from .constants import StatusCodes
 from .model import *
@@ -13,7 +16,7 @@ from .services import get_list_rencana_kerja
 from .services import update_rencana_kerja
 
 
-class RegisterView(object):
+class UserView(object):
     def __init__(self, app):
         self.app = app
 
@@ -21,6 +24,7 @@ class RegisterView(object):
         username = user_data.get('username')
         password = user_data.get('password')
         email = user_data['email']
+        role = user_data['role']
 
         if not username or not password or not email:
             return 'all field must be filled'
@@ -30,6 +34,24 @@ class RegisterView(object):
         new_user = User(username=username, email=email, password=password_hash)
         new_user.save()
         return 'add user success'
+
+    def get(self, user_id):
+        user = User.objects.get(id=user_id).to_json()
+        return user
+
+
+class UserListView(object):
+    def __ini__(self, app):
+        self.app = app
+        self.identity = authenticate_user()
+
+    def get(self, query_param):
+        if query_param:
+            list_user = User.objects.search_text(query_param).to_json()
+        else:
+            list_user = User.objects.to_json()
+        print(list_user)
+        return list_user
 
 
 class LoginView(object):
@@ -93,11 +115,16 @@ class BeritaView(object):
 
     def post(self, data, file=None):
         try:
-            if file:
-                berita = create_berita(data, self.identity, file)
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                print('data', data.to_dict())
+                file_url = os.path.join(self.app.config['UPLOAD_FOLDER'], filename)
+                file.save(file_url)
+                berita = create_berita(data, self.identity, file_url)
             else:
                 berita = create_berita(data, self.identity, None)
         except Exception as e:
+            print(e)
             return e.__str__(), StatusCodes.HTTP_500_INTERNAL_SERVER_ERROR
         return 'success insert berita'
 
@@ -105,7 +132,7 @@ class BeritaView(object):
         # user = User.objects.get(username=self.identity)
         berita = Berita.objects.get(id=berita_id).to_json()
         return berita
-        
+
 
 class UnitKerjaView(object):
     def __init__(self, app):
@@ -114,13 +141,33 @@ class UnitKerjaView(object):
 
     def post(self, data, file=None):
         try:
-            if file:
-                unit_kerja = create_unit_kerja(data, self.identity, file)
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file_url = os.path.join(self.app.config['UPLOAD_FOLDER'], filename)
+                file.save(file_url)
+                unit_kerja = create_unit_kerja(data, self.identity, file_url)
             else:
                 unit_kerja = create_unit_kerja(data, self.identity, None)
         except Exception as e:
             return e.__str__(), StatusCodes.HTTP_500_INTERNAL_SERVER_ERROR
         return 'success insert unit kerja'
+
+    def get(self, unit_kerja_id):
+        unit_kerja = UnitKerja.objects.get(id=unit_kerja_id).to_json()
+        return unit_kerja  
+
+
+class UnitKerjaListView(object):
+    def __init__(self, app):
+        self.app = app
+        self.identity = authenticate_user()
+
+    def get(self, data, file=None):
+        if query_param:
+            list_unit_kerja = UnitKerja.objects.search_text(query_param).to_json()
+        else:
+            list_unit_kerja = UnitKerja.objects.to_json()
+        return list_unit_kerja
 
     def get_title(self, query_param=None):
         if query_param:

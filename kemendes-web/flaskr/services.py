@@ -1,3 +1,4 @@
+import base64
 import glob
 import json
 import os
@@ -5,25 +6,39 @@ import os
 from .model import *
 
 
-def create_berita(data, identity, file):
+def create_berita(data, identity, file_url):
     print(data)
     title = data['title']
     content = data['title']
     user = User.objects.get(username=identity)
-    new_berita = Berita(title=title, content=content, image=file, created_by=user)
-    new_berita.save()
 
-    print(new_berita)
+    if data.get('id'):
+        berita_obj = Berita.objects.get(id=data.get('id'))
+        berita_obj.update(title=data.get('title'), content=data.get('content'), image=file_url)
+    else:
+        berita_obj = Berita(title=title, content=content, image=file_url, created_by=user)
+        berita_obj.save()
 
-def create_unit_kerja(data, identity, file):
+    print(berita_obj)
+
+def create_unit_kerja(data, identity, file_url):
     print(data)
     name = data['name']
     profil = data['profil']
     user = User.objects.get(username=identity)
-    new_unit_kerja = UnitKerja(name=name, profil=profil, bagan=file, created_by=user)
-    new_unit_kerja.save()
 
-    print(new_unit_kerja)
+    if data.get('id'):
+        unit_kerja_id = data.get('id')
+        if not isinstance(unit_kerja_id, str):
+            unit_kerja_id = unit_kerja_id.get('$oid')
+
+        unitkerja_obj = UnitKerja.objects.get('id')
+        unitkerja_obj.update(name=name, profil=profil, bagan=file_url, created_by=user)
+    else:
+        unitkerja_obj = UnitKerja(name=name, profil=profil, bagan=file, created_by=user)
+        unitkerja_obj.save()
+
+    print(unitkerja_obj)
 
 def get_rencana_kerja(id):
     tujuan = Tujuan.objects.get(id=id)

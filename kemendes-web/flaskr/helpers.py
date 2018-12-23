@@ -18,4 +18,9 @@ def create_token(username):
 
 def authenticate_user():
     return get_jwt_identity()
+
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
     

@@ -64,8 +64,10 @@
       onUpload() {
         const formData = new FormData()
         formData.append('image', this.image, this.image.name)
-        formData.append('data', this.berita)
-        console.log(formData)
+        formData.append('title', this.berita.judul)
+        formData.append('content', this.berita.content)
+        console.log('frm', formData)
+        this.$store.dispatch('uploadBerita', formData)
       }
     },
   };

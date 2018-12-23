@@ -1,22 +1,23 @@
 ''' flask app with mongo '''
+import base64
 import os
 import json
 import datetime
-from flask import Flask, request
+from flask import Flask, flash, request, redirect, url_for
 from flask_pymongo import PyMongo
 from flask_jwt_extended import JWTManager, jwt_required
 from flask_cors import CORS
 from mongoengine import connect
 from .controller import *
 
+
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     CORS(app)
-    # app.config.from_mapping(
 
-    # )
     app.config['JWT_SECRET_KEY'] = os.getenv('SECRET_KEY')
     app.config['JWT_EXPIRATION_DELTA'] = datetime.timedelta(days=10)
+    app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER')
     jwt = JWTManager(app)
     connect(
         host = os.getenv('DATABASE')
@@ -38,17 +39,6 @@ def create_app(test_config=None):
     def home():
         return 'alive'
 
-
-    @app.route('/register', methods=['POST'])
-    def register():
-        print(request.form)
-        try:
-            register = RegisterView(app)
-            return register.post(request.form)
-        except Exception as e:
-            return e.__str__(), 500
-
-
     @app.route('/user/login', methods=['POST'])
     def login():
         try:
@@ -60,20 +50,33 @@ def create_app(test_config=None):
             print(e)
             return e.__str__(), 500
 
-    @app.route('/user')
-    # @jwt_required
-    def user():
+    @app.route('/post-user', methods=['POST'])
+    @jwt_required
+    def post_user():
+        print(request.form)
         try:
-            login = LoginView(app)
-            return login.get()
+            register = UserView(app)
+            return register.post(request.form)
+        except Exception as e:
+            return e.__str__(), 500
+
+    @app.route('/list-user', methods=['POST'])
+    @jwt_required
+    def list_user():
+        try:
+            search_text = request.args.get('search')
+            list_user = UserListView(app)
+            return list_user.get(search_text)
         except Exception as e:
             print(e)
             return e, 500
 
+##################################################### BERITA #####################################
     # post berita
     @app.route('/post-berita', methods=['POST'])
     @jwt_required
     def post_berita():
+        print('post-berita', request.files)
         berita = BeritaView(app)
         if 'image' in request.files:
             file = request.files['image']
@@ -118,29 +121,45 @@ def create_app(test_config=None):
         print(search_text)
         return berita.get_title(search_text)
 
-    @app.route('/title-unitkerja', methods=['GET', 'POST'])
-    def title_unit_kerja():
+##################################################### END API BERITA ###############################
+
+############################################ API UNITKERA #########################################
+    # api get unit kerja
+    @app.route('/unitkerja/<unit_kerja_id>', methods=['GET'])
+    def unitkerja(unit_kerja_id):
         unit_kerja = UnitKerjaView(app)
-        if request.method == 'GET':
-            search_text = request.args.get('search')
-            print(search_text)
-            return unit_kerja.get_title(search_text)
+        return unit_kerja.get(unit_kerja_id)
+
+    @app.route('/list-unitkerja', methods=['GET'])
+    def list_unitkerja():
+        unit_kerja = UnitKerjaListView(app)
+        search_text = request.args.get('search')
+        print(search_text)
+        return unit_kerja.get(search_text)
+
+    @app.route('/title-unitkerja', methods=['GET'])
+    def title_unitkerja():
+        unit_kerja = UnitKerjaListView(app)
+        search_text = request.args.get('search')
+        print(search_text)
+        return unit_kerja.get_title(search_text)
     
-    @app.route('/unitkerja', methods=['GET', 'POST'])
-    # @jwt_required
-    def unit_kerja(): 
-        if request.method == 'POST':  
-            if 'bagan' in request.files:
-                    file = request.files['bagan']
-            else:
-                file = None
-            try:
-                return unit_kerja.post(request.form, file)
-            except Exception as e:
-                print(e)
-                return e, 500
+    @app.route('/post-unitkerja', methods=['POST'])
+    @jwt_required
+    def post_unitkerja(): 
+        if 'bagan' in request.files:
+            file = request.files['bagan']
+        else:
+            file = None
+        try:
+            return unit_kerja.post(request.form, file)
+        except Exception as e:
+            print(e)
+            return e, 500
+########################################### END API UNITKERJA #####################################
 
     @app.route('/rencana-kerja', methods=['GET', 'POST'])
+    @jwt_required
     def rencana_kerja():
         rencana_kerja = RiskFormView(app)
 
@@ -156,6 +175,7 @@ def create_app(test_config=None):
             return result
 
     @app.route('/list-rencana-kerja', methods=['GET'])
+    @jwt_required
     def rencana_kerja_list():
         rencana_kerja_list = RencanaKerjaListView(app)
         result = rencana_kerja_list.get()

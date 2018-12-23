@@ -29,11 +29,11 @@
                         <td>{{ berita.title }}</td>
                         <td>{{ toDate(berita.created_at.$date) }}</td>
                         <td>
-                          <a :href="'/admin/tujuan/'">
+                          <a :href="'/admin/berita/'+berita._id.$oid">
                             <i class="far fa-eye fa-lg"></i>
                           </a>
                           &nbsp;&nbsp;
-                          <a :href="'/admin/riskForm/'">
+                          <a :href="'/admin/berita/edit/'+berita._id.$oid">
                             <i class="fas fa-edit fa-lg"></i>
                           </a>
                         </td>
