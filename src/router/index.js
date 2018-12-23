@@ -9,6 +9,12 @@ import ListTujuan from '@/components/AdminPage/ListTujuan';
 import BeritaList from '@/components/AdminPage/Berita/BeritaList';
 import BeritaEdit from '@/components/AdminPage/Berita/BeritaEdit';
 import BeritaAdd from '@/components/AdminPage/Berita/BeritaAdd';
+// Unit Kerja
+import UnitKerjaList from '@/components/AdminPage/UnitKerja/UnitKerjaList';
+import UnitKerjaEdit from '@/components/AdminPage/UnitKerja/UnitKerjaEdit';
+import UnitKerjaAdd from '@/components/AdminPage/UnitKerja/UnitKerjaAdd';
+// User
+import UserList from '@/components/AdminPage/User/UserList';
 
 Vue.use(Router);
 
@@ -39,6 +45,7 @@ const router = new Router({
           component: TujuanDetail,
           props: true,
         },
+        // Beirta Route
         {
           path: 'berita/list',
           component: BeritaList,
@@ -51,6 +58,34 @@ const router = new Router({
         {
           path: 'berita/add',
           component: BeritaAdd,
+        },
+        // Unit Kerja
+        {
+          path: 'unit-kerja/list',
+          component: UnitKerjaList,
+        },
+        {
+          path: 'unit-kerja/edit/:unitkerjaId',
+          component: UnitKerjaEdit,
+          props: true,
+        },
+        {
+          path: 'unit-kerja/add',
+          component: UnitKerjaAdd,
+        },
+        // User
+        {
+          path: 'user/list',
+          component: UserList,
+        },
+        {
+          path: 'unit-kerja/edit/:unitkerjaId',
+          component: UnitKerjaEdit,
+          props: true,
+        },
+        {
+          path: 'unit-kerja/add',
+          component: UnitKerjaAdd,
         },
       ]
     },

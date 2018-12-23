@@ -15,6 +15,8 @@ class User(Document, TimeStampModel):
     password = StringField(max_length=100, required=True)
     role = ReferenceField(Role)
 
+    search_field = ("email", 'username',)
+
 
 class Berita(Document, TimeStampModel):
     title = StringField(max_length=100, required=True)
@@ -40,7 +42,7 @@ class Berita(Document, TimeStampModel):
 
 class UnitKerja(Document, TimeStampModel):
     name = StringField(max_length=500, required=True)
-    bagan = ImageField()
+    bagan = StringField(max_length=2000)
     profil = StringField(max_length=50000)
     created_by = ReferenceField(User)
 

@@ -41,17 +41,25 @@ class UserView(object):
 
 
 class UserListView(object):
-    def __ini__(self, app):
+    def __init__(self, app):
         self.app = app
         self.identity = authenticate_user()
 
     def get(self, query_param):
+        print('qp', query_param)
         if query_param:
-            list_user = User.objects.search_text(query_param).to_json()
+            users = User.objects.search_text(query_param).to_json()
         else:
-            list_user = User.objects.to_json()
-        print(list_user)
-        return list_user
+            users = User.objects.to_json()
+        
+        users = json.loads(users)
+        for user in users:
+            if user.get('role'):
+                role = Role.objects.get(id=user.get('role')['$oid'])
+                user['role']['name'] = role.name
+
+        print(users)
+        return json.dumps(users)
 
 
 class LoginView(object):
@@ -149,6 +157,7 @@ class UnitKerjaView(object):
             else:
                 unit_kerja = create_unit_kerja(data, self.identity, None)
         except Exception as e:
+            print(e)
             return e.__str__(), StatusCodes.HTTP_500_INTERNAL_SERVER_ERROR
         return 'success insert unit kerja'
 
@@ -162,7 +171,7 @@ class UnitKerjaListView(object):
         self.app = app
         self.identity = authenticate_user()
 
-    def get(self, data, file=None):
+    def get(self, query_param):
         if query_param:
             list_unit_kerja = UnitKerja.objects.search_text(query_param).to_json()
         else:

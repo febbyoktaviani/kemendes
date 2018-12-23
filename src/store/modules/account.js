@@ -52,15 +52,6 @@ const mutations = {
         state.status = {};
         state.user = null;
     },
-    registerRequest(state, user) {
-        state.status = { registering: true };
-    },
-    registerSuccess(state, user) {
-        state.status = {};
-    },
-    registerFailure(state, error) {
-        state.status = {};
-    }
 };
 
 const getters = {

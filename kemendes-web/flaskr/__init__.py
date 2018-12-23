@@ -60,7 +60,7 @@ def create_app(test_config=None):
         except Exception as e:
             return e.__str__(), 500
 
-    @app.route('/list-user', methods=['POST'])
+    @app.route('/list-user', methods=['GET'])
     @jwt_required
     def list_user():
         try:
@@ -146,16 +146,15 @@ def create_app(test_config=None):
     
     @app.route('/post-unitkerja', methods=['POST'])
     @jwt_required
-    def post_unitkerja(): 
+    def post_unitkerja():
+        unit_kerja = UnitKerjaView(app)
         if 'bagan' in request.files:
             file = request.files['bagan']
+            print('file', file)
         else:
             file = None
-        try:
-            return unit_kerja.post(request.form, file)
-        except Exception as e:
-            print(e)
-            return e, 500
+        return unit_kerja.post(request.form, file)
+
 ########################################### END API UNITKERJA #####################################
 
     @app.route('/rencana-kerja', methods=['GET', 'POST'])

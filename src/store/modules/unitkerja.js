@@ -1,12 +1,21 @@
-import { getUnitKerjas } from '@/api/unitkerja'
+import { getUnitKerjas, getUnitKerja, postUnitKerja } from '@/api/unitkerja'
+import router from '@/router';
 
 const state = {
-  unitKerjaList: []
+  unitKerjaList: [],
+  unitKerja: {},
+  isUnitKerjaUploaded: false
 }
 
 const mutations = {
   unitKerjaList(state, list) {
     state.unitKerjaList = list
+  },
+  unitKerja(state, res) {
+    state.unitKerja = res
+  },
+  uploadUnitKerja(state, res) {
+    state.isUploaded = true
   }
 }
 
@@ -14,7 +23,26 @@ const actions = {
   async fetchUnitKerjaList(context) {
     let unitKerjaList = await getUnitKerjas()
     context.commit('unitKerjaList', unitKerjaList)
-  }
+  },
+  async fetchUnitKerja(context, unitkerja_id) {
+    let res = await getUnitKerja(unitkerja_id)
+    context.commit('unitKerja', res)
+  },
+  async uploadUnitKerja(context, formData) {
+    let res = await postUnitKerja(formData)
+    console.log('upload unitkerja', res)
+    context.commit('uploadUnitKerja', res)
+    router.push('/admin/unit-kerja/list')
+  },
 }
 
-export default { state, mutations, actions }
+const getters = {
+    unitKerjaList(state) {
+        return state.unitKerjaList
+    },
+    unitKerja(state) {
+        return state.unitKerja
+    }
+}
+
+export default { state, mutations, actions, getters }

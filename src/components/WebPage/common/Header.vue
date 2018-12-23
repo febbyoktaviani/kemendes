@@ -35,13 +35,25 @@
           </div>
         </form>
       </div>
-      <div class="container-fluid col-sm-6 text-right" v-else>
-        <button
-          type="button"
-          class="btn btn-warning"
+      <div class="container-fluid col-sm-6 text-right" style="padding: 2px"  v-else>
+        <a
+          v-if="!isAdminPage()"
+          title="admin page"
+          data-toggle="tooltip"
+          class="white text-center"
+          href="/admin">
+          <i class="fas fa-dungeon fa-3x"></i>
+        </a>&nbsp;&nbsp;&nbsp;
+        <a
+          title="logout"
+          data-toggle="tooltip"
+          class="red text-center"
+          href="#"
           v-on:click="logout()">
-          Logout
-        </button>
+          <i class="fas fa-power-off fa-3x"></i>
+        </a>
+        <br>
+        <span> {{ user.username }} </span>
       </div>
     </header>
   </div>
@@ -56,7 +68,6 @@ export default {
             password: '',
             isLoggedin: false,
             submitted: false,
-
         };
     },
     computed: {
@@ -76,12 +87,23 @@ export default {
               'username': this.username,
               'password': this.password
             } 
-            this.$store.dispatch('login', userdata)
+            this.$store.dispatch('login', userdata);
           }
       },
       logout() {
-        this.$store.dispatch('logout')
+        this.$store.dispatch('logout');
+      },
+      isAdminPage() {
+        return this.$route.path.includes('admin');
       }
     }
 };
 </script>
+<style type="text/css">
+  .red {
+    color: red;
+  }
+  .white {
+    color: white;
+  }
+</style>

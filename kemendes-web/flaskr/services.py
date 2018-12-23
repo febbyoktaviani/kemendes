@@ -28,14 +28,10 @@ def create_unit_kerja(data, identity, file_url):
     user = User.objects.get(username=identity)
 
     if data.get('id'):
-        unit_kerja_id = data.get('id')
-        if not isinstance(unit_kerja_id, str):
-            unit_kerja_id = unit_kerja_id.get('$oid')
-
-        unitkerja_obj = UnitKerja.objects.get('id')
+        unitkerja_obj = UnitKerja.objects.get(id=data.get('id'))
         unitkerja_obj.update(name=name, profil=profil, bagan=file_url, created_by=user)
     else:
-        unitkerja_obj = UnitKerja(name=name, profil=profil, bagan=file, created_by=user)
+        unitkerja_obj = UnitKerja(name=name, profil=profil, bagan=file_url, created_by=user)
         unitkerja_obj.save()
 
     print(unitkerja_obj)

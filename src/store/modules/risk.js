@@ -1,4 +1,5 @@
 import { base_url, staticToken } from '../config';
+import { getListRencanaKerja, getRencanaKerja } from '@/api/rencanakerja';
 
 const state = {
   tujuan: {'id': '', 'indikators':[{'kegiatans':[]}]},
@@ -36,39 +37,11 @@ const state = {
 
 const actions = {
   async getTujuan({ commit }, tujuanId) {
-    console.log('url', base_url);
-    const header = new Headers({
-      // 'Authorization': `Bearer ${state.token}`,
-      Accept: 'application/json',
-    });
-
-    const opt = {
-      method: 'GET',
-      headers: header,
-    };
-
-    const res = await fetch(
-      `${base_url}/rencana-kerja?tujuan_id=${tujuanId}`,
-      opt,
-    ).then(response => response.json());
+    let res = await getRencanaKerja(tujuanId)
     commit('TUJUAN', res);
   },
   async getListTujuan({ commit }) {
-    console.log('url', base_url);
-    const header = new Headers({
-      // 'Authorization': `Bearer ${state.token}`,
-      Accept: 'application/json',
-    });
-
-    const opt = {
-      method: 'GET',
-      headers: header,
-    };
-
-    const res = await fetch(
-      `${base_url}/list-rencana-kerja`,
-      opt,
-    ).then(response => response.json());
+    let res = await getListRencanaKerja()
     commit('LIST_TUJUAN', res);
   },
 };

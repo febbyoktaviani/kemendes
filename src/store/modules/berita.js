@@ -20,19 +20,20 @@ const mutations = {
 }
 
 const actions = {
-  async fetchListBerita({ commit }) {
+  async fetchListBerita(context) {
     let res = await getListBerita()
-    commit('LIST_BERITA', res)
+    context.commit('LIST_BERITA', res)
   },
-  async fetchBerita({ commit }, berita_id) {
+  async fetchBerita(context, berita_id) {
     let res = await getBerita(berita_id)
     console.log('berita', res)
-    commit('GET_BERITA', res)
+    context.commit('GET_BERITA', res)
   },
   async uploadBerita(context, formData) {
     let res = await postBerita(formData)
     console.log('upload berita', res)
     context.commit('UPLOAD_BERITA', res)
+    router.push('/admin/berita/list')
   },
 }
 
