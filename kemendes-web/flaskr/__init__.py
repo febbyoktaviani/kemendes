@@ -12,12 +12,15 @@ from .controller import *
 
 
 def create_app(test_config=None):
-    app = Flask(__name__, instance_relative_config=True)
+    app = Flask(__name__, instance_relative_config=True, static_folder='static')
     CORS(app)
 
     app.config['JWT_SECRET_KEY'] = os.getenv('SECRET_KEY')
     app.config['JWT_EXPIRATION_DELTA'] = datetime.timedelta(days=10)
-    app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER')
+    app.config['STATIC_FOLDER'] = '/static'
+
+    # set the absolute path to the static folder
+    app.config['UPLOAD_FOLDER'] = app.root_path + '/static'
     jwt = JWTManager(app)
     connect(
         host = os.getenv('DATABASE')
@@ -58,6 +61,7 @@ def create_app(test_config=None):
             register = UserView(app)
             return register.post(request.form)
         except Exception as e:
+            print(e)
             return e.__str__(), 500
 
     @app.route('/list-user', methods=['GET'])
@@ -81,6 +85,23 @@ def create_app(test_config=None):
             print(e)
             return e, 500
 
+    @app.route('/list-role', methods=['GET'])
+    @jwt_required
+    def role():
+        try:
+            role = RoleListView(app)
+            return role.get()
+        except Exception as e:
+            return e.__str__(), 500
+
+    @app.route('/post-role', methods=['GET'])
+    @jwt_required
+    def post_role():
+        try:
+            role = RoleListView(app)
+            return role.post(request.form)
+        except Exception as e:
+            return e.__str__(), 500
 ##################################################### BERITA #####################################
     # post berita
     @app.route('/post-berita', methods=['POST'])
@@ -168,7 +189,7 @@ def create_app(test_config=None):
 ########################################### END API UNITKERJA #####################################
 
     @app.route('/rencana-kerja', methods=['GET', 'POST'])
-    @jwt_required
+    # @jwt_required
     def rencana_kerja():
         rencana_kerja = RiskFormView(app)
 
@@ -192,3 +213,46 @@ def create_app(test_config=None):
         return json.dumps(result)
      
     return app
+
+###################################### API VIDEO ##################################################
+    @app.route('/list-video', methods=['GET'])
+    def list_video():
+        video_view = VideoListView(app)
+        search_text = request.args.get('search')
+        print(search_text)
+        return video_view.get_list(search_text)
+
+    @app.route('/video/<video_id>', methods=['GET'])
+    def video(video_id):
+        video_view = VideoListView(app)
+        return video_view.get(video_id)
+
+    @app.route('/post-video', methods=['POST'])
+    @jwt_required
+    def post_video():
+        video_view = VideoListView(app)
+        return video_view.post(request.form)
+###################################### API VIDEO ##################################################
+
+
+###################################### API GALERY ##################################################
+    @app.route('/list-images', methods=['GET'])
+    def list_video():
+        video_view = VideoListView(app)
+        search_text = request.args.get('search')
+        print(search_text)
+        return video_view.get_list(search_text)
+
+    @app.route('/image/<image_id>', methods=['GET'])
+    def video(video_id):
+        video_view = VideoListView(app)
+        return video_view.get(video_id)
+
+    @app.route('/post-image', methods=['POST'])
+    @jwt_required
+    def post_video():
+        video_view = VideoListView(app)
+        return video_view.post(request.form)
+###################################### API VIDEO ##################################################
+
+

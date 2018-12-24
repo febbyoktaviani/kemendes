@@ -1,9 +1,10 @@
-import { getListUser, getUser, postUser } from '@/api/user'
+import { getListUser, getUser, postUser, getListRole } from '@/api/user'
 import router from '@/router';
 
 const state = {
     listUser: [],
-    userData: {}
+    userData: {},
+    listRole: [],
 }
 
 const mutations = {
@@ -12,6 +13,9 @@ const mutations = {
   },
   user: (state, res) => {
     state.userData = res
+  },
+  listRole: (state, res) => {
+    state.listRole = res
   }
 }
 
@@ -24,6 +28,15 @@ const actions = {
     let res = await getUser(user_id)
     context.commit('user', res)
   },
+  async fetchListRole(context) {
+    let res = await getListRole()
+    context.commit('listRole', res)
+  },
+  async createUser(context) {
+    let res = await postUser()
+    context.commit('user', res)
+    router.push('/admin/user/list')
+  }
 }
 
 const getters = {
@@ -32,6 +45,9 @@ const getters = {
     },
     userData(state) {
         return state.userData
+    },
+    listRole(state) {
+        return state.listRole
     }
 }
 

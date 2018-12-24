@@ -1,5 +1,5 @@
 <template>
-  <div class="list-tujuan">
+  <div class="rencana-kerja-list">
     <div class="container-table">
       <div class="container text-left">    
         <br>
@@ -11,9 +11,11 @@
                 <h3> List Tujuan </h3>
               </div>
               <div class="panel-body">
-                <button class="btn-success">
-                  Add <i class="fas fa-plus-circle fa-lg"></i>
-                </button>
+                <a href="/admin/rencana-kerja/add">
+                  <button class="btn-success">
+                    Add <i class="fas fa-plus-circle fa-lg"></i>
+                  </button>
+                </a>
                 <br/><br>
                 <div class="table-responsive">
                   <table class="table">
@@ -35,11 +37,11 @@
                         <td>{{ tujuan.periode }}</td>
                         <td>{{ tujuan.kegiatan }}</td>
                         <td>
-                          <a :href="'/admin/tujuan/'+tujuan._id.$oid">
+                          <a :href="'/admin/rencana-kerja/detail/'+tujuan._id.$oid">
                             <i class="far fa-eye fa-lg"></i>
                           </a>
                           &nbsp;&nbsp;
-                          <a :href="'/admin/riskForm/'+tujuan._id.$oid">
+                          <a :href="'/admin/rencana-kerja/edit/'+tujuan._id.$oid">
                             <i class="fas fa-edit fa-lg"></i>
                           </a>
                         </td>
@@ -59,7 +61,7 @@
   import { mapGetters } from 'vuex';
   export default {
       props: [],
-      name: 'ListTujuan',
+      name: 'RencanaKerjaList',
       data() {
         return {
         };

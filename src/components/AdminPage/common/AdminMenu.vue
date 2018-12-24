@@ -12,7 +12,7 @@
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
               <li>
-                <a href="/admin/list-tujuan" v-on:click="navActive('rk')">
+                <a href="/admin/rencana-kerja/list" v-on:click="navActive('rk')">
                     <i class="fas fa-swatchbook fa-2x"></i>
                     <h4>Rencana Kerja</h4>
                 </a>
@@ -42,7 +42,7 @@
                 </a>
               </li>
               <li>
-                <a href="/admin/list-tujuan">
+                <a href="/admin/video/list">
                     <i class="fas fa-video fa-2x"></i>
                     <h4>Video</h4>
                 </a>

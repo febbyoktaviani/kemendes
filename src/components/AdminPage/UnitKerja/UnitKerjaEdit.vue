@@ -45,6 +45,7 @@
 <script>
   import Editor from '@tinymce/tinymce-vue';
   import { mapGetters } from 'vuex';
+  import { getImageUrl } from '@/helpers/util';
   export default {
     props: ['unitkerjaId'],
     name: 'UnitKerjaEdit',
@@ -74,9 +75,7 @@
 
       },
       getImageUrl(filepath) {
-        const file_folder = filepath.split('/')
-        const image_url = `/${file_folder[4]}/${file_folder[5]}`
-        return image_url
+        return getImageUrl(filepath)
       }
     },
     created() {

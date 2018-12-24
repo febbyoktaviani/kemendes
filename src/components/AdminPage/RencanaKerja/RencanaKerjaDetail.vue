@@ -1,5 +1,5 @@
 <template>
-  <div class="tujuan-detail">
+  <div class="rencana-kerja-detail">
     <!-- <div class="container text-left">     -->
       <br>
       <!-- <div class="row"> -->
@@ -297,7 +297,7 @@
   import { mapGetters } from 'vuex';
   export default {
     props: ['tujuanId'],
-    name: 'TujuanDetail',
+    name: 'RencanaKerjaDetail',
     data() {
       return {
         // tujuan: 'test',

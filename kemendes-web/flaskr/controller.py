@@ -4,7 +4,6 @@ import pdb
 
 from flask import jsonify
 from mongoengine import DoesNotExist
-from werkzeug.utils import secure_filename
 
 from .constants import StatusCodes
 from .model import *
@@ -96,6 +95,7 @@ class LoginView(object):
             'email':user['email']
             })
 
+
 class BeritaListView(object):
     def __init__(self, app):
         self.app = app
@@ -117,6 +117,7 @@ class BeritaListView(object):
             beritas = Berita.objects.only('title').to_json()
         return beritas
 
+
 class BeritaView(object):
     def __init__(self, app):
         self.app = app
@@ -125,11 +126,8 @@ class BeritaView(object):
     def post(self, data, file=None):
         try:
             if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                print('data', data.to_dict())
-                file_url = os.path.join(self.app.config['UPLOAD_FOLDER'], filename)
-                file.save(file_url)
-                berita = create_berita(data, self.identity, file_url)
+                image_url = upload_file(file)
+                berita = create_berita(data, self.identity, image_url)
             else:
                 berita = create_berita(data, self.identity, None)
         except Exception as e:
@@ -151,10 +149,8 @@ class UnitKerjaView(object):
     def post(self, data, file=None):
         try:
             if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file_url = os.path.join(self.app.config['UPLOAD_FOLDER'], filename)
-                file.save(file_url)
-                unit_kerja = create_unit_kerja(data, self.identity, file_url)
+                bagan_url = upload_file(file)
+                unit_kerja = create_unit_kerja(data, self.identity, bagan_url)
             else:
                 unit_kerja = create_unit_kerja(data, self.identity, None)
         except Exception as e:
@@ -220,3 +216,115 @@ class RencanaKerjaListView(object):
         except Exception as e:
             return e.__str__(), StatusCodes.HTTP_500_INTERNAL_SERVER_ERROR
         return result
+
+class RoleListView(object):
+    def __init__(self, app):
+        self.app = app
+        self.identity = authenticate_user()
+
+    def get(self):
+        try:
+            result = Role.objects.all()
+        except Exception as e:
+            return e.__str__(), StatusCodes.HTTP_500_INTERNAL_SERVER_ERROR
+        return result.to_json()
+
+    def post(self, data):
+        try:
+            if data.get('id'):
+                role_obj = Role.objects.get(id=data.get('id'))
+                role_obj.update(name=data.get('name'))
+            else:
+                role_obj = Role(name=data.get('name'))
+        except Exception as e:
+            return e.__str__(), StatusCodes.HTTP_500_INTERNAL_SERVER_ERROR
+        
+        return role_obj.to_json()
+
+
+class VideoListView(object):
+    def __init__(self, app):
+        self.app = app
+        self.identity = authenticate_user()
+
+    def get_list(self, search_text):
+        try:
+            result = Video.objects.to_json()
+        except Exception as e:
+            return e.__str__(), HTTP_400_BAD_REQUEST
+
+        return result
+
+    def get(self, video_id):
+        try:
+            result = Video.objects.get(id=video_id).to_json()
+        except Exception as e:
+            return e.__str__(), HTTP_400_BAD_REQUEST
+
+        return result
+
+    def post(self, data):
+        try:
+            if data.get('id'):
+                video_obj = Video.objects.get(id=data.get('id'))
+                video_obj.update(title=data.get('title'),
+                                 description=data.get('description'),
+                                 url=data.get('url'),
+                                 is_shown=data.get('is_shown'))
+            else:
+                video_obj = Video(title=data.get('title'),
+                                  description=data.get('description'),
+                                  url=data.get('url'),
+                                  is_shown=data.get('is_shown'))
+                video_obj.save()
+        except Exception as e:
+            return e.__str__(), HTTP_400_BAD_REQUEST
+
+        return video_obj.to_json()
+
+
+class ImageListView(object):
+    def __init__(self, app):
+        self.app = app
+        self.identity = authenticate_user()
+
+    def get_list(self, search_text):
+        try:
+            result = Image.objects.to_json()
+        except Exception as e:
+            return e.__str__(), HTTP_400_BAD_REQUEST
+
+        return result
+
+    def get(self, image_id):
+        try:
+            result = Image.objects.get(id=image_id).to_json()
+        except Exception as e:
+            return e.__str__(), HTTP_400_BAD_REQUEST
+
+        return result
+
+    def post(self, data, file):
+        try:
+            if not file:
+                return 'Image could not be empty', HTTP_400_BAD_REQUEST
+
+            image_url = upload_file(file)
+            if data.get('id'):
+                image_obj = Image.objects.get(id=data.get('id'))
+                image_obj.update(title=data.get('title'),
+                                 image_url=file_url,
+                                 description=data.get('description'),
+                                 is_shown=data.get('is_shown'),
+                                 is_slider=data.get('is_slider'))
+            else:
+                image_obj = Image(title=data.get('title'),
+                                  description=data.get('description'),
+                                  image_url=file_url,
+                                  is_shown=data.get('is_shown'),
+                                  is_slider=data_get('is_slider'))
+                image_obj.save()
+        except Exception as e:
+            return e.__str__(), HTTP_400_BAD_REQUEST
+
+        return image_obj.to_json()

@@ -1,4 +1,5 @@
 import { getListBerita, getBerita, postBerita } from '@/api/berita';
+import router from '@/router';
 
 
 const state = {

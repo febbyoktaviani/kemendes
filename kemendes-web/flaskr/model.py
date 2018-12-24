@@ -89,4 +89,16 @@ class ResikoKegiatan(Document, TimeStampModel):
     komunikasi = StringField(max_length=500000, required=True)
     pemantauan = StringField(max_length=500000, required=True)
 
-    
+
+class Video(Document, TimeStampModel):
+    title = StringField(max_length=250)
+    description = StringField(max_length=500)
+    url = URLField()
+    is_shown = BooleanField(default=True)
+
+class Image(Document, TimeStampModel):
+    title = StringField(max_length=250)
+    description = StringField(max_length=500)
+    image_url = URLField()
+    is_shown = BooleanField(default=True)
+    is_slider = BooleanField(default=False)

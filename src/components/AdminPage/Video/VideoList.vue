@@ -1,5 +1,5 @@
 <template>
-  <div class="unit-kerja-list">
+  <div class="video-list">
     <div class="container-table">
       <div class="container text-left">    
         <br>
@@ -7,11 +7,11 @@
           <div class="col-sm-12 linkapp-container">
             <div class="panel panel-success">
               <!-- Content Here -->
-              <div class="panel-heading">
-                <h3> List Unit Kerja </h3>
+              <div class="aqua panel-heading">
+                <h3> List Video </h3>
               </div>
               <div class="panel-body">
-                <a href="/admin/unit-kerja/add">
+                <a href="/admin/video/add">
                   <button class="btn-success">
                     Add <i class="fas fa-plus-circle fa-lg"></i>
                   </button>
@@ -21,18 +21,22 @@
                   <table class="table">
                     <thead>
                       <tr class="success text-left">
-                        <th>Unit Kerja</th>
-                        <th>Created at</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Video Url</th>
+                        <th>is shown</th>
                         <th></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="unitkerja in listUnitKerja">
-                        <td>{{ unitkerja.name }}</td>
-                        <td>{{ toDate(unitkerja.created_at.$date) }}</td>
+                      <tr v-for="video in listVideo">
+                        <td>{{ video.title }}</td>
+                        <td>{{ video.description }}</td>
+                        <td>{{ video.url }}</td>
+                        <td>{{ video.is_shown }}</td>
                         <td>
                           &nbsp;&nbsp;
-                          <a :href="'/admin/unit-kerja/edit/'+unitkerja._id.$oid">
+                          <a :href="'/admin/user/edit/'+user._id.$oid">
                             <i class="fas fa-edit fa-lg"></i>
                           </a>
                         </td>
@@ -52,28 +56,21 @@
   import { mapGetters, mapActions } from 'vuex';
   export default {
       props: [],
-      name: 'UnitKerjaList',
+      name: 'VideoList',
       data() {
         return {
         };
       },
       created() {
-        this.$store.dispatch('fetchUnitKerjaList');
+        this.$store.dispatch('fetchListUser');
         // console.log('list-berita');
       },
       methods: {
-        toDate(ms) {
-          const date = new Date(ms)
-          const date_str = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
-          const time_str = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-          // return date
-          return `${date_str} ${time_str}`
-        }
 
       },
       computed: {
         ...mapGetters({
-          listUnitKerja: 'unitKerjaList',
+          listUser: 'listUser',
         })
     },
   };
@@ -83,5 +80,8 @@
     min-width: 90%;
     margin-left: 5%;
     margin-right: 95%;
+  }
+  .aqua {
+    background-color: #5da78f;
   }
 </style>

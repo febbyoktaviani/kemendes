@@ -2,9 +2,11 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/components/WebPage/Home';
 import AdminHome from '@/components/AdminPage/AdminHome';
-import RiskForm from '@/components/AdminPage/RiskForm';
-import TujuanDetail from '@/components/AdminPage/TujuanDetail';
-import ListTujuan from '@/components/AdminPage/ListTujuan';
+// Rencana Kerja
+import RencanaKerjaList from '@/components/AdminPage/RencanaKerja/RencanaKerjaList';
+import RencanaKerjaDetail from '@/components/AdminPage/RencanaKerja/RencanaKerjaDetail';
+import RencanaKerjaEdit from '@/components/AdminPage/RencanaKerja/RencanaKerjaEdit';
+import RencanaKerjaAdd from '@/components/AdminPage/RencanaKerja/RencanaKerjaAdd';
 // Berita
 import BeritaList from '@/components/AdminPage/Berita/BeritaList';
 import BeritaEdit from '@/components/AdminPage/Berita/BeritaEdit';
@@ -17,6 +19,10 @@ import UnitKerjaAdd from '@/components/AdminPage/UnitKerja/UnitKerjaAdd';
 import UserList from '@/components/AdminPage/User/UserList';
 import UserAdd from '@/components/AdminPage/User/UserAdd';
 import UserEdit from '@/components/AdminPage/User/UserEdit';
+// Video
+import VideoList from '@/components/AdminPage/Video/VideoList';
+import VideoAdd from '@/components/AdminPage/Video/VideoAdd';
+// import UserEdit from '@/components/AdminPage/User/UserEdit';
 
 Vue.use(Router);
 
@@ -34,17 +40,22 @@ const router = new Router({
       component: AdminHome,
       children: [
         {
-          path: 'list-tujuan',
-          component: ListTujuan
+          path: 'rencana-kerja/list',
+          component: RencanaKerjaList
         },
         {
-          path: 'riskform/:tujuanId',
-          component: RiskForm,
+          path: 'rencana-kerja/edit/:tujuanId',
+          component: RencanaKerjaEdit,
           props: true,
         },
         {
-          path: 'tujuan/:tujuanId',
-          component: TujuanDetail,
+          path: 'rencana-kerja/detail/:tujuanId',
+          component: RencanaKerjaDetail,
+          props: true,
+        },
+        {
+          path: 'rencana-kerja/add',
+          component: RencanaKerjaAdd,
           props: true,
         },
         // Beirta Route
@@ -88,6 +99,20 @@ const router = new Router({
         {
           path: 'user/add',
           component: UserAdd,
+        },
+        // Video
+        {
+          path: 'video/list',
+          component: VideoList,
+        },
+        {
+          path: 'user/edit/:userId',
+          component: UserEdit,
+          props: true,
+        },
+        {
+          path: 'video/add',
+          component: VideoAdd,
         },
       ]
     },

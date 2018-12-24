@@ -51,11 +51,10 @@
 </template>
 <script>
   export default {
-    props: ['tujuanId', 'tujuan'],
+    props: ['tujuan'],
     name: 'TujuanForm',
     data() {
       return {
-        id: this.tujuanId,
         name: this.tujuan.name,
         unit_pemilik_resiko: this.tujuan.unit_pemilik_resiko,
         unit_eselon: this.tujuan.unit_eselon,

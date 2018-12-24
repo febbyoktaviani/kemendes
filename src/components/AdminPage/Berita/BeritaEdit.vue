@@ -28,8 +28,8 @@
                 <label class="control-label col-sm-2">Image:</label>
                 <div class="col-sm-5">
                   <input class="form-control" type="file" v-on:change="onFileChanged" />
-                  <span> {{ berita.image }} </span><br/>
-                  <img :src="getImageUrl(berita.image)" width="200px" height="200px"/>
+                  <span> {{ getImageUrl(berita.image) }} </span><br/>
+                  <img :src="url_new ? url_new : getImageUrl(berita.image)" class="holder"/>
                 </div>
                 <div class="col-sm-4">
                   <button type="button" class="btn btn-success" v-on:click="onUpload">Upload!</button>
@@ -45,6 +45,7 @@
 <script>
   import Editor from '@tinymce/tinymce-vue';
   import { mapGetters } from 'vuex';
+  import { getImageUrl } from '@/helpers/util';
   export default {
     props: ['beritaId'],
     name: 'BeritaEdit',
@@ -54,6 +55,7 @@
         judul: '',
         content: '',
         image: null,
+        url_new: null,
       };
     },
     methods: {
@@ -61,6 +63,7 @@
         const file = event.target.files[0]
         this.image = file
         console.log(file)
+        this.url_new = URL.createObjectURL(file)
 
       },
       onUpload() {
@@ -74,9 +77,7 @@
 
       },
       getImageUrl(filepath) {
-        const file_folder = filepath.split('/')
-        const image_url = `/${file_folder[4]}/${file_folder[5]}`
-        return image_url
+        return getImageUrl(filepath)
       }
     },
     created() {
@@ -94,5 +95,9 @@
     min-width: 90%;
     margin-left: 5%;
     margin-right: 95%;
+  }
+  .holder {
+    width: 80%;
+    height: auto;
   }
 </style>

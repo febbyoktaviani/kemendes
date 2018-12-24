@@ -1,6 +1,9 @@
 import datetime
+import os
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token, get_jwt_identity
+from flask import current_app as app
+from werkzeug.utils import secure_filename
 
 def generate_password(app, password):
     bcrypt = Bcrypt(app)
@@ -23,4 +26,12 @@ def allowed_file(filename):
     ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def upload_file(file):
+    filename = secure_filename(file.filename)
+    file_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    served_url = os.path.join(app.config['STATIC_FOLDER'], filename)
+    file.save(file_url)
+    return served_url
+
     

@@ -172,7 +172,7 @@
 </template>
 <script>
   export default {
-    props: ['tujuanId', 'indikators', 'tujuanName'],
+    props: ['indikators', 'tujuanName'],
     name: 'ResikoForm',
     data() {
       return {

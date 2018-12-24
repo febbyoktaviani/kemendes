@@ -1,5 +1,5 @@
 <template>
-  <div class="risk-form">
+  <div class="rencana-kerja-edit">
     <div class="container text-left">    
       <br>
       <div class="row">
@@ -9,17 +9,14 @@
             <div class="row">
               <div class="col-sm-12 linkapp-container">
                 <div class="panel panel-success">
-                  <TujuanForm v-if="step == 0" :tujuanId="tujuanId" :tujuan="tujuan"/>
+                  <TujuanForm v-if="step == 0" :tujuan="tujuan"/>
                   <IndikatorForm v-if="step == 1"
-                                 :tujuanId="tujuanId"
                                  :indikators="tujuan.indikators"
                                  :tujuanName="tujuan.name"/>
                   <KegiatanForm v-if="step == 2"
-                                 :tujuanId="tujuanId"
                                  :indikators="tujuan.indikators"
                                  :tujuanName="tujuan.name"/>
                   <ResikoForm v-if="step == 3"
-                                 :tujuanId="tujuanId"
                                  :indikators="tujuan.indikators"
                                  :tujuanName="tujuan.name"/>
                   <div class="panel-footer">
@@ -51,18 +48,17 @@
   </div>
 </template>
 <script>
-  import TujuanForm from '@/components/AdminPage/TujuanForm';
-  import IndikatorForm from '@/components/AdminPage/IndikatorForm';
-  import KegiatanForm from '@/components/AdminPage/KegiatanForm';
-  import ResikoForm from '@/components/AdminPage/ResikoForm';
-  import AdminMenu from '@/components/AdminPage/common/AdminMenu';
+  import TujuanForm from '@/components/AdminPage/RencanaKerja/Form/TujuanForm';
+  import IndikatorForm from '@/components/AdminPage/RencanaKerja/Form/IndikatorForm';
+  import KegiatanForm from '@/components/AdminPage/RencanaKerja/Form/KegiatanForm';
+  import ResikoForm from '@/components/AdminPage/RencanaKerja/Form/ResikoForm';
   import { mapGetters } from 'vuex';
   import {base_url} from '@/store/config';
   import router from '@/router';
   export default {
     props: ['tujuanId'],
-    components: {AdminMenu, TujuanForm, IndikatorForm, KegiatanForm, ResikoForm},
-    name: 'RiskForm',
+    components: {TujuanForm, IndikatorForm, KegiatanForm, ResikoForm},
+    name: 'RencanaKerjaEdit',
     data() {
       return {
         step: 0,

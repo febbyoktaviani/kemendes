@@ -12,7 +12,9 @@
               </div>
               <div class="panel-body">
                 <a href="/admin/berita/add">
-                  Add <i class="fas fa-plus-circle fa-lg"></i>
+                  <button class="btn-success">
+                    Add <i class="fas fa-plus-circle fa-lg"></i>
+                  </button>
                 </a>
                 <br/><br>
                 <div class="table-responsive">

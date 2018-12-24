@@ -34,7 +34,7 @@
 </template>
 <script>
   export default {
-    props: ['tujuanId', 'indikators', 'tujuanName'],
+    props: ['indikators', 'tujuanName'],
     name: 'KegiatanForm',
     data() {
       return {
