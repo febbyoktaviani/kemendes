@@ -7,7 +7,6 @@
         <b-form>
           <b-form-group label="Unit Kerja"
                         :label-cols="2"
-                        :label-size="lg"
                         horizontal>
             <b-form-input type="text" v-model="unitkerja.name"></b-form-input>
           </b-form-group>

@@ -1,74 +1,56 @@
 <template>
   <div class="user-add">
-    <div class="container-table text-left">
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          <h4>Add User</h4>
-        </div>
-        <div class="panel-body">
-          <form class="form-horizontal">
-            <div class="row">
-              <div class="form-group">
-                <label class="control-label col-sm-2">Username:</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="" v-model='user.username'>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group">
-                <label class="control-label col-sm-2">Password:</label>
-                <div class="col-sm-9">
-                  <input type="password" class="form-control" name="" v-model='user.password'>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group">
-                <label class="control-label col-sm-2">Email:</label>
-                <div class="col-sm-9">
-                  <input type="email" class="form-control" name="email" v-model='user.email'>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group">
-                <label class="control-label col-sm-2">Role:</label>
-                <div class="col-sm-9">
-                  <v-select :options="listRole" label="name" v-model="user.role">
-                    <template slot="option" slot-scope="option">
-                      {{ option.name }}
-                    </template>      
-                  </v-select>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="button-group text-center">
-                <button type="button" class="btn btn-success" v-on:click="onSave()"> Save </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+    <b-container class="text-left">
+      <h4>Add User</h4>
+      <hr>
+      <b-card bg-variant="sand">
+        <b-form>
+          <b-form-group label="Username"
+                        :label-cols="2"
+                        horizontal>
+                        {{ username }}
+            <b-form-input type="text" v-model="username" value=""></b-form-input>
+          </b-form-group>
+          <b-form-group label="Password"
+                        :label-cols="2"
+                        size="lg"
+                        horizontal>
+            <b-form-input type="password" v-model="password"></b-form-input>
+          </b-form-group>
+          <b-form-group label="Email"
+                        :label-cols="2"
+                        size="lg"
+                        horizontal>
+            <b-form-input type="email" v-model="email"></b-form-input>
+          </b-form-group>
+          <b-form-group label="Role"
+                        :label-cols="2"
+                        size="lg"
+                        horizontal>
+            <b-form-select v-model="role" :options="listRole">
+            </b-form-select>
+          </b-form-group>
+          <br>
+          <b-form-group class="text-right">
+            <b-button variant="info" v-on:click="onSave()">Save</b-button>
+          </b-form-group>
+        </b-form>
+      </b-card>
+    </b-container>
   </div>
 </template>
 <script>
-  import { mapGetters, mapActions } from 'vuex';
+  import { mapGetters } from 'vuex';
   import swal from 'sweetalert';
   export default {
     props: [],
     name: 'UserAdd',
     data() {
       return {
-        user: {
-          username: '',
-          password: '',
-          email: '',
+          username: null,
+          password: null,
+          email: null,
           role: null,
-        },
-        bagan: null,
       };
     },
     methods: {
@@ -83,15 +65,19 @@
           });
         }
         const formData = new FormData()
-        formData.append('username', this.user.username)
-        formData.append('password', this.user.password)
-        formData.append('email', this.user.email)
-        formData.append('role', this.user.role._id.$oid)
+        formData.append('username', this.username)
+        formData.append('password', this.password)
+        formData.append('email', this.email)
+        formData.append('role', this.role)
         this.$store.dispatch('createUser', formData)
       }
     },
     created() {
       this.$store.dispatch('fetchListRole')
+      this.username = null;
+      this.password = null;
+      this.email = null;
+      this.role = null;
     },
     computed: {
       ...mapGetters({

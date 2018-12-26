@@ -5,6 +5,7 @@ import UnitKerjaModule from './modules/unitkerja'
 import AccountModule from './modules/account'
 import BeritaModule from './modules/berita'
 import UserModule from './modules/user'
+import VideoModule from './modules/video'
 
 Vue.use(Vuex)
 
@@ -15,5 +16,6 @@ export default new Vuex.Store({
     account: AccountModule,
     berita: BeritaModule,
     user: UserModule,
+    video: VideoModule,
   }
 })

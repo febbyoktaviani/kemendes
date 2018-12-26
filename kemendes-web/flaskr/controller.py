@@ -23,15 +23,16 @@ class UserView(object):
         username = user_data.get('username')
         password = user_data.get('password')
         email = user_data['email']
-        # role = user_data['role']
+        role_id = user_data['role']
         if not username or not password or not email:
             return 'all field must be filled', StatusCodes.HTTP_400_BAD_REQUEST
 
         password_hash = generate_password(self.app, user_data['password'])
+        role = Role.objects.get(id=role_id)
 
         if user_data.get('id'):
             user = User.objects.get(id=user_data.get('id'))
-            user.update(username=username, password=password, email=email)
+            user.update(username=username, password=password, email=email, role=role)
         else:
             try:
                 existed_username = User.objects.get(username=username)
@@ -41,7 +42,7 @@ class UserView(object):
             if existed_username:
                 return 'username already exist', StatusCodes.HTTP_400_BAD_REQUEST
 
-            user = User(username=username, email=email, password=password_hash)
+            user = User(username=username, email=email, password=password_hash, role=role)
             user.save()
         
         return user.to_json()
@@ -267,7 +268,7 @@ class VideoListView(object):
             else:
                 result = Video.objects.to_json()
         except Exception as e:
-            return e.__str__(), HTTP_400_BAD_REQUEST
+            return e.__str__(), StatusCodes.HTTP_400_BAD_REQUEST
 
         return result
 
@@ -275,7 +276,7 @@ class VideoListView(object):
         try:
             result = Video.objects.get(id=video_id).to_json()
         except Exception as e:
-            return e.__str__(), HTTP_400_BAD_REQUEST
+            return e.__str__(), StatusCodes.HTTP_400_BAD_REQUEST
 
         return result
 
@@ -283,18 +284,21 @@ class VideoListView(object):
         try:
             if data.get('id'):
                 video_obj = Video.objects.get(id=data.get('id'))
+                is_shown = True if data.get('is_shown') == 'true' else False
                 video_obj.update(title=data.get('title'),
                                  description=data.get('description'),
                                  url=data.get('url'),
-                                 is_shown=data.get('is_shown'))
+                                 is_shown=is_shown)
             else:
+                is_shown = True if data.get('is_shown') == 'true' else False
                 video_obj = Video(title=data.get('title'),
                                   description=data.get('description'),
                                   url=data.get('url'),
-                                  is_shown=data.get('is_shown'))
+                                  is_shown=is_shown)
                 video_obj.save()
         except Exception as e:
-            return e.__str__(), HTTP_400_BAD_REQUEST
+            print(e)
+            return e.__str__(), StatusCodes.HTTP_400_BAD_REQUEST
 
         return video_obj.to_json()
 
@@ -311,7 +315,7 @@ class ImageListView(object):
             else:
                 result = Image.objects.to_json()
         except Exception as e:
-            return e.__str__(), HTTP_400_BAD_REQUEST
+            return e.__str__(), StatusCodes.HTTP_400_BAD_REQUEST
 
         return result
 
@@ -319,14 +323,14 @@ class ImageListView(object):
         try:
             result = Image.objects.get(id=image_id).to_json()
         except Exception as e:
-            return e.__str__(), HTTP_400_BAD_REQUEST
+            return e.__str__(), StatusCodes.HTTP_400_BAD_REQUEST
 
         return result
 
     def post(self, data, file):
         try:
             if not file:
-                return 'Image could not be empty', HTTP_400_BAD_REQUEST
+                return 'Image could not be empty', StatusCodes.HTTP_400_BAD_REQUEST
 
             image_url = upload_file(file)
             if data.get('id'):
@@ -344,7 +348,7 @@ class ImageListView(object):
                                   is_slider=data_get('is_slider'))
                 image_obj.save()
         except Exception as e:
-            return e.__str__(), HTTP_400_BAD_REQUEST
+            return e.__str__(), StatusCodes.HTTP_400_BAD_REQUEST
 
         return image_obj.to_json()
 

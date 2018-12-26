@@ -14,7 +14,7 @@
         <br/><br>
         <b-table striped hover :fields="fields" :items="listVideo">
           <template slot="is_shown" slot-scope="data">
-            {{ data.item.is_shown ? '<i class="fas fa-checklist"> </i>' }}
+            <i class="fas fa-checklist">{{ data.item.is_shown }} </i>          
           </template>
           <template slot="action" slot-scope="data">
             <a :href="'/admin/video/edit/'+data.item._id.$oid">
@@ -60,7 +60,7 @@
       },
       computed: {
         ...mapGetters({
-          listViedo: 'listVideo',
+          listVideo: 'listVideo',
         })
     },
   };

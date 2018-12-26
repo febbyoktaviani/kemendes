@@ -12,10 +12,17 @@ const mutations = {
     state.listUser = res;
   },
   user: (state, res) => {
+    if (res.role) {
+        res.role = res.role.$oid
+    }
     state.userData = res
   },
   listRole: (state, res) => {
-    state.listRole = res
+    let optRole = []
+    for (const role of res) {
+        optRole.push({'value': role._id.$oid, 'text': role.name})
+    }
+    state.listRole = optRole
   }
 }
 
@@ -34,7 +41,8 @@ const actions = {
   },
   async createUser(context, formData) {
     let res = await postUser(formData)
-    // context.commit('user', res)
+    context.commit('user', res)
+    router.push('/admin/user/list')
   }
 }
 

@@ -20,13 +20,13 @@ const actions = {
     let res = await getListVideo()
     context.commit('listVideo', res)
   },
-  async fetchVideo(context, user_id) {
-    let res = await getVideo(user_id)
+  async fetchVideo(context, video_id) {
+    let res = await getVideo(video_id)
     context.commit('video', res)
   },
-  async fetchVideo(context, formData) {
+  async uploadVideo(context, formData) {
     let res = await postVideo(formData)
-    context.commit('isVideoUploaded', res)
+    // context.commit('isVideoUploaded', res)
     router.push('/admin/video/list')
   },
 }

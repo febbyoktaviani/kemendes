@@ -1,5 +1,5 @@
 <template>
-  <div class="video-add">
+  <div class="video-edit">
     <b-container class="text-left">
       <h4>Add Video</h4>
       <hr>
@@ -37,32 +37,32 @@
   </div>
 </template>
 <script>
+  import { mapGetters } from 'vuex';
   export default {
-    props: [],
-    name: 'VideoAdd',
+    props: ['videoId'],
+    name: 'VideoEdit',
     data() {
       return {
-        video: {
-          title: '',
-          description: '',
-          video_url: '',
-          is_shown: false,
-        },
       };
     },
     methods: {
       onSave() {
         const formData = new FormData()
+        formData.append('id', this.video._id.$oid)
         formData.append('title', this.video.title)
         formData.append('description', this.video.description)
-        formData.append('video_url', this.video.video_url)
+        formData.append('url', this.video.url)
         formData.append('is_shown', this.video.is_shown)
         this.$store.dispatch('uploadVideo', formData)
       }
     },
     created() {
+      this.$store.dispatch('fetchVideo', this.videoId)
     },
     computed: {
+      ...mapGetters({
+        video: 'video'
+      })
     }
   };
 </script>

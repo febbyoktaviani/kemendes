@@ -1,45 +1,41 @@
 <template>
   <div class="user-edit">
-    <div class="container-table text-left">
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          Edit User
-        </div>
-        <div class="panel-body">
-          <form class="form-horizontal">
-            <div class="row">
-              <div class="form-group">
-                <label class="control-label col-sm-2">Username:</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="" v-model='userData.username'>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group">
-                <label class="control-label col-sm-2">Password:</label>
-                <div class="col-sm-9">
-                  <input type="password" class="form-control" name="" v-model='userData.password'>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group">
-                <label class="control-label col-sm-2">Email:</label>
-                <div class="col-sm-9">
-                  <input type="email" class="form-control" name="email" v-model='userData.email'>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="button-group text-center">
-                <button type="button" class="btn btn-success" v-on:click="onSave()"> Save </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+    <b-container class="text-left">
+      <h4>Add User</h4>
+      <hr>
+      <b-card bg-variant="sand">
+        <b-form>
+          <b-form-group label="Username"
+                        :label-cols="2"
+                        horizontal>
+            <b-form-input type="text" v-model="userData.username"></b-form-input>
+          </b-form-group>
+          <b-form-group label="Password"
+                        :label-cols="2"
+                        size="lg"
+                        horizontal>
+            <b-form-input type="password" v-model="userData.password"></b-form-input>
+          </b-form-group>
+          <b-form-group label="Email"
+                        :label-cols="2"
+                        size="lg"
+                        horizontal>
+            <b-form-input type="email" v-model="userData.email"></b-form-input>
+          </b-form-group>
+          <b-form-group label="Role"
+                        :label-cols="2"
+                        size="lg"
+                        horizontal>
+            <b-form-select v-model="userData.role" :options="listRole">
+            </b-form-select>
+          </b-form-group>
+          <br>
+          <b-form-group class="text-right">
+            <b-button variant="info" v-on:click="onSave()">Save</b-button>
+          </b-form-group>
+        </b-form>
+      </b-card>
+    </b-container>
   </div>
 </template>
 <script>
@@ -54,30 +50,32 @@
     },
     methods: {
       onSave() {
-        // if (this.user.role) {
-        //   swal({
-        //     title: 'Warning',
-        //     text: 'please select user role!!',
-        //     icon: 'warning',
-        //     dangerMode: true,
-        //     button: 'OK'
-        //   });
-        // }
+        if (!this.userData.role) {
+          swal({
+            title: 'Warning',
+            text: 'please select user role!!',
+            icon: 'warning',
+            dangerMode: true,
+            button: 'OK'
+          });
+        }
         const formData = new FormData()
         formData.append('id', this.userId)
         formData.append('username', this.userData.username)
         formData.append('password', this.userData.password)
         formData.append('email', this.userData.email)
-        // formData.append('role', this.user.role._id.$oid)
+        formData.append('role', this.userData.role)
         this.$store.dispatch('createUser', formData)
       },
     },
     created() {
       this.$store.dispatch('fetchUser', this.userId)
+      this.$store.dispatch('fetchListRole')
     },
     computed: {
       ...mapGetters({
-        userData: 'userData'
+        userData: 'userData',
+        listRole: 'listRole'
       })
     },
   };

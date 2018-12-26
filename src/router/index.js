@@ -22,7 +22,7 @@ import UserEdit from '@/components/AdminPage/User/UserEdit';
 // Video
 import VideoList from '@/components/AdminPage/Video/VideoList';
 import VideoAdd from '@/components/AdminPage/Video/VideoAdd';
-// import UserEdit from '@/components/AdminPage/User/UserEdit';
+import VideoEdit from '@/components/AdminPage/Video/VideoEdit';
 
 Vue.use(Router);
 
@@ -106,8 +106,8 @@ const router = new Router({
           component: VideoList,
         },
         {
-          path: 'user/edit/:userId',
-          component: UserEdit,
+          path: 'video/edit/:videoId',
+          component: VideoEdit,
           props: true,
         },
         {

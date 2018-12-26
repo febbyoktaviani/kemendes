@@ -201,8 +201,6 @@ def create_app(test_config=None):
         result = rencana_kerja_list.get()
         print('get', result)
         return json.dumps(result)
-     
-    return app
 
 ###################################### API VIDEO ##################################################
     @app.route('/list-video', methods=['GET'])
@@ -220,6 +218,7 @@ def create_app(test_config=None):
     @app.route('/post-video', methods=['POST'])
     @jwt_required
     def post_video():
+        print(request.form)
         video_view = VideoListView(app)
         return video_view.post(request.form)
 ###################################### END API VIDEO ##################################################
@@ -264,3 +263,5 @@ def create_app(test_config=None):
         image_view = ImageListView(app)
         return image_view.post(request.form)
 ###################################### END API GALERY ##################################################
+
+    return app

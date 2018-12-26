@@ -1,4 +1,4 @@
-import api from './index'
+import api from './index';
 
 const getListVideo = async function() {
     let { data: ListVideo } = await api.get('/list-video')
@@ -11,7 +11,9 @@ const getVideo = async function(video_id) {
   }
 
 const postVideo = async function(formData) {
+    alert(formData)
     let { data: video } = await api.post('post-video', formData)
+    alert(video)
     return video
   }
 

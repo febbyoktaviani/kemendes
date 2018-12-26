@@ -1,53 +1,29 @@
 <template>
   <div class="user-list">
-    <div class="container-table">
-      <div class="container text-left">    
-        <br>
-        <div class="row">
-          <div class="col-sm-12 linkapp-container">
-            <div class="panel panel-success">
-              <!-- Content Here -->
-              <div class="aqua panel-heading">
-                <h3> List User </h3>
-              </div>
-              <div class="panel-body">
-                <a href="/admin/user/add">
-                  <button class="btn-success">
-                    Add <i class="fas fa-plus-circle fa-lg"></i>
-                  </button>
-                </a>
-                <br/><br>
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead>
-                      <tr class="success text-left">
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="user in listUser">
-                        <td>{{ user.username }}</td>
-                        <td>{{ user.email }}</td>
-                        <td v-if="user.role">{{ user.role.name }}</td>
-                        <td>
-                          &nbsp;&nbsp;
-                          <a :href="'/admin/user/edit/'+user._id.$oid">
-                            <i class="fas fa-edit fa-lg"></i>
-                          </a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <b-container fluid>
+      <b-card bg-variant="sand"
+              text-variant="black"
+              title="List User"
+              class="text-left">
+        
+        <a href="/admin/user/add">
+          <button class="btn-success">
+            Add <i class="fas fa-plus-circle fa-lg"></i>
+          </button>
+        </a>
+        <br/><br>
+        <b-table striped hover :fields="fields" :items="listUser">
+          <template slot="role" slot-scope="data">
+            {{ data.item.role ? data.item.role.name : '-' }}
+          </template>
+          <template slot="action" slot-scope="data">
+            <a :href="'/admin/user/edit/'+data.item._id.$oid">
+              <i class="fas fa-edit fa-lg"></i>
+            </a>
+          </template>
+        </b-table>
+      </b-card>
+    </b-container>
   </div>
 </template>
 <script>
@@ -57,6 +33,24 @@
       name: 'UserList',
       data() {
         return {
+          fields: [
+            {
+              key: 'username',
+              label: 'Username'
+            },
+            {
+              key: 'email',
+              label: 'Email'
+            },
+            {
+              key: 'role',
+              label: 'Role'
+            },
+            {
+              key: 'action',
+              label: 'Actions'
+            }
+          ]
         };
       },
       created() {
