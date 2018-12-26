@@ -1,35 +1,29 @@
 <template>
   <div class='kegiatan-form'>
-    <div class="panel-heading">
+    <b-form>
       <h4>Kegiatan</h4>
-    </div>
-    <div class="panel-body">
-      <form class="form-horizontal" v-for="(indikator, idx) in indikators">
-        <button type="button" class="btn btn-info" v-on:click="add(idx)">+</button>
-        <div class="row">
-          <div class="form-group">
-            <label class="control-label col-sm-2">Indikator:</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="email" v-model='indikator.name'>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <form class="form-horizontal" v-for="(kegiatan, k_idx) in indikator.kegiatans">
-            <div class="form-group">
-              <label class="control-label col-sm-2">Kegiatan:</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" name="email" v-model="kegiatan.name">
-              </div>
-              <div class="col-sm-1">
-                <button type="button" class="btn btn-info" v-on:click="remove(idx, k_idx)">-</button>
-              </div>
-            </div>
-          </form>
-        </div>
-        <hr>
-      </form>
-    </div>
+      <br>
+      <b-form v-for="(indikator, idx) in indikators" class="mb-4">
+        <b-input-group prepend="Indikator">
+          <b-form-input v-model="indikator.name" type="text" disabled>
+          </b-form-input>
+          <b-input-group-append>
+            <b-btn variant="outline-info" v-on:click="add(idx)">+</b-btn>
+          </b-input-group-append>
+        </b-input-group>
+        <b-container class="p-1">
+          <b-input-group prepend="Kegiatan"
+                         v-for="(kegiatan, k_idx) in indikator.kegiatans"
+                         class="p-2">
+            <b-form-input v-model="kegiatan.name" type="text">
+            </b-form-input>
+            <b-input-group-append>
+              <b-btn variant="outline-danger" v-on:click="remove(idx, k_idx)">-</b-btn>
+            </b-input-group-append>
+          </b-input-group>
+        </b-container>
+      </b-form>
+    </b-form>
   </div>
 </template>
 <script>

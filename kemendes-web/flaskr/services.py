@@ -165,21 +165,21 @@ def update_kegiatans(kegiatans, indikator_obj, tujuan):
 def update_rencana_kerja(data):
     if data.get('id') != '' and data.get('id') is not None:
         tujuan = Tujuan.objects.get(id=data.get('id'))
-        tujuan.update(name=data['name'],
-                      periode=data['periode'],
-                      unit_pemilik_resiko=data['unit_pemilik_resiko'],
-                      unit_eselon=data['unit_eselon'],
+        tujuan.update(name=data.get('name'),
+                      periode=data.get('periode'),
+                      unit_pemilik_resiko=data.get('unit_pemilik_resiko'),
+                      unit_eselon=data.get('unit_eselon'),
                       kegiatan=data.get('kegiatan'))
     else:
-        tujuan = Tujuan(name=data['name'],
-                        periode=data['periode'],
-                        unit_pemilik_resiko=data['unit_pemilik_resiko'],
-                        unit_eselon=data['unit_eselon'],
+        tujuan = Tujuan(name=data.get('name'),
+                        periode=data.get('periode'),
+                        unit_pemilik_resiko=data.get('unit_pemilik_resiko'),
+                        unit_eselon=data.get('unit_eselon'),
                         kegiatan=data.get('kegiatan'))
         tujuan.save()
         print('tj', tujuan)
 
-    indikators = data['indikators']
+    indikators = data.get('indikators')
     old_indikators = Indikator.objects.filter(tujuan=tujuan)
     old_idk_ids = [idk.id.__str__() for idk in old_indikators]
     new_idk_ids = []

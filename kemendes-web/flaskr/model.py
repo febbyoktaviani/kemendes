@@ -93,12 +93,53 @@ class ResikoKegiatan(Document, TimeStampModel):
 class Video(Document, TimeStampModel):
     title = StringField(max_length=250)
     description = StringField(max_length=500)
-    url = URLField()
+    url = StringField()
     is_shown = BooleanField(default=True)
+
+    search_field = ("title", 'description',)
+
+    meta = {
+        'indexes': [{
+            'fields': ['$title', "$description"],
+            'default_language': 'english',
+            'weights': {'title': 10, 'description': 2}
+        }]
+    }
+
 
 class Image(Document, TimeStampModel):
     title = StringField(max_length=250)
     description = StringField(max_length=500)
-    image_url = URLField()
+    image_url = StringField()
     is_shown = BooleanField(default=True)
     is_slider = BooleanField(default=False)
+
+    search_field = ("title", 'description',)
+
+    meta = {
+        'indexes': [{
+            'fields': ['$title', "$description"],
+            'default_language': 'english',
+            'weights': {'title': 10, 'description': 2}
+        }]
+    }
+
+
+class Download(Document, TimeStampModel):
+    name = StringField(max_length=250)
+    description = StringField(max_length=250)
+    doc_url = StringField()
+
+    search_field = ("name", 'description',)
+
+    meta = {
+        'indexes': [{
+            'fields': ['$name', "$description"],
+            'default_language': 'english',
+            'weights': {'title': 10, 'description': 2}
+        }]
+    }
+
+
+
+

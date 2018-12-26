@@ -1,173 +1,169 @@
 <template>
   <div class='resiko-form'>
-    <div class="panel-heading">
+    <b-form class="mb-4">
       <h4>Resiko Kegiatan</h4>
-    </div>
-    <div class="panel-body">
-      <div class="panel panel-success" v-for="(indikator, idx) in indikators">
-        <div class="panel-heading">
-          {{ indikator.name }}
-        </div>
-        <div class="panel-body" v-for="(kegiatan, kgidx) in indikator.kegiatans">
-          <label>{{ kegiatan.name }}</label> 
-          <button type="button" class="btn btn-info" v-on:click="add(idx, kgidx)">+</button>
-          <div class="panel-body">
-            <div class="panel panel-success" v-for="(resiko, r_idx) in kegiatan.resiko_kegiatan">
-              <div class="panel-body">
-                <button type="button" class="btn btn-info" v-on:click="remove(idx, kgidx, r_idx)">
-                  -
-                </button>
-                <form class="form-horizontal">
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">Sumber Resiko:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model="resiko.sumber_resiko">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">Kategori Resiko:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model="resiko.kategori_resiko">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">Resiko:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model="resiko.resiko">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">Penyebab Resiko:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model="resiko.penyebab_resiko">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">Dampak:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model="resiko.dampak_resiko">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">Pegendalian Uraian:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model="resiko.pengendalian_uraian">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">Pegendalian Kategori:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model="resiko.pengendalian_kategori">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">Resiko Residual:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model="resiko.resiko_residual">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">Pemilik Resiko:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model="resiko.pemilik_resiko">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">Pengukuran Kemungkinan:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model="resiko.pengukuran_kemungkinan">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">Pengukuran Dampak:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model="resiko.pengukuran_dampak">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">Pengukuran Status resiko:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model="resiko.pengukuran_status_resiko">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">Level Resiko:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model="resiko.level_resiko">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">Peringkat Resiko:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model="resiko.peringkat_resiko">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">RTP:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model="resiko.rtp">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">Penanggung Jawab:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model="resiko.penanggung_jawab">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">Target Waktu:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model="resiko.target_waktu">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">Komunikasi:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model="resiko.komunikasi">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-3">Rencana Pemantauan:</label>
-                    <div class="col-sm-8">
-                      <input type="text" class="form-control" v-model='resiko.pemantauan'>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-          <!-- <form class="form-horizontal" v-for="(kegiatan, kgidx) in indikator.kegiatans">
-            <button type="button" class="btn btn-info" v-on:click="add(idx, kgidx)">+</button>
-            <div class="form-group">
-              <label class="control-label col-sm-2">Kegiatan:</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" name="email" v-model="kegiatan.name">
-              </div>
-            </div>
-            <div class="panel panel-success" v-for="resiko in kegiatan.resiko_kegiatan">
-              <div class="panel-body">
-                <form class="form-horizontal">
-                  <div class="form-group">
-                    <label class="control-label col-sm-2">Sumber Resiko:</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label col-sm-2">Kategori Resiko:</label>
-                    <div class="col-sm-9">
-                      <input type="text" class="form-control">
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </form>
+      <br>
+      <b-card v-for="(indikator, idx) in indikators" class="mt-2">
+        <b-input-group prepend="Indikator" class="mb-2">
+          <b-form-input v-model="indikator.name" type="text" disabled>
+          </b-form-input>
+        </b-input-group>
         <hr>
-      </form> -->
-      </div>
-    </div>
+        <b-form v-for="(kegiatan, kgidx) in indikator.kegiatans" class="mt-4 ml-4">
+          <b-input-group prepend="Kegiatan">
+            <b-form-input v-model="kegiatan.name" type="text" disabled>
+            </b-form-input>
+            <b-input-group-append>
+              <b-btn variant="outline-info" v-on:click="add(idx, kgidx)">+</b-btn>
+            </b-input-group-append>
+          </b-input-group>
+          
+          <b-card  v-for="(resiko, r_idx) in kegiatan.resiko_kegiatan" class="mt-2">
+            <b-card-text>
+              <b-btn variant="outline-danger"
+                     size="sm"
+                     v-on:click="remove(idx, kgidx, r_idx)">-</b-btn>
+            </b-card-text>
+            <br>
+            <b-form>
+              <b-form-group label="Sumber Resiko"
+                            horizontal
+                            :label-cols="3"
+                            class="p-1">
+                <b-form-input v-model="resiko.sumber_resiko" type="text">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group label="Kategori Resiko"
+                            horizontal
+                            :label-cols="3"
+                         class="p-1">
+                <b-form-input v-model="resiko.kategori_resiko" type="text">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group label="Resiko"
+                            horizontal
+                            label-cols="3"
+                         class="p-1">
+                <b-form-input v-model="resiko.resiko" type="text">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group label="Penyebab Resiko"
+                            horizontal
+                            :label-cols="3"
+                            class="p-1">
+                <b-form-input v-model="resiko.penyebab_resiko" type="text">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group label="Dampak"
+                            horizontal
+                            :label-cols="3"
+                            class="p-2">
+                <b-form-input v-model="resiko.dampak_resiko" type="text">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group label="Pengendalian Uraian"
+                            horizontal
+                            :lbel-cols="3"
+                            class="p-1">
+                <b-form-input v-model="resiko.pengendalian_uraian" type="text">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group label="Pengendalian Kategori"
+                            horizontal
+                            :lbel-cols="3"
+                            class="p-1">
+                <b-form-input v-model="resiko.pengendalian_kategori" type="text">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group label="Resiko Residual"
+                            horizontal
+                            :lbel-cols="3"
+                            class="p-1">
+                <b-form-input v-model="resiko.resiko_residual" type="text">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group label="Pemilik Resiko"
+                            horizontal
+                            :lbel-cols="3"
+                            class="p-1">
+                <b-form-input v-model="resiko.pemilik_resiko" type="text">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group label="Pengukuran Kemungkinan"
+                            horizontal
+                            :lbel-cols="3"
+                            class="p-1">
+                <b-form-input v-model="resiko.pengukuran_kemungkinan" type="text">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group label="Pengukuran Dampak"
+                            horizontal
+                            :lbel-cols="3"
+                            class="p-1">
+                <b-form-input v-model="resiko.pengukuran_dampak" type="text">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group label="Pengukuran Status Resiko"
+                            horizontal
+                            :lbel-cols="3"
+                            class="p-1">
+                <b-form-input v-model="resiko.pengukuran_status_resiko" type="text">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group label="Level Resiko"
+                            horizontal
+                            :lbel-cols="3"
+                            class="p-1">
+                <b-form-input v-model="resiko.level_resiko" type="text">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group label="Peringkat Resiko"
+                            horizontal
+                            :lbel-cols="3"
+                            class="p-1">
+                <b-form-input v-model="resiko.peringkat_resiko" type="text">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group label="RTP"
+                            horizontal
+                            :lbel-cols="3"
+                            class="p-1">
+                <b-form-input v-model="resiko.rtp" type="text">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group label="Penanggung Jawab"
+                            horizontal
+                            :lbel-cols="3"
+                            class="p-1">
+                <b-form-input v-model="resiko.penanggung_jawab" type="text">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group label="Target Waktu"
+                            horizontal
+                            :lbel-cols="3"
+                            class="p-1">
+                <b-form-input v-model="resiko.target_waktu" type="text">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group label="Komunikasi"
+                            horizontal
+                            :lbel-cols="3"
+                            class="p-1">
+                <b-form-input v-model="resiko.komunikasi" type="text">
+                </b-form-input>
+              </b-form-group>
+              <b-form-group label="Rencana Pemantauan"
+                            horizontal
+                            :lbel-cols="3"
+                            class="p-1">
+                <b-form-input v-model="resiko.pemantauan" type="text">
+                </b-form-input>
+              </b-form-group>
+            </b-form>
+          </b-card>
+        </b-form>
+      </b-card>
+    </b-form>
   </div>
 </template>
 <script>

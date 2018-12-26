@@ -1,51 +1,28 @@
 <template>
   <div class="berita-list">
-    <div class="container-table">
-      <div class="container text-left">    
-        <br>
-        <div class="row">
-          <div class="col-sm-12 linkapp-container">
-            <div class="panel panel-success">
-              <!-- Content Here -->
-              <div class="aqua panel-heading">
-                <h3> List Berita </h3>
-              </div>
-              <div class="panel-body">
-                <a href="/admin/berita/add">
-                  <button class="btn-success">
-                    Add <i class="fas fa-plus-circle fa-lg"></i>
-                  </button>
-                </a>
-                <br/><br>
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead>
-                      <tr class="success text-left">
-                        <th>Judul</th>
-                        <th>Created at</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="berita in listBerita">
-                        <td>{{ berita.title }}</td>
-                        <td>{{ toDate(berita.created_at.$date) }}</td>
-                        <td>
-                          &nbsp;&nbsp;
-                          <a :href="'/admin/berita/edit/'+berita._id.$oid">
-                            <i class="fas fa-edit fa-lg"></i>
-                          </a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <b-container fluid>
+      <b-card bg-variant="sand"
+              text-variant="black"
+              title="List Berita"
+              class="text-left">
+        <a href="/admin/berita/add">
+          <button class="btn-success">
+            Add <i class="fas fa-plus-circle fa-lg"></i>
+          </button>
+        </a>
+        <br/><br>
+        <b-table striped hover :fields="fields" :items="listBerita">
+          <template slot="created_at" slot-scope="data">
+            {{ toDate(data.item.created_at.$date) }}
+          </template>
+          <template slot="action" slot-scope="data">
+            <a :href="'/admin/berita/edit/'+data.item._id.$oid">
+              <i class="fas fa-edit fa-lg"></i>
+            </a>
+          </template>
+        </b-table>
+      </b-card>
+    </b-container>
   </div>
 </template>
 <script>
@@ -55,6 +32,19 @@
       name: 'BeritaList',
       data() {
         return {
+          fields: [
+            {
+              key: 'title',
+              label: 'Judul'
+            },
+            {
+              key: 'created_at',
+              label: 'Created At'
+            },{
+              key: 'action',
+              label: 'Action'
+            }
+          ]
         };
       },
       created() {

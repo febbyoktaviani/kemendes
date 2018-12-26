@@ -1,55 +1,29 @@
 <template>
   <div class="video-list">
-    <div class="container-table">
-      <div class="container text-left">    
-        <br>
-        <div class="row">
-          <div class="col-sm-12 linkapp-container">
-            <div class="panel panel-success">
-              <!-- Content Here -->
-              <div class="aqua panel-heading">
-                <h3> List Video </h3>
-              </div>
-              <div class="panel-body">
-                <a href="/admin/video/add">
-                  <button class="btn-success">
-                    Add <i class="fas fa-plus-circle fa-lg"></i>
-                  </button>
-                </a>
-                <br/><br>
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead>
-                      <tr class="success text-left">
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Video Url</th>
-                        <th>is shown</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="video in listVideo">
-                        <td>{{ video.title }}</td>
-                        <td>{{ video.description }}</td>
-                        <td>{{ video.url }}</td>
-                        <td>{{ video.is_shown }}</td>
-                        <td>
-                          &nbsp;&nbsp;
-                          <a :href="'/admin/user/edit/'+user._id.$oid">
-                            <i class="fas fa-edit fa-lg"></i>
-                          </a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <b-container fluid>
+      <b-card bg-variant="sand"
+              text-variant="black"
+              title="List Video"
+              class="text-left">
+        
+        <a href="/admin/video/add">
+          <button class="btn-success">
+            Add <i class="fas fa-plus-circle fa-lg"></i>
+          </button>
+        </a>
+        <br/><br>
+        <b-table striped hover :fields="fields" :items="listVideo">
+          <template slot="is_shown" slot-scope="data">
+            {{ data.item.is_shown ? '<i class="fas fa-checklist"> </i>' }}
+          </template>
+          <template slot="action" slot-scope="data">
+            <a :href="'/admin/video/edit/'+data.item._id.$oid">
+              <i class="fas fa-edit fa-lg"></i>
+            </a>
+          </template>
+        </b-table>
+      </b-card>
+    </b-container>
   </div>
 </template>
 <script>
@@ -59,10 +33,26 @@
       name: 'VideoList',
       data() {
         return {
+          fields: [
+            {
+              key: 'title',
+              label: 'Judul'
+            },
+            'description',
+            'url',
+            {
+              key: 'is_shown',
+              label: 'Active'
+            },
+            {
+              key: 'action',
+              label: 'Action'
+            },
+          ]
         };
       },
       created() {
-        this.$store.dispatch('fetchListUser');
+        this.$store.dispatch('fetchListVideo');
         // console.log('list-berita');
       },
       methods: {
@@ -70,7 +60,7 @@
       },
       computed: {
         ...mapGetters({
-          listUser: 'listUser',
+          listViedo: 'listVideo',
         })
     },
   };

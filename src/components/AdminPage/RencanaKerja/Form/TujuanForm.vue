@@ -1,52 +1,28 @@
 <template>
   <div class='tujuan-form'>
-    <div class="panel-heading">
-      <h4>Tujuan {{tujuan.name}}</h4>
-    </div>
-    <div class="panel-body">
-      <form class="form-horizontal">
-        <div class="row">
-          <div class="form-group">
-            <label class="control-label col-sm-2">Tujuan:</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="email" v-model='tujuan.name'>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group">
-            <label class="control-label col-sm-2">Unit Pemilik resiko:</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="unit_pemilik_resiko" v-model='tujuan.unit_pemilik_resiko'>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group">
-            <label class="control-label col-sm-2">Unit Eselon III/IV:</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="unit_eselon" v-model='tujuan.unit_eselon'>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group">
-            <label class="control-label col-sm-2">Periode:</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="periode" v-model='tujuan.periode'>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="form-group">
-            <label class="control-label col-sm-2">Kegiatan:</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="kegiatan" v-model='tujuan.kegiatan'>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
+    <b-form>
+      <h5> Tujuan </h5>
+      <b-form-group horizontal :label-cols="3" label="Tujuan">
+        <b-form-input v-model="tujuan.name" type="text">
+        </b-form-input>
+      </b-form-group>
+      <b-form-group horizontal :label-cols="3" label="Unit Pemilik Resiko">
+        <b-form-input v-model="tujuan.unit_pemilik_resiko" type="text">
+        </b-form-input>
+      </b-form-group>
+      <b-form-group horizontal :label-cols="3" label="Unit Eselon III/IV">
+        <b-form-input v-model="tujuan.unit_eselon" type="text">
+        </b-form-input>
+      </b-form-group>
+      <b-form-group horizontal :label-cols="3" label="Periode">
+        <b-form-input v-model="tujuan.periode" type="text">
+        </b-form-input>
+      </b-form-group>
+      <b-form-group horizontal :label-cols="3" label="Kegiatan">
+        <b-form-input v-model="tujuan.kegiatan" type="text">
+        </b-form-input>
+      </b-form-group>
+    </b-form>
   </div>
 </template>
 <script>

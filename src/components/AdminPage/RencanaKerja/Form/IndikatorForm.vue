@@ -1,24 +1,16 @@
 <template>
   <div class='indikator-form'>
-    <div class="panel-heading">
-      <h4>Indikator</h4>
-    </div>
-    <div class="panel-body">
-      <button type="button" class="btn btn-info" v-on:click="add()">+</button>
-      <form class="form-horizontal" v-for="(indikator, idx) in indikators">
-        <div class="row">
-          <div class="form-group">
-            <label class="control-label col-sm-2">Indikator:</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" name="email" v-model='indikator.name'>
-            </div>
-            <div class="col-sm-1">
-              <button type="button" class="btn btn-info" v-on:click="remove(idx)">-</button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
+    <b-form>
+      <h4>Indikator   <b-button variant="info" size="sm" v-on:click="add()">+</b-button></h4>
+        <br>
+        <b-input-group prepend="Indikator" v-for="(indikator, idx) in indikators" class="mb-4">
+          <b-form-input v-model="indikator.name" type="text">
+          </b-form-input>
+          <b-input-group-append>
+            <b-btn variant="outline-success" v-on:click="remove(idx)">-</b-btn>
+          </b-input-group-append>
+        </b-input-group>
+    </b-form>
   </div>
 </template>
 <script>

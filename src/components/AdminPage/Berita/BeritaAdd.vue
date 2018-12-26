@@ -1,47 +1,44 @@
 <template>
   <div class="berita-add">
-    <div class="container-table text-left">
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          <h4>Add Berita</h4>
-        </div>
-        <div class="panel-body">
-          <form class="form-horizontal">
-            <div class="row">
-              <div class="form-group">
-                <label class="control-label col-sm-2">Judul:</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="email" v-model='berita.judul'>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group">
-                <label class="control-label col-sm-2">Content:</label>
-                <div class="col-sm-9">
-                  <editor :init="{plugins: 'wordcount'}" v-model="berita.content"></editor>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group">
-                <label class="control-label col-sm-2">Image:</label>
-                <div class="col-sm-5">
-                  <input class="form-control" type="file" v-on:change="onFileChanged">
-                </div>
-                <div class="col-sm-4">
-                  <button type="button" class="btn btn-success" v-on:click="onUpload()">Upload!</button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+    <b-container class="text-left">
+      <h4>Add Berita</h4>
+      <hr>
+      <b-card bg-variant="sand">
+        <b-form>
+          <b-form-group label="Judul"
+                        :label-cols="2"
+                        size="lg"
+                        horizontal>
+            <b-form-input type="text" v-model="berita.judul"></b-form-input>
+          </b-form-group>
+          <b-form-group label="Content"
+                        :label-cols="2"
+                        size="lg"
+                        horizontal>
+            <b-form-textarea type="text" v-model="berita.content" :rows="5"></b-form-textarea>
+          </b-form-group>
+          <b-form-group label="Image"
+                        :label-cols="2"
+                        size="lg"
+                        horizontal>
+            <b-form-file v-model="image"
+                         v-on:change="onFileChanged(image)"
+                         placeholder="Choose a file..."></b-form-file>
+            <div class="mt-3">Selected image: {{image && image.name}}</div>
+            <b-img :src="image && getImageUrl(image)" fluid/>
+          </b-form-group>
+          <br>
+          <b-form-group class="text-right">
+            <b-button variant="info" v-on:click="onUpload()">Save</b-button>
+          </b-form-group>
+        </b-form>
+      </b-card>
+    </b-container>
   </div>
 </template>
 <script>
   import Editor from '@tinymce/tinymce-vue';
+  import { getImageUrl } from '@/helpers/util';
   export default {
     props: [],
     name: 'BeritaAdd',
@@ -68,14 +65,12 @@
         formData.append('content', this.berita.content)
         console.log('frm', formData)
         this.$store.dispatch('uploadBerita', formData)
+      },
+      getImageUrl(image) {
+        return URL.createObjectURL(image)
       }
     },
   };
 </script>
 <style type="text/css">
-  .container-table {
-    min-width: 80%;
-    margin-left: 10%;
-    margin-right: 70%;
-  }
 </style>

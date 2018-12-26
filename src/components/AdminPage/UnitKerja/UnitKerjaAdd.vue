@@ -1,43 +1,39 @@
 <template>
   <div class="unit-kerja-add">
-    <div class="container-table text-left">
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          <h4>Add Unit Kerja</h4>
-        </div>
-        <div class="panel-body">
-          <form class="form-horizontal">
-            <div class="row">
-              <div class="form-group">
-                <label class="control-label col-sm-2">Unit Kerja:</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="email" v-model='unitkerja.name'>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group">
-                <label class="control-label col-sm-2">Profil:</label>
-                <div class="col-sm-9">
-                  <editor :init="{plugins: 'wordcount'}" v-model="unitkerja.profil"></editor>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group">
-                <label class="control-label col-sm-2">Bagan:</label>
-                <div class="col-sm-5">
-                  <input class="form-control" type="file" v-on:change="onFileChanged">
-                </div>
-                <div class="col-sm-4">
-                  <button type="button" class="btn btn-success" v-on:click="onUpload()">Upload!</button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+    <b-container class="text-left">
+      <h4>Add Unit Kerja</h4>
+      <hr>
+      <b-card bg-variant="sand">
+        <b-form>
+          <b-form-group label="Unit Kerja"
+                        :label-cols="2"
+                        :label-size="lg"
+                        horizontal>
+            <b-form-input type="text" v-model="unitkerja.name"></b-form-input>
+          </b-form-group>
+          <b-form-group label="Profil"
+                        :label-cols="2"
+                        size="lg"
+                        horizontal>
+            <b-form-textarea type="text" v-model="unitkerja.profil" :rows="5"></b-form-textarea>
+          </b-form-group>
+          <b-form-group label="Bagan"
+                        :label-cols="2"
+                        size="lg"
+                        horizontal>
+            <b-form-file v-model="unitkerja.bagan"
+                         v-on:change="onFileChanged(image)"
+                         placeholder="Choose a file..."></b-form-file>
+            <div class="mt-3">Selected image: {{ bagan && bagan.name}}</div>
+            <b-img :src="bagan && getImageUrl(bagan)" fluid/>
+          </b-form-group>
+          <br>
+          <b-form-group class="text-right">
+            <b-button variant="info" v-on:click="onUpload()">Save</b-button>
+          </b-form-group>
+        </b-form>
+      </b-card>
+    </b-container>
   </div>
 </template>
 <script>
@@ -77,6 +73,9 @@
         formData.append('profil', this.unitkerja.profil)
         console.log('frm', formData)
         this.$store.dispatch('uploadUnitKerja', formData)
+      },
+      getImageUrl(image) {
+        return URL.createObjectURL(image)
       }
     },
   };

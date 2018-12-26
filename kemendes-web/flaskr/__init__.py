@@ -59,6 +59,7 @@ def create_app(test_config=None):
         print(request.form)
         try:
             register = UserView(app)
+            print('data', request.form)
             return register.post(request.form)
         except Exception as e:
             print(e)
@@ -130,20 +131,9 @@ def create_app(test_config=None):
     # @jwt_required
     def list_berita():
         berita = BeritaListView(app)
-        if request.method == 'POST':
-            if 'image' in request.files:
-                file = request.files['image']
-            else:
-                file = None
-            try:
-                return berita.post(request.form, file)
-            except Exception as e:
-                print(e)
-                return e, 500
-        elif request.method == 'GET':
-            search_text = request.args.get('search')
-            print(search_text)
-            return berita.get(search_text)
+        search_text = request.args.get('search')
+        print(search_text)
+        return berita.get(search_text)
 
     @app.route('/title-berita', methods=['GET'])
     def title_berita():
@@ -232,27 +222,45 @@ def create_app(test_config=None):
     def post_video():
         video_view = VideoListView(app)
         return video_view.post(request.form)
-###################################### API VIDEO ##################################################
+###################################### END API VIDEO ##################################################
 
 
 ###################################### API GALERY ##################################################
-    @app.route('/list-images', methods=['GET'])
-    def list_video():
-        video_view = VideoListView(app)
+    @app.route('/list-image', methods=['GET'])
+    def list_image():
+        image_view = ImageListView(app)
         search_text = request.args.get('search')
         print(search_text)
-        return video_view.get_list(search_text)
+        return image_view.get_list(search_text)
 
     @app.route('/image/<image_id>', methods=['GET'])
-    def video(video_id):
-        video_view = VideoListView(app)
-        return video_view.get(video_id)
+    def image(video_id):
+        image_view = ImageListView(app)
+        return image_view.get(image_id)
 
     @app.route('/post-image', methods=['POST'])
     @jwt_required
-    def post_video():
-        video_view = VideoListView(app)
-        return video_view.post(request.form)
-###################################### API VIDEO ##################################################
+    def post_image():
+        image_view = ImageListView(app)
+        return image_view.post(request.form)
+###################################### END API GALERY ##################################################
 
+###################################### API Document ##################################################
+    @app.route('/list-document', methods=['GET'])
+    def list_document():
+        document_view = ImageListView(app)
+        search_text = request.args.get('search')
+        print(search_text)
+        return image_view.get_list(search_text)
 
+    @app.route('/document/<document_id>', methods=['GET'])
+    def document(video_id):
+        image_view = ImageListView(app)
+        return image_view.get(image_id)
+
+    @app.route('/post-document', methods=['POST'])
+    @jwt_required
+    def post_document():
+        image_view = ImageListView(app)
+        return image_view.post(request.form)
+###################################### END API GALERY ##################################################

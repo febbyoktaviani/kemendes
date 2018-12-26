@@ -1,14 +1,10 @@
 <template>
   <div class="rencana-kerja-add">
-    <div class="container text-left">    
-      <br>
-      <div class="row">
-        <div class="col-sm-12 linkapp-container">
-          <div class="container text-left">    
-            <br>
-            <div class="row">
-              <div class="col-sm-12 linkapp-container">
-                <div class="panel panel-success">
+    <b-container>
+      <b-card bg-variant="sand"
+              text-variant="black"
+              class="text-left">
+    
                   <TujuanForm v-if="step == 0" :tujuan="tujuan"/>
                   <IndikatorForm v-if="step == 1"
                                  :indikators="tujuan.indikators"
@@ -19,7 +15,7 @@
                   <ResikoForm v-if="step == 3"
                                  :indikators="tujuan.indikators"
                                  :tujuanName="tujuan.name"/>
-                  <div class="panel-footer">
+
                     <!-- <div class="btn-group" style="padding: 20px"> -->
                       <button v-if="step > 0"
                               type="button"
@@ -36,15 +32,8 @@
                               type="button"
                               class="btn btn-success"
                               v-on:click="save()">Save</button>
-                    <!-- </div> -->
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      </b-card>
+    </b-container>     
   </div>
 </template>
 <script>

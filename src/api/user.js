@@ -16,9 +16,10 @@ const postUser = async function(formData) {
         let { data: user } = await api.post('post-user', formData)
         return user
     }  catch(error) {
+        console.log(error.message)
         swal({
             title: "Error Saving User",
-            text: error,
+            text: error.message,
             icon: "error",
             button: "OK"
         })

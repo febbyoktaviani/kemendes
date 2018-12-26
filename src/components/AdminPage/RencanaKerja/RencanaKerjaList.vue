@@ -1,60 +1,29 @@
 <template>
   <div class="rencana-kerja-list">
-    <div class="container-table">
-      <div class="container text-left">    
-        <br>
-        <div class="row">
-          <div class="col-sm-12 linkapp-container">
-            <div class="panel panel-success">
-              <!-- Content Here -->
-              <div class="panel-heading">
-                <h3> List Tujuan </h3>
-              </div>
-              <div class="panel-body">
-                <a href="/admin/rencana-kerja/add">
-                  <button class="btn-success">
-                    Add <i class="fas fa-plus-circle fa-lg"></i>
-                  </button>
-                </a>
-                <br/><br>
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead>
-                      <tr class="success text-left">
-                        <th>Tujuan</th>
-                        <th>Unit Pemilik Resiko</th>
-                        <th>Unit Eselon III/IV</th>
-                        <th>Periode</th>
-                        <th>Kegiatan</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="tujuan in ListTujuan">
-                        <td>{{ tujuan.name }}</td>
-                        <td>{{ tujuan.unit_pemilik_resiko }}</td>
-                        <td>{{ tujuan.unit_eselon }}</td>
-                        <td>{{ tujuan.periode }}</td>
-                        <td>{{ tujuan.kegiatan }}</td>
-                        <td>
-                          <a :href="'/admin/rencana-kerja/detail/'+tujuan._id.$oid">
-                            <i class="far fa-eye fa-lg"></i>
-                          </a>
-                          &nbsp;&nbsp;
-                          <a :href="'/admin/rencana-kerja/edit/'+tujuan._id.$oid">
-                            <i class="fas fa-edit fa-lg"></i>
-                          </a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <b-container fluid>
+      <b-card bg-variant="sand"
+              text-variant="brown"
+              title="List Tujuan"
+              class="text-left">
+        <a href="/admin/rencana-kerja/add">
+          <button class="btn-success">
+            Add <i class="fas fa-plus-circle fa-lg"></i>
+          </button>
+        </a>
+        <br/><br>
+        <b-table striped hover :fields="fields" :items="ListTujuan">
+          <template slot="action" slot-scope="data">
+            <a :href="'/admin/rencana-kerja/detail/'+data.item._id.$oid">
+              <i class="far fa-eye fa-lg"></i>
+            </a>
+            &nbsp;&nbsp;
+            <a :href="'/admin/rencana-kerja/edit/'+data.item._id.$oid">
+              <i class="fas fa-edit fa-lg"></i>
+            </a>
+          </template>
+        </b-table>
+      </b-card>
+    </b-container>
   </div>
 </template>
 <script>
@@ -64,6 +33,17 @@
       name: 'RencanaKerjaList',
       data() {
         return {
+          fields: [
+            'name',
+            'unit_pemilik_resiko',
+            'unit_eselon',
+            'periode',
+            'kegiatan',
+            {
+              key: 'action',
+              lable: 'Actions'
+            }
+          ]
         };
       },
       created() {
@@ -85,5 +65,11 @@
     min-width: 90%;
     margin-left: 5%;
     margin-right: 95%;
+  }
+  .bg-sand {
+    background-color: #f3faf2;
+  }
+  .text-greenbold {
+    color: #003300;
   }
 </style>

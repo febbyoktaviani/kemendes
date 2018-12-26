@@ -23,16 +23,28 @@ class UserView(object):
         username = user_data.get('username')
         password = user_data.get('password')
         email = user_data['email']
-        role = user_data['role']
-
+        # role = user_data['role']
         if not username or not password or not email:
-            return 'all field must be filled'
-        
+            return 'all field must be filled', StatusCodes.HTTP_400_BAD_REQUEST
+
         password_hash = generate_password(self.app, user_data['password'])
 
-        new_user = User(username=username, email=email, password=password_hash)
-        new_user.save()
-        return 'add user success'
+        if user_data.get('id'):
+            user = User.objects.get(id=user_data.get('id'))
+            user.update(username=username, password=password, email=email)
+        else:
+            try:
+                existed_username = User.objects.get(username=username)
+            except DoesNotExist:
+                existed_username = None
+        
+            if existed_username:
+                return 'username already exist', StatusCodes.HTTP_400_BAD_REQUEST
+
+            user = User(username=username, email=email, password=password_hash)
+            user.save()
+        
+        return user.to_json()
 
     def get(self, user_id):
         user = User.objects.get(id=user_id).to_json()
@@ -103,6 +115,7 @@ class BeritaListView(object):
 
     def get(self, query_param=None):
         # user = User.objects.get(username=self.identity)
+        print(query_param)
         if query_param:
             beritas = Berita.objects.search_text(query_param).to_json()
         else:
@@ -247,9 +260,12 @@ class VideoListView(object):
         self.app = app
         self.identity = authenticate_user()
 
-    def get_list(self, search_text):
+    def get_list(self, query_param):
         try:
-            result = Video.objects.to_json()
+            if query_param:
+                result = Video.objects.search_text(query_param).to_json()
+            else:
+                result = Video.objects.to_json()
         except Exception as e:
             return e.__str__(), HTTP_400_BAD_REQUEST
 
@@ -290,7 +306,10 @@ class ImageListView(object):
 
     def get_list(self, search_text):
         try:
-            result = Image.objects.to_json()
+            if search_text:
+                result = Image.objects.search_text(search_text)
+            else:
+                result = Image.objects.to_json()
         except Exception as e:
             return e.__str__(), HTTP_400_BAD_REQUEST
 
@@ -328,3 +347,7 @@ class ImageListView(object):
             return e.__str__(), HTTP_400_BAD_REQUEST
 
         return image_obj.to_json()
+
+
+class DownloadListView(object):
+    pass

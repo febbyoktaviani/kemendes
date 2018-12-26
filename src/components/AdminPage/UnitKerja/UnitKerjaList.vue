@@ -1,51 +1,29 @@
 <template>
   <div class="unit-kerja-list">
-    <div class="container-table">
-      <div class="container text-left">    
-        <br>
-        <div class="row">
-          <div class="col-sm-12 linkapp-container">
-            <div class="panel panel-success">
-              <!-- Content Here -->
-              <div class="panel-heading">
-                <h3> List Unit Kerja </h3>
-              </div>
-              <div class="panel-body">
-                <a href="/admin/unit-kerja/add">
-                  <button class="btn-success">
-                    Add <i class="fas fa-plus-circle fa-lg"></i>
-                  </button>
-                </a>
-                <br/><br>
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead>
-                      <tr class="success text-left">
-                        <th>Unit Kerja</th>
-                        <th>Created at</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="unitkerja in listUnitKerja">
-                        <td>{{ unitkerja.name }}</td>
-                        <td>{{ toDate(unitkerja.created_at.$date) }}</td>
-                        <td>
-                          &nbsp;&nbsp;
-                          <a :href="'/admin/unit-kerja/edit/'+unitkerja._id.$oid">
-                            <i class="fas fa-edit fa-lg"></i>
-                          </a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <b-container fluid>
+      <b-card bg-variant="sand"
+              text-variant="black"
+              title="List Unit Kerja"
+              class="text-left">
+        
+        <a href="/admin/unit-kerja/add">
+          <button class="btn-success">
+            Add <i class="fas fa-plus-circle fa-lg"></i>
+          </button>
+        </a>
+        <br/><br>
+        <b-table striped hover :fields="fields" :items="listUnitKerja">
+          <template slot="created_at" slot-scope="data">
+            {{ toDate(data.item.created_at.$date) }}
+          </template>
+          <template slot="action" slot-scope="data">
+            <a :href="'/admin/unit-kerja/edit/'+data.item._id.$oid">
+              <i class="fas fa-edit fa-lg"></i>
+            </a>
+          </template>
+        </b-table>
+      </b-card>
+    </b-container>
   </div>
 </template>
 <script>
@@ -55,6 +33,19 @@
       name: 'UnitKerjaList',
       data() {
         return {
+          fields: [
+            {
+              key: 'name',
+              label: 'Unit Kerja'
+            },
+            {
+              key: 'created_at',
+              label: 'Created At'
+            },{
+              key: 'action',
+              label: 'Action'
+            }
+          ]
         };
       },
       created() {

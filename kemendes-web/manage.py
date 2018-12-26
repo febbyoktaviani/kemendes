@@ -9,7 +9,7 @@ app = Flask(__name__)
 manager = Manager(app)
 
 class Hello(Command):
-    "prints hello world"
+    print(dir(app))
 
     def run(self):
         print("hello world")

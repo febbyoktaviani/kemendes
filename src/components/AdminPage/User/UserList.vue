@@ -31,7 +31,7 @@
                       <tr v-for="user in listUser">
                         <td>{{ user.username }}</td>
                         <td>{{ user.email }}</td>
-                        <td>{{ user.role.name }}</td>
+                        <td v-if="user.role">{{ user.role.name }}</td>
                         <td>
                           &nbsp;&nbsp;
                           <a :href="'/admin/user/edit/'+user._id.$oid">

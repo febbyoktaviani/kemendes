@@ -32,10 +32,9 @@ const actions = {
     let res = await getListRole()
     context.commit('listRole', res)
   },
-  async createUser(context) {
-    let res = await postUser()
-    context.commit('user', res)
-    router.push('/admin/user/list')
+  async createUser(context, formData) {
+    let res = await postUser(formData)
+    // context.commit('user', res)
   }
 }
 

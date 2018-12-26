@@ -1,45 +1,39 @@
 <template>
   <div class="berita-edit">
-    <div class="container-table text-left">
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          Berita
-        </div>
-        <div class="panel-body">
-          <form class="form-horizontal">
-            <div class="row">
-              <div class="form-group">
-                <label class="control-label col-sm-2">Judul:</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="email" v-model='berita.title'>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group">
-                <label class="control-label col-sm-2">Content:</label>
-                <div class="col-sm-9">
-                  <editor :init="{plugins: 'wordcount'}" v-model="berita.content"></editor>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group">
-                <label class="control-label col-sm-2">Image:</label>
-                <div class="col-sm-5">
-                  <input class="form-control" type="file" v-on:change="onFileChanged" />
-                  <span> {{ getImageUrl(berita.image) }} </span><br/>
-                  <img :src="url_new ? url_new : getImageUrl(berita.image)" class="holder"/>
-                </div>
-                <div class="col-sm-4">
-                  <button type="button" class="btn btn-success" v-on:click="onUpload">Upload!</button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+    <b-container class="text-left">
+      <h4>Edit Berita</h4>
+      <hr>
+      <b-card bg-variant="sand">
+        <b-form>
+          <b-form-group label="Judul"
+                        :label-cols="2"
+                        size="lg"
+                        horizontal>
+            <b-form-input type="text" v-model="berita.title"></b-form-input>
+          </b-form-group>
+          <b-form-group label="Content"
+                        :label-cols="2"
+                        size="lg"
+                        horizontal>
+            <b-form-textarea type="text" v-model="berita.content" :rows="5"></b-form-textarea>
+          </b-form-group>
+          <b-form-group label="Image"
+                        :label-cols="2"
+                        size="lg"
+                        horizontal>
+            <b-form-file v-model="image"
+                         v-on:change="onFileChanged(image)"
+                         placeholder="Choose a file..."></b-form-file>
+            <div class="mt-3">Selected image: {{berita.image ? berita.image : image && image.name}}</div>
+            <b-img :src="image ? getImageUrl(image) : getImageUrl(berita.image)" fluid/>
+          </b-form-group>
+          <br>
+          <b-form-group class="text-right">
+            <b-button variant="info" v-on:click="onUpload()">Save</b-button>
+          </b-form-group>
+        </b-form>
+      </b-card>
+    </b-container>
   </div>
 </template>
 <script>

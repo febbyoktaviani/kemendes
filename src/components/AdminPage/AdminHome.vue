@@ -1,75 +1,29 @@
 <template>
   <div class="admin-home">
     <AdminMenu />
-    <div class="container-fluid" v-if="$route.path == '/admin'">
-      <div class="container-table">
-        <div class="panel panel-success">
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-sm-3 text-center">
-                <div class="container-fluid blue">
-                  <i class="fas fa-swatchbook fa-3x"></i>
-                  <h4>Rencana Kerja</h4>
-                </div>
-              </div>
-              <div class="col-sm-3 text-center">
-                <div class="container-fluid blue">
-                  <a href="/admin/berita/list">
-                    <i class="fas fa-volume-up fa-3x"></i>
-                    <h4>Berita</h4>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-3 text-center">
-                <div class="container-fluid blue">
-                  <i class="fas fa-swatchbook fa-3x"></i>
-                  <h4>Rencana Kerja</h4>
-                </div>
-              </div>
-              <div class="col-sm-3 text-center">
-                <div class="container-fluid blue">
-                  <a href="/admin">
-                    <i class="fas fa-sitemap fa-3x"></i>
-                    <h4>Struktur Organisasi</h4>
-                </a>
-                </div>
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-sm-3 text-center">
-                <div class="container-fluid blue">
-                  <i class="fas fa-swatchbook fa-3x"></i>
-                  <h4>Rencana Kerja</h4>
-                </div>
-              </div>
-              <div class="col-sm-3 text-center">
-                <div class="container-fluid blue">
-                  <a href="/admin/berita/list">
-                    <i class="fas fa-volume-up fa-3x"></i>
-                    <h4>Berita</h4>
-                  </a>
-                </div>
-              </div>
-              <div class="col-sm-3 text-center">
-                <div class="container-fluid blue">
-                  <i class="fas fa-swatchbook fa-3x"></i>
-                  <h4>Rencana Kerja</h4>
-                </div>
-              </div>
-              <div class="col-sm-3 text-center">
-                <div class="container-fluid blue">
-                  <a href="/admin">
-                    <i class="fas fa-sitemap fa-3x"></i>
-                    <h4>Struktur Organisasi</h4>
-                </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <br/><br />
+    <b-container v-if="$route.path == '/admin'">
+      <b-row>
+        <b-col>
+          <b-card class="text-center"
+                  border-variant="sand"
+                  text-variant="boldtosca">
+            <i class="fas fa-swatchbook fa-3x"></i>
+            <h4>Rencana Kerja</h4>
+          </b-card>
+        </b-col>
+        <b-col>
+          <b-card class="text-center"
+                  border-variant="sand"
+                  text-variant="boldtosca">
+            <i class="fas fa-volume-up fa-3x"></i>
+            <h4>Berita</h4>
+          </b-card>
+        </b-col>
+        <b-col>3 of 3</b-col>
+        <b-col>4 of 4</b-col>
+      </b-row>
+    </b-container>
     <router-view></router-view>
   </div>
 </template>
@@ -113,9 +67,17 @@ export default {
   .blue>a {
     color: #5da78f;
   }
+  .border-sand {
+    border-style: dashed;
+    border-width: 0.5rem;
+    border-color: #f2c888;
+  }
   .container-table {
     min-width: 70%;
     margin-left: 15%;
     margin-right: 65%;
+  }
+  .bg-sand {
+    background-color: #f3faf2;
   }
 </style>

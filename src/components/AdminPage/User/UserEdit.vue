@@ -33,7 +33,7 @@
             </div>
             <div class="row">
               <div class="button-group text-center">
-                <button class="btn btn-success"> Save </button>
+                <button type="button" class="btn btn-success" v-on:click="onSave()"> Save </button>
               </div>
             </div>
           </form>
@@ -54,29 +54,23 @@
     },
     methods: {
       onSave() {
-
-      },
-      onFileChanged(event) {
-        const file = event.target.files[0]
-        this.bagan = file
-        console.log(file)
-
-      },
-      onUpload() {
+        // if (this.user.role) {
+        //   swal({
+        //     title: 'Warning',
+        //     text: 'please select user role!!',
+        //     icon: 'warning',
+        //     dangerMode: true,
+        //     button: 'OK'
+        //   });
+        // }
         const formData = new FormData()
-        formData.append('bagan', this.bagan, this.bagan.name)
-        formData.append('id', this.unitkerja._id.$oid)
-        formData.append('name', this.unitkerja.name)
-        formData.append('profil', this.unitkerja.profil)
-        console.log('frm', formData)
-        this.$store.dispatch('uploadUnitKerja', formData)
-
+        formData.append('id', this.userId)
+        formData.append('username', this.userData.username)
+        formData.append('password', this.userData.password)
+        formData.append('email', this.userData.email)
+        // formData.append('role', this.user.role._id.$oid)
+        this.$store.dispatch('createUser', formData)
       },
-      getImageUrl(filepath) {
-        const file_folder = filepath.split('/')
-        const image_url = `/${file_folder[4]}/${file_folder[5]}`
-        return image_url
-      }
     },
     created() {
       this.$store.dispatch('fetchUser', this.userId)
