@@ -8,7 +8,6 @@
           <b-form-group label="Username"
                         :label-cols="2"
                         horizontal>
-                        {{ username }}
             <b-form-input type="text" v-model="username" value=""></b-form-input>
           </b-form-group>
           <b-form-group label="Password"

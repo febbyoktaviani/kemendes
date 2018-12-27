@@ -95,7 +95,7 @@ def create_app(test_config=None):
         except Exception as e:
             return e.__str__(), 500
 
-    @app.route('/post-role', methods=['GET'])
+    @app.route('/post-role', methods=['POST'])
     @jwt_required
     def post_role():
         try:
