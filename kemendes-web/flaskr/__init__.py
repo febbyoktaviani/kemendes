@@ -54,7 +54,7 @@ def create_app(test_config=None):
             return e.__str__(), 500
 
     @app.route('/post-user', methods=['POST'])
-    @jwt_required
+    # @jwt_required
     def post_user():
         print(request.form)
         try:
