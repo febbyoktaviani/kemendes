@@ -1,18 +1,18 @@
-import Vue from 'vue'
-import axios from 'axios'
-import { base_url, staticToken } from '@/store/config'
+import Vue from 'vue';
+import axios from 'axios';
+import { base_url, staticToken } from '@/store/config';
 
-let user = JSON.parse(localStorage.getItem('user'))
-
+const user = JSON.parse(localStorage.getItem('user'));
+const token = user ? user.access_token : '';
 const api = axios.create({
   baseURL: base_url,
   headers: {
-    Authorization: `Bearer ${user.access_token}`,
+    Authorization: `Bearer ${token}`,
     Accept: 'application/json',
     'Access-Control-Allow-Origin': '*',
-    mode: 'no-cors'
-  }
-})
+    mode: 'no-cors',
+  },
+});
 
 // const instanceUserApi = axios.create({
 //   baseURL: base_url
@@ -20,5 +20,5 @@ const api = axios.create({
 // instanceUserApi.defaults.headers.common["Authorization"] =
 //   "Token" + localStorage.getItem("authToken");
 
-Vue.prototype.$http = api
-export default api
+Vue.prototype.$http = api;
+export default api;
