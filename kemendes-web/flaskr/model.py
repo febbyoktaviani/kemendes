@@ -124,7 +124,6 @@ class Image(Document, TimeStampModel):
         }]
     }
 
-
 class Download(Document, TimeStampModel):
     name = StringField(max_length=250)
     description = StringField(max_length=250)

@@ -3,6 +3,7 @@ import glob
 import json
 import os
 
+from .helpers import *
 from .model import *
 
 
@@ -211,3 +212,15 @@ def search_tag_rencana_kerja(**kwargs):
 def get_list_rencana_kerja():
     tujuan_list = Tujuan.objects.all()
     return tujuan_list.to_json()
+
+def create_init_user_data(app):
+    # create role
+    role = Role(name='admin')
+    role.save()
+
+    # create user
+    user = User(name='mimin',
+                password=generate_password(app, 'mimin123'),
+                email='mimin@mail.com',
+                role=role)
+    user.save()

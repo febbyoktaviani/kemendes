@@ -96,7 +96,7 @@ def create_app(test_config=None):
             return e.__str__(), 500
 
     @app.route('/post-role', methods=['POST'])
-    @jwt_required
+    # @jwt_required
     def post_role():
         try:
             role = RoleListView(app)
