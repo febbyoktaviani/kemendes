@@ -29,6 +29,7 @@
 </template>
 <script>
 import AdminMenu from '@/components/AdminPage/common/AdminMenu';
+
 export default {
   props: ['page', 'id'],
   name: 'AdminHome',
@@ -40,16 +41,16 @@ export default {
       msg: '',
       berita: [
         {
-            'title': 'Berita 1',
-            'image': '',
-            'content': 'content berita 1'
+          title: 'Berita 1',
+          image: '',
+          content: 'content berita 1',
         },
         {
-            'title': 'Berita 2',
-            'image': '',
-            'content': 'content berita 2'
-        }
-    ],
+          title: 'Berita 2',
+          image: '',
+          content: 'content berita 2',
+        },
+      ],
 
     };
   },

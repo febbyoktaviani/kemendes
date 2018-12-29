@@ -3,38 +3,38 @@
 import Vue from 'vue';
 import vSelect from 'vue-select';
 import App from './App';
-import Header from './components/WebPage/common/Header'
+import Header from './components/WebPage/common/Header';
 import store from './store';
 import router from './router';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faCoffee,
-         faDesktop,
-         faClock,
-         faGlobe,
-         faHome,
-         faCog,
-         faPen,
-         faLightbulb,
-         faConciergeBell,
-         faMapMaredAlt,
-         faEnvelopO,
-         faPhoneVolume } from '@fortawesome/free-solid-svg-icons';
+  faDesktop,
+  faClock,
+  faGlobe,
+  faHome,
+  faCog,
+  faPen,
+  faLightbulb,
+  faConciergeBell,
+  faMapMaredAlt,
+  faEnvelopO,
+  faPhoneVolume } from '@fortawesome/free-solid-svg-icons';
 import BootstrapVue from 'bootstrap-vue';
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 Vue.use(BootstrapVue);
 
 library.add(faCoffee,
-            faDesktop,
-            faClock,
-            faGlobe,
-            faHome,
-            faCog,
-            faPen,
-            faLightbulb,
-            faConciergeBell);
+  faDesktop,
+  faClock,
+  faGlobe,
+  faHome,
+  faCog,
+  faPen,
+  faLightbulb,
+  faConciergeBell);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('v-select', vSelect);

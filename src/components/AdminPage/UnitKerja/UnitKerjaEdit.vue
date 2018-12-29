@@ -37,50 +37,49 @@
   </div>
 </template>
 <script>
-  import Editor from '@tinymce/tinymce-vue';
-  import { mapGetters } from 'vuex';
-  import { getImageUrl } from '@/helpers/util';
-  export default {
-    props: ['unitkerjaId'],
-    name: 'UnitKerjaEdit',
-    components: {'editor': Editor},
-    data() {
-      return {
-        bagan: null,
-        url_new: URL.createObjectURL(this.unitkerja.bagan),
-      };
-    },
-    methods: {
-      onFileChanged(event) {
-        const file = event.target.files[0]
-        this.bagan = file
-        console.log(file)
-        this.url_new = URL.createObjectURL(file)
+import Editor from '@tinymce/tinymce-vue';
+import { mapGetters } from 'vuex';
+import { getImageUrl } from '@/helpers/util';
 
-      },
-      onUpload() {
-        const formData = new FormData()
-        formData.append('bagan', this.bagan, this.bagan.name)
-        formData.append('id', this.unitkerja._id.$oid)
-        formData.append('name', this.unitkerja.name)
-        formData.append('profil', this.unitkerja.profil)
-        console.log('frm', formData)
-        this.$store.dispatch('uploadUnitKerja', formData)
-
-      },
-      getImageUrl(filepath) {
-        return getImageUrl(filepath)
-      }
+export default {
+  props: ['unitkerjaId'],
+  name: 'UnitKerjaEdit',
+  components: { editor: Editor },
+  data() {
+    return {
+      bagan: null,
+      url_new: URL.createObjectURL(this.unitkerja.bagan),
+    };
+  },
+  methods: {
+    onFileChanged(event) {
+      const file = event.target.files[0];
+      this.bagan = file;
+      console.log(file);
+      this.url_new = URL.createObjectURL(file);
     },
-    created() {
-      this.$store.dispatch('fetchUnitKerja', this.unitkerjaId)
+    onUpload() {
+      const formData = new FormData();
+      formData.append('bagan', this.bagan, this.bagan.name);
+      formData.append('id', this.unitkerja._id.$oid);
+      formData.append('name', this.unitkerja.name);
+      formData.append('profil', this.unitkerja.profil);
+      console.log('frm', formData);
+      this.$store.dispatch('uploadUnitKerja', formData);
     },
-    computed: {
-      ...mapGetters({
-        unitkerja: 'unitKerja'
-      })
+    getImageUrl(filepath) {
+      return getImageUrl(filepath);
     },
-  };
+  },
+  created() {
+    this.$store.dispatch('fetchUnitKerja', this.unitkerjaId);
+  },
+  computed: {
+    ...mapGetters({
+      unitkerja: 'unitKerja',
+    }),
+  },
+};
 </script>
 <style type="text/css">
   .container-table {

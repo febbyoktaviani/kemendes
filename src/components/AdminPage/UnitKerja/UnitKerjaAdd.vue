@@ -36,48 +36,49 @@
   </div>
 </template>
 <script>
-  import Editor from '@tinymce/tinymce-vue';
-  import swal from 'sweetalert';
-  export default {
-    props: [],
-    name: 'UnitKerjaAdd',
-    components: {'editor': Editor},
-    data() {
-      return {
-        unitkerja: {
-          name: '',
-          profil: '',
-        },
-        bagan: null,
-      };
+import Editor from '@tinymce/tinymce-vue';
+import swal from 'sweetalert';
+
+export default {
+  props: [],
+  name: 'UnitKerjaAdd',
+  components: { editor: Editor },
+  data() {
+    return {
+      unitkerja: {
+        name: '',
+        profil: '',
+      },
+      bagan: null,
+    };
+  },
+  methods: {
+    onFileChanged(event) {
+      const file = event.target.files[0];
+      this.bagan = file;
+      console.log(file);
     },
-    methods: {
-      onFileChanged(event) {
-        const file = event.target.files[0]
-        this.bagan = file
-        console.log(file)
-      },
-      onUpload() {
-        if (!this.bagan) {
-          swal({
-            title:'Error Upload!',
-            text: 'bagan could not be empty!!',
-            icon: 'error',
-            button: 'OK',
-          })
-        }
-        const formData = new FormData()
-        formData.append('bagan', this.bagan, this.bagan.name)
-        formData.append('name', this.unitkerja.name)
-        formData.append('profil', this.unitkerja.profil)
-        console.log('frm', formData)
-        this.$store.dispatch('uploadUnitKerja', formData)
-      },
-      getImageUrl(image) {
-        return URL.createObjectURL(image)
+    onUpload() {
+      if (!this.bagan) {
+        swal({
+          title: 'Error Upload!',
+          text: 'bagan could not be empty!!',
+          icon: 'error',
+          button: 'OK',
+        });
       }
+      const formData = new FormData();
+      formData.append('bagan', this.bagan, this.bagan.name);
+      formData.append('name', this.unitkerja.name);
+      formData.append('profil', this.unitkerja.profil);
+      console.log('frm', formData);
+      this.$store.dispatch('uploadUnitKerja', formData);
     },
-  };
+    getImageUrl(image) {
+      return URL.createObjectURL(image);
+    },
+  },
+};
 </script>
 <style type="text/css">
   .container-table {

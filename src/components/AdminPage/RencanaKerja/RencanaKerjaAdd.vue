@@ -4,7 +4,7 @@
       <b-card bg-variant="sand"
               text-variant="black"
               class="text-left">
-    
+
                   <TujuanForm v-if="step == 0" :tujuan="tujuan"/>
                   <IndikatorForm v-if="step == 1"
                                  :indikators="tujuan.indikators"
@@ -33,70 +33,69 @@
                               class="btn btn-success"
                               v-on:click="save()">Save</button>
       </b-card>
-    </b-container>     
+    </b-container>
   </div>
 </template>
 <script>
-  import TujuanForm from '@/components/AdminPage/RencanaKerja/Form/TujuanForm';
-  import IndikatorForm from '@/components/AdminPage/RencanaKerja/Form/IndikatorForm';
-  import KegiatanForm from '@/components/AdminPage/RencanaKerja/Form/KegiatanForm';
-  import ResikoForm from '@/components/AdminPage/RencanaKerja/Form/ResikoForm';
-  import { mapGetters } from 'vuex';
-  import {base_url} from '@/store/config';
-  import router from '@/router';
-  export default {
-    props: [],
-    components: {TujuanForm, IndikatorForm, KegiatanForm, ResikoForm},
-    name: 'RencanaKerjaAdd',
-    data() {
-      return {
-        step: 0,
-        tujuan: {'id': '', 'indikators':[{'kegiatans':[]}]},
+import TujuanForm from '@/components/AdminPage/RencanaKerja/Form/TujuanForm';
+import IndikatorForm from '@/components/AdminPage/RencanaKerja/Form/IndikatorForm';
+import KegiatanForm from '@/components/AdminPage/RencanaKerja/Form/KegiatanForm';
+import ResikoForm from '@/components/AdminPage/RencanaKerja/Form/ResikoForm';
+import { mapGetters } from 'vuex';
+import { base_url } from '@/store/config';
+import router from '@/router';
+
+export default {
+  props: [],
+  components: { TujuanForm, IndikatorForm, KegiatanForm, ResikoForm },
+  name: 'RencanaKerjaAdd',
+  data() {
+    return {
+      step: 0,
+      tujuan: { id: '', indikators: [{ kegiatans: [] }] },
+    };
+  },
+  created() {
+  },
+  methods: {
+    next() {
+      this.step += 1;
+    },
+    back() {
+      this.step -= 1;
+    },
+    save() {
+      console.log(JSON.stringify(this.tujuan));
+      const header = new Headers({
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        mode: 'no-cors',
+      });
+      const opt = {
+        method: 'POST',
+        headers: header,
+        body: JSON.stringify(this.tujuan),
       };
-    },
-    created() {
-    },
-    methods: {
-      next() {
-        this.step += 1
-      },
-      back() {
-        this.step -= 1
-      },
-      save() {
-        console.log(JSON.stringify(this.tujuan))
-        let header = new Headers({
-          'Accept': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'mode': 'no-cors'
+      fetch(`${base_url}/rencana-kerja`, opt)
+        .then((response) => {
+          if (response.status == 200) {
+            console.log(response);
+            return response.json();
+          }
+        }).then((res) => {
+          console.log(res);
+          router.push(`/admin/tujuan/${res.tujuan_id}`);
+        }).catch((err) => {
+          console.log('err', err);
         });
-        const opt = {
-          method: 'POST',
-          headers: header,
-          body: JSON.stringify(this.tujuan)
-        }
-        fetch(`${base_url}/rencana-kerja`, opt)
-          .then((response) => {
-            if(response.status == 200){
-              console.log(response)
-              return response.json();
-            } 
-            
-          }).then((res) => {
-            console.log(res);
-            router.push(`/admin/tujuan/${res.tujuan_id}`)
-            
-          }).catch((err)=>{
-            console.log('err', err);
-          });
-      }
     },
-    computed: {
-        ...mapGetters({
-          riskFormList: 'riskFormList',
-        })
-    },
-  };
+  },
+  computed: {
+    ...mapGetters({
+      riskFormList: 'riskFormList',
+    }),
+  },
+};
 </script>
 <style type="text/css">
   .sub-field {

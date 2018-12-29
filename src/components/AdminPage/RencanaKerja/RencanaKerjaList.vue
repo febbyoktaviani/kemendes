@@ -27,38 +27,39 @@
   </div>
 </template>
 <script>
-  import { mapGetters } from 'vuex';
-  export default {
-      props: [],
-      name: 'RencanaKerjaList',
-      data() {
-        return {
-          fields: [
-            'name',
-            'unit_pemilik_resiko',
-            'unit_eselon',
-            'periode',
-            'kegiatan',
-            {
-              key: 'action',
-              lable: 'Actions'
-            }
-          ]
-        };
-      },
-      created() {
-          this.$store.dispatch('getListTujuan');
-          console.log('list-tujuan');
-      },
-      methods: {
+import { mapGetters } from 'vuex';
 
-      },
-      computed: {
-        ...mapGetters({
-          ListTujuan: 'listTujuan',
-        })
-    },
-  };
+export default {
+  props: [],
+  name: 'RencanaKerjaList',
+  data() {
+    return {
+      fields: [
+        'name',
+        'unit_pemilik_resiko',
+        'unit_eselon',
+        'periode',
+        'kegiatan',
+        {
+          key: 'action',
+          lable: 'Actions',
+        },
+      ],
+    };
+  },
+  created() {
+    this.$store.dispatch('getListTujuan');
+    console.log('list-tujuan');
+  },
+  methods: {
+
+  },
+  computed: {
+    ...mapGetters({
+      ListTujuan: 'listTujuan',
+    }),
+  },
+};
 </script>
 <style type="text/css">
   .container-table {

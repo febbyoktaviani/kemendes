@@ -26,47 +26,48 @@
   </div>
 </template>
 <script>
-  import { mapGetters, mapActions } from 'vuex';
-  export default {
-      props: [],
-      name: 'BeritaList',
-      data() {
-        return {
-          fields: [
-            {
-              key: 'title',
-              label: 'Judul'
-            },
-            {
-              key: 'created_at',
-              label: 'Created At'
-            },{
-              key: 'action',
-              label: 'Action'
-            }
-          ]
-        };
-      },
-      created() {
-        this.$store.dispatch('fetchListBerita');
-        // console.log('list-berita');
-      },
-      methods: {
-        toDate(ms) {
-          const date = new Date(ms)
-          const date_str = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
-          const time_str = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-          // return date
-          return `${date_str} ${time_str}`
-        }
+import { mapGetters, mapActions } from 'vuex';
 
-      },
-      computed: {
-        ...mapGetters({
-          listBerita: 'listBerita',
-        })
+export default {
+  props: [],
+  name: 'BeritaList',
+  data() {
+    return {
+      fields: [
+        {
+          key: 'title',
+          label: 'Judul',
+        },
+        {
+          key: 'created_at',
+          label: 'Created At',
+        }, {
+          key: 'action',
+          label: 'Action',
+        },
+      ],
+    };
+  },
+  created() {
+    this.$store.dispatch('fetchListBerita');
+    // console.log('list-berita');
+  },
+  methods: {
+    toDate(ms) {
+      const date = new Date(ms);
+      const date_str = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+      const time_str = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+      // return date
+      return `${date_str} ${time_str}`;
     },
-  };
+
+  },
+  computed: {
+    ...mapGetters({
+      listBerita: 'listBerita',
+    }),
+  },
+};
 </script>
 <style type="text/css">
   .container-table {

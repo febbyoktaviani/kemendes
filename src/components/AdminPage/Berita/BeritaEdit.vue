@@ -37,52 +37,51 @@
   </div>
 </template>
 <script>
-  import Editor from '@tinymce/tinymce-vue';
-  import { mapGetters } from 'vuex';
-  import { getImageUrl } from '@/helpers/util';
-  export default {
-    props: ['beritaId'],
-    name: 'BeritaEdit',
-    components: {'editor': Editor},
-    data() {
-      return {
-        judul: '',
-        content: '',
-        image: null,
-        url_new: null,
-      };
-    },
-    methods: {
-      onFileChanged(event) {
-        const file = event.target.files[0]
-        this.image = file
-        console.log(file)
-        this.url_new = URL.createObjectURL(file)
+import Editor from '@tinymce/tinymce-vue';
+import { mapGetters } from 'vuex';
+import { getImageUrl } from '@/helpers/util';
 
-      },
-      onUpload() {
-        const formData = new FormData()
-        formData.append('image', this.image, this.image.name)
-        formData.append('id', this.berita._id.$oid)
-        formData.append('title', this.berita.title)
-        formData.append('content', this.berita.content)
-        console.log('frm', formData)
-        this.$store.dispatch('uploadBerita', formData)
-
-      },
-      getImageUrl(filepath) {
-        return getImageUrl(filepath)
-      }
+export default {
+  props: ['beritaId'],
+  name: 'BeritaEdit',
+  components: { editor: Editor },
+  data() {
+    return {
+      judul: '',
+      content: '',
+      image: null,
+      url_new: null,
+    };
+  },
+  methods: {
+    onFileChanged(event) {
+      const file = event.target.files[0];
+      this.image = file;
+      console.log(file);
+      this.url_new = URL.createObjectURL(file);
     },
-    created() {
-      this.$store.dispatch('fetchBerita', this.beritaId)
+    onUpload() {
+      const formData = new FormData();
+      formData.append('image', this.image, this.image.name);
+      formData.append('id', this.berita._id.$oid);
+      formData.append('title', this.berita.title);
+      formData.append('content', this.berita.content);
+      console.log('frm', formData);
+      this.$store.dispatch('uploadBerita', formData);
     },
-    computed: {
-      ...mapGetters({
-        berita: 'berita'
-      })
+    getImageUrl(filepath) {
+      return getImageUrl(filepath);
     },
-  };
+  },
+  created() {
+    this.$store.dispatch('fetchBerita', this.beritaId);
+  },
+  computed: {
+    ...mapGetters({
+      berita: 'berita',
+    }),
+  },
+};
 </script>
 <style type="text/css">
   .container-table {

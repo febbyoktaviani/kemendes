@@ -5,7 +5,7 @@
               text-variant="black"
               title="List Unit Kerja"
               class="text-left">
-        
+
         <a href="/admin/unit-kerja/add">
           <button class="btn-success">
             Add <i class="fas fa-plus-circle fa-lg"></i>
@@ -27,47 +27,48 @@
   </div>
 </template>
 <script>
-  import { mapGetters, mapActions } from 'vuex';
-  export default {
-      props: [],
-      name: 'UnitKerjaList',
-      data() {
-        return {
-          fields: [
-            {
-              key: 'name',
-              label: 'Unit Kerja'
-            },
-            {
-              key: 'created_at',
-              label: 'Created At'
-            },{
-              key: 'action',
-              label: 'Action'
-            }
-          ]
-        };
-      },
-      created() {
-        this.$store.dispatch('fetchUnitKerjaList');
-        // console.log('list-berita');
-      },
-      methods: {
-        toDate(ms) {
-          const date = new Date(ms)
-          const date_str = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
-          const time_str = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
-          // return date
-          return `${date_str} ${time_str}`
-        }
+import { mapGetters, mapActions } from 'vuex';
 
-      },
-      computed: {
-        ...mapGetters({
-          listUnitKerja: 'unitKerjaList',
-        })
+export default {
+  props: [],
+  name: 'UnitKerjaList',
+  data() {
+    return {
+      fields: [
+        {
+          key: 'name',
+          label: 'Unit Kerja',
+        },
+        {
+          key: 'created_at',
+          label: 'Created At',
+        }, {
+          key: 'action',
+          label: 'Action',
+        },
+      ],
+    };
+  },
+  created() {
+    this.$store.dispatch('fetchUnitKerjaList');
+    // console.log('list-berita');
+  },
+  methods: {
+    toDate(ms) {
+      const date = new Date(ms);
+      const date_str = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+      const time_str = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+      // return date
+      return `${date_str} ${time_str}`;
     },
-  };
+
+  },
+  computed: {
+    ...mapGetters({
+      listUnitKerja: 'unitKerjaList',
+    }),
+  },
+};
 </script>
 <style type="text/css">
   .container-table {

@@ -62,44 +62,45 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
+
 export default {
-    name: 'Header',
-    data() {
-        return {
-            username: '',
-            password: '',
-            isLoggedin: false,
-            submitted: false,
+  name: 'Header',
+  data() {
+    return {
+      username: '',
+      password: '',
+      isLoggedin: false,
+      submitted: false,
+    };
+  },
+  computed: {
+    ...mapGetters({
+      user: 'user',
+    }),
+  },
+  created() {
+    // reset login status
+    // this.logout();
+  },
+  methods: {
+    login() {
+      this.submitted = true;
+      if (this.username && this.password) {
+        const userdata = {
+          username: this.username,
+          password: this.password,
         };
-    },
-    computed: {
-        ...mapGetters({
-          user: 'user'
-        })
-    },
-    created () {
-        // reset login status
-        // this.logout();
-    },
-    methods: {
-      login() {
-          this.submitted = true;
-          if (this.username && this.password) {
-            const userdata = {
-              'username': this.username,
-              'password': this.password
-            } 
-            this.$store.dispatch('login', userdata);
-          }
-      },
-      logout() {
-        this.$store.dispatch('logout');
-      },
-      isAdminPage() {
-        return this.$route.path.includes('admin');
+        this.$store.dispatch('login', userdata);
       }
-    }
+    },
+    logout() {
+      this.$store.dispatch('logout');
+    },
+    isAdminPage() {
+      return this.$route.path.includes('admin');
+    },
+  },
 };
 </script>
 <style type="text/css">

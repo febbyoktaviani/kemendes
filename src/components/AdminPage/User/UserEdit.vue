@@ -39,46 +39,47 @@
   </div>
 </template>
 <script>
-  import Editor from '@tinymce/tinymce-vue';
-  import { mapGetters } from 'vuex';
-  export default {
-    props: ['userId'],
-    name: 'UserEdit',
-    data() {
-      return {
-      };
+import Editor from '@tinymce/tinymce-vue';
+import { mapGetters } from 'vuex';
+
+export default {
+  props: ['userId'],
+  name: 'UserEdit',
+  data() {
+    return {
+    };
+  },
+  methods: {
+    onSave() {
+      if (!this.userData.role) {
+        swal({
+          title: 'Warning',
+          text: 'please select user role!!',
+          icon: 'warning',
+          dangerMode: true,
+          button: 'OK',
+        });
+      }
+      const formData = new FormData();
+      formData.append('id', this.userId);
+      formData.append('username', this.userData.username);
+      formData.append('password', this.userData.password);
+      formData.append('email', this.userData.email);
+      formData.append('role', this.userData.role);
+      this.$store.dispatch('createUser', formData);
     },
-    methods: {
-      onSave() {
-        if (!this.userData.role) {
-          swal({
-            title: 'Warning',
-            text: 'please select user role!!',
-            icon: 'warning',
-            dangerMode: true,
-            button: 'OK'
-          });
-        }
-        const formData = new FormData()
-        formData.append('id', this.userId)
-        formData.append('username', this.userData.username)
-        formData.append('password', this.userData.password)
-        formData.append('email', this.userData.email)
-        formData.append('role', this.userData.role)
-        this.$store.dispatch('createUser', formData)
-      },
-    },
-    created() {
-      this.$store.dispatch('fetchUser', this.userId)
-      this.$store.dispatch('fetchListRole')
-    },
-    computed: {
-      ...mapGetters({
-        userData: 'userData',
-        listRole: 'listRole'
-      })
-    },
-  };
+  },
+  created() {
+    this.$store.dispatch('fetchUser', this.userId);
+    this.$store.dispatch('fetchListRole');
+  },
+  computed: {
+    ...mapGetters({
+      userData: 'userData',
+      listRole: 'listRole',
+    }),
+  },
+};
 </script>
 <style type="text/css">
   .container-table {

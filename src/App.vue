@@ -5,28 +5,29 @@
 </template>
 
 <script>
-import Menu from "@/components/WebPage/common/Menu";
+import Menu from '@/components/WebPage/common/Menu';
+
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    Menu
+    Menu,
   },
   data() {
     return {
       berita: [
         {
-          title: "Berita 1",
-          image: "",
-          content: "content berita 1"
+          title: 'Berita 1',
+          image: '',
+          content: 'content berita 1',
         },
         {
-          title: "Berita 2",
-          image: "",
-          content: "content berita 2"
-        }
-      ]
+          title: 'Berita 2',
+          image: '',
+          content: 'content berita 2',
+        },
+      ],
     };
-  }
+  },
 };
 </script>
 

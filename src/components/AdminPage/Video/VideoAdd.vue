@@ -37,34 +37,34 @@
   </div>
 </template>
 <script>
-  export default {
-    props: [],
-    name: 'VideoAdd',
-    data() {
-      return {
-        video: {
-          title: '',
-          description: '',
-          video_url: '',
-          is_shown: false,
-        },
-      };
+export default {
+  props: [],
+  name: 'VideoAdd',
+  data() {
+    return {
+      video: {
+        title: '',
+        description: '',
+        video_url: '',
+        is_shown: false,
+      },
+    };
+  },
+  methods: {
+    onSave() {
+      const formData = new FormData();
+      formData.append('title', this.video.title);
+      formData.append('description', this.video.description);
+      formData.append('video_url', this.video.video_url);
+      formData.append('is_shown', this.video.is_shown);
+      this.$store.dispatch('uploadVideo', formData);
     },
-    methods: {
-      onSave() {
-        const formData = new FormData()
-        formData.append('title', this.video.title)
-        formData.append('description', this.video.description)
-        formData.append('video_url', this.video.video_url)
-        formData.append('is_shown', this.video.is_shown)
-        this.$store.dispatch('uploadVideo', formData)
-      }
-    },
-    created() {
-    },
-    computed: {
-    }
-  };
+  },
+  created() {
+  },
+  computed: {
+  },
+};
 </script>
 <style type="text/css">
   .container-table {

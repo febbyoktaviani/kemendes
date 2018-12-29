@@ -5,7 +5,7 @@
               text-variant="black"
               title="List Video"
               class="text-left">
-        
+
         <a href="/admin/video/add">
           <button class="btn-success">
             Add <i class="fas fa-plus-circle fa-lg"></i>
@@ -14,7 +14,7 @@
         <br/><br>
         <b-table striped hover :fields="fields" :items="listVideo">
           <template slot="is_shown" slot-scope="data">
-            <i class="fas fa-checklist">{{ data.item.is_shown }} </i>          
+            <i class="fas fa-checklist">{{ data.item.is_shown }} </i>
           </template>
           <template slot="action" slot-scope="data">
             <a :href="'/admin/video/edit/'+data.item._id.$oid">
@@ -27,43 +27,44 @@
   </div>
 </template>
 <script>
-  import { mapGetters, mapActions } from 'vuex';
-  export default {
-      props: [],
-      name: 'VideoList',
-      data() {
-        return {
-          fields: [
-            {
-              key: 'title',
-              label: 'Judul'
-            },
-            'description',
-            'url',
-            {
-              key: 'is_shown',
-              label: 'Active'
-            },
-            {
-              key: 'action',
-              label: 'Action'
-            },
-          ]
-        };
-      },
-      created() {
-        this.$store.dispatch('fetchListVideo');
-        // console.log('list-berita');
-      },
-      methods: {
+import { mapGetters, mapActions } from 'vuex';
 
-      },
-      computed: {
-        ...mapGetters({
-          listVideo: 'listVideo',
-        })
-    },
-  };
+export default {
+  props: [],
+  name: 'VideoList',
+  data() {
+    return {
+      fields: [
+        {
+          key: 'title',
+          label: 'Judul',
+        },
+        'description',
+        'url',
+        {
+          key: 'is_shown',
+          label: 'Active',
+        },
+        {
+          key: 'action',
+          label: 'Action',
+        },
+      ],
+    };
+  },
+  created() {
+    this.$store.dispatch('fetchListVideo');
+    // console.log('list-berita');
+  },
+  methods: {
+
+  },
+  computed: {
+    ...mapGetters({
+      listVideo: 'listVideo',
+    }),
+  },
+};
 </script>
 <style type="text/css">
   .container-table {

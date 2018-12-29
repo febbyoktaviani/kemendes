@@ -26,18 +26,18 @@
   </div>
 </template>
 <script>
-  export default {
-    props: ['tujuan'],
-    name: 'TujuanForm',
-    data() {
-      return {
-        name: this.tujuan.name,
-        unit_pemilik_resiko: this.tujuan.unit_pemilik_resiko,
-        unit_eselon: this.tujuan.unit_eselon,
-        kegiatan: this.tujuan.kegiatan
-      };
-    },
-  };
+export default {
+  props: ['tujuan'],
+  name: 'TujuanForm',
+  data() {
+    return {
+      name: this.tujuan.name,
+      unit_pemilik_resiko: this.tujuan.unit_pemilik_resiko,
+      unit_eselon: this.tujuan.unit_eselon,
+      kegiatan: this.tujuan.kegiatan,
+    };
+  },
+};
 </script>
 <style type="text/css">
   .panel-footer {

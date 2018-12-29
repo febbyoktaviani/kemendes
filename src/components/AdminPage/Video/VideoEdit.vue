@@ -37,34 +37,35 @@
   </div>
 </template>
 <script>
-  import { mapGetters } from 'vuex';
-  export default {
-    props: ['videoId'],
-    name: 'VideoEdit',
-    data() {
-      return {
-      };
+import { mapGetters } from 'vuex';
+
+export default {
+  props: ['videoId'],
+  name: 'VideoEdit',
+  data() {
+    return {
+    };
+  },
+  methods: {
+    onSave() {
+      const formData = new FormData();
+      formData.append('id', this.video._id.$oid);
+      formData.append('title', this.video.title);
+      formData.append('description', this.video.description);
+      formData.append('url', this.video.url);
+      formData.append('is_shown', this.video.is_shown);
+      this.$store.dispatch('uploadVideo', formData);
     },
-    methods: {
-      onSave() {
-        const formData = new FormData()
-        formData.append('id', this.video._id.$oid)
-        formData.append('title', this.video.title)
-        formData.append('description', this.video.description)
-        formData.append('url', this.video.url)
-        formData.append('is_shown', this.video.is_shown)
-        this.$store.dispatch('uploadVideo', formData)
-      }
-    },
-    created() {
-      this.$store.dispatch('fetchVideo', this.videoId)
-    },
-    computed: {
-      ...mapGetters({
-        video: 'video'
-      })
-    }
-  };
+  },
+  created() {
+    this.$store.dispatch('fetchVideo', this.videoId);
+  },
+  computed: {
+    ...mapGetters({
+      video: 'video',
+    }),
+  },
+};
 </script>
 <style type="text/css">
   .container-table {

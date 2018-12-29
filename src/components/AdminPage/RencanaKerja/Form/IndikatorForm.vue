@@ -14,24 +14,24 @@
   </div>
 </template>
 <script>
-  export default {
-    props: ['indikators', 'tujuanName'],
-    name: 'IndikatorForm',
-    data() {
-      return {
-      };
+export default {
+  props: ['indikators', 'tujuanName'],
+  name: 'IndikatorForm',
+  data() {
+    return {
+    };
+  },
+  methods: {
+    add() {
+      console.log(this.indikators);
+      this.indikators.push({ name: '', id: '', kegiatans: [] });
     },
-    methods: {
-      add() {
-        console.log(this.indikators)
-        this.indikators.push({'name': '', 'id': '', 'kegiatans': []})
-      },
-      remove(index) {
-        console.log(this.indikators)
-        this.indikators.splice(index, 1)
-      }
-    }
-  };
+    remove(index) {
+      console.log(this.indikators);
+      this.indikators.splice(index, 1);
+    },
+  },
+};
 </script>
 <style type="text/css">
   .panel-footer {

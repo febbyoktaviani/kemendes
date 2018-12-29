@@ -39,51 +39,52 @@
   </div>
 </template>
 <script>
-  import { mapGetters } from 'vuex';
-  import swal from 'sweetalert';
-  export default {
-    props: [],
-    name: 'UserAdd',
-    data() {
-      return {
-          username: null,
-          password: null,
-          email: null,
-          role: null,
-      };
-    },
-    methods: {
-      onSave() {
-        if (!this.user.role) {
-          swal({
-            title: 'Warning',
-            text: 'please select user role!!',
-            icon: 'warning',
-            dangerMode: true,
-            button: 'OK'
-          });
-        }
-        const formData = new FormData()
-        formData.append('username', this.username)
-        formData.append('password', this.password)
-        formData.append('email', this.email)
-        formData.append('role', this.role)
-        this.$store.dispatch('createUser', formData)
+import { mapGetters } from 'vuex';
+import swal from 'sweetalert';
+
+export default {
+  props: [],
+  name: 'UserAdd',
+  data() {
+    return {
+      username: null,
+      password: null,
+      email: null,
+      role: null,
+    };
+  },
+  methods: {
+    onSave() {
+      if (!this.user.role) {
+        swal({
+          title: 'Warning',
+          text: 'please select user role!!',
+          icon: 'warning',
+          dangerMode: true,
+          button: 'OK',
+        });
       }
+      const formData = new FormData();
+      formData.append('username', this.username);
+      formData.append('password', this.password);
+      formData.append('email', this.email);
+      formData.append('role', this.role);
+      this.$store.dispatch('createUser', formData);
     },
-    created() {
-      this.$store.dispatch('fetchListRole')
-      this.username = null;
-      this.password = null;
-      this.email = null;
-      this.role = null;
-    },
-    computed: {
-      ...mapGetters({
-        listRole: 'listRole'
-      })
-    }
-  };
+  },
+  created() {
+    this.$store.dispatch('fetchListRole');
+    this.username = null;
+    this.password = null;
+    this.email = null;
+    this.role = null;
+  },
+  computed: {
+    ...mapGetters({
+      listRole: 'listRole',
+    }),
+  },
+};
 </script>
 <style type="text/css">
   .container-table {

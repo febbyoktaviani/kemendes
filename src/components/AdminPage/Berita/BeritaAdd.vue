@@ -37,40 +37,41 @@
   </div>
 </template>
 <script>
-  import Editor from '@tinymce/tinymce-vue';
-  import { getImageUrl } from '@/helpers/util';
-  export default {
-    props: [],
-    name: 'BeritaAdd',
-    components: {'editor': Editor},
-    data() {
-      return {
-        berita: {
-          judul: '',
-          content: '',
-        },
-        image: null,
-      };
-    },
-    methods: {
-      onFileChanged(event) {
-        const file = event.target.files[0]
-        this.image = file
-        console.log(file)
+import Editor from '@tinymce/tinymce-vue';
+import { getImageUrl } from '@/helpers/util';
+
+export default {
+  props: [],
+  name: 'BeritaAdd',
+  components: { editor: Editor },
+  data() {
+    return {
+      berita: {
+        judul: '',
+        content: '',
       },
-      onUpload() {
-        const formData = new FormData()
-        formData.append('image', this.image, this.image.name)
-        formData.append('title', this.berita.judul)
-        formData.append('content', this.berita.content)
-        console.log('frm', formData)
-        this.$store.dispatch('uploadBerita', formData)
-      },
-      getImageUrl(image) {
-        return URL.createObjectURL(image)
-      }
+      image: null,
+    };
+  },
+  methods: {
+    onFileChanged(event) {
+      const file = event.target.files[0];
+      this.image = file;
+      console.log(file);
     },
-  };
+    onUpload() {
+      const formData = new FormData();
+      formData.append('image', this.image, this.image.name);
+      formData.append('title', this.berita.judul);
+      formData.append('content', this.berita.content);
+      console.log('frm', formData);
+      this.$store.dispatch('uploadBerita', formData);
+    },
+    getImageUrl(image) {
+      return URL.createObjectURL(image);
+    },
+  },
+};
 </script>
 <style type="text/css">
 </style>

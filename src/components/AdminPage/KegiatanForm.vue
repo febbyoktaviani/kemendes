@@ -33,23 +33,23 @@
   </div>
 </template>
 <script>
-  export default {
-    props: ['tujuanId', 'indikators', 'tujuanName'],
-    name: 'KegiatanForm',
-    data() {
-      return {
-      };
+export default {
+  props: ['tujuanId', 'indikators', 'tujuanName'],
+  name: 'KegiatanForm',
+  data() {
+    return {
+    };
+  },
+  methods: {
+    add(idx) {
+      console.log(this.indikators[idx]);
+      this.indikators[idx].kegiatans.push({ name: '', id: '', resiko_kegiatan: [] });
     },
-    methods: {
-      add(idx) {
-        console.log(this.indikators[idx])
-        this.indikators[idx].kegiatans.push({'name': '', 'id': '', 'resiko_kegiatan': []})
-      },
-      remove(idx, k_idx) {
-        this.indikators[idx].kegiatans.splice(k_idx, 1)
-      }
-    }
-  };
+    remove(idx, k_idx) {
+      this.indikators[idx].kegiatans.splice(k_idx, 1);
+    },
+  },
+};
 </script>
 <style type="text/css">
   .panel-footer {

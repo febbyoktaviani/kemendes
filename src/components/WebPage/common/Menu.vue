@@ -115,67 +115,67 @@
   </div>
 </template>
 <script>
-import { base_url } from "@/store/config";
+import { base_url } from '@/store/config';
 
 export default {
-  name: "Menu",
+  name: 'Menu',
   data() {
     return {
-      msg: "",
+      msg: '',
       berita: [
         {
-          title: "Berita 1",
-          image: "",
-          content: "content berita 1"
+          title: 'Berita 1',
+          image: '',
+          content: 'content berita 1',
         },
         {
-          title: "Berita 2",
-          image: "",
-          content: "content berita 2"
-        }
+          title: 'Berita 2',
+          image: '',
+          content: 'content berita 2',
+        },
       ],
       unitKerja: [],
-      username: "",
-      password: ""
+      username: '',
+      password: '',
     };
   },
   created() {
     const opt = {
-      method: "GET",
+      method: 'GET',
       headers: new Headers({
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-        mode: "no-cors"
-      })
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        mode: 'no-cors',
+      }),
     };
     fetch(`${base_url}/title-berita`, opt)
-      .then(response => {
+      .then((response) => {
         if (response.status == 200) {
           return response.json();
         }
       })
-      .then(res => {
+      .then((res) => {
         console.log(res);
         this.berita = res;
       })
-      .catch(err => {
-        console.log("err", err);
+      .catch((err) => {
+        console.log('err', err);
       });
 
     fetch(`${base_url}/title-unitkerja`, opt)
-      .then(response => {
+      .then((response) => {
         if (response.status == 200) {
           return response.json();
         }
       })
-      .then(res => {
+      .then((res) => {
         console.log(res);
         this.unitKerja = res;
       })
-      .catch(err => {
-        console.log("err", err);
+      .catch((err) => {
+        console.log('err', err);
       });
-  }
+  },
 };
 </script>
 <style>

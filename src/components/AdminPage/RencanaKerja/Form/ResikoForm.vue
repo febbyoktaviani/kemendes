@@ -17,7 +17,7 @@
               <b-btn variant="outline-info" v-on:click="add(idx, kgidx)">+</b-btn>
             </b-input-group-append>
           </b-input-group>
-          
+
           <b-card  v-for="(resiko, r_idx) in kegiatan.resiko_kegiatan" class="mt-2">
             <b-card-text>
               <b-btn variant="outline-danger"
@@ -167,45 +167,45 @@
   </div>
 </template>
 <script>
-  export default {
-    props: ['indikators', 'tujuanName'],
-    name: 'ResikoForm',
-    data() {
-      return {
+export default {
+  props: ['indikators', 'tujuanName'],
+  name: 'ResikoForm',
+  data() {
+    return {
+    };
+  },
+  methods: {
+    add(idx, kgidx) {
+      console.log('here', this.indikators[idx].kegiatans[kgidx]);
+      const data_resiko = {
+        id: '',
+        sumber_resiko: '',
+        kategori_resiko: '',
+        resiko: '',
+        penyebab_resiko: '',
+        dampak_resiko: '',
+        pengendalian_uraian: '',
+        pengendalian_kategori: '',
+        resiko_residual: '',
+        pemilik_resiko: '',
+        pengukuran_kemungkinan: '',
+        pengukuran_dampak: '',
+        pengukuran_status_resiko: '',
+        level_resiko: '',
+        peringkat_resiko: '',
+        rtp: '',
+        penanggung_jawab: '',
+        target_waktu: '',
+        komunikasi: '',
+        pemantauan: '',
       };
+      this.indikators[idx].kegiatans[kgidx].resiko_kegiatan.push(data_resiko);
     },
-    methods: {
-      add(idx, kgidx) {
-        console.log('here', this.indikators[idx].kegiatans[kgidx])
-        const data_resiko = {
-          'id': '',
-          'sumber_resiko': '',
-          'kategori_resiko': '',
-          'resiko': '',
-          'penyebab_resiko': '',
-          'dampak_resiko': '',
-          'pengendalian_uraian': '',
-          'pengendalian_kategori': '',
-          'resiko_residual': '',
-          'pemilik_resiko': '',
-          'pengukuran_kemungkinan': '',
-          'pengukuran_dampak': '',
-          'pengukuran_status_resiko': '',
-          'level_resiko': '',
-          'peringkat_resiko': '',
-          'rtp': '',
-          'penanggung_jawab': '',
-          'target_waktu': '',
-          'komunikasi': '',
-          'pemantauan': ''
-        }
-        this.indikators[idx].kegiatans[kgidx].resiko_kegiatan.push(data_resiko)
-      },
-      remove(idx, kgidx, r_idx) {
-        this.indikators[idx].kegiatans[kgidx].resiko_kegiatan.splice(r_idx, 1)
-      }
-    }
-  };
+    remove(idx, kgidx, r_idx) {
+      this.indikators[idx].kegiatans[kgidx].resiko_kegiatan.splice(r_idx, 1);
+    },
+  },
+};
 </script>
 <style type="text/css">
   .panel-footer {

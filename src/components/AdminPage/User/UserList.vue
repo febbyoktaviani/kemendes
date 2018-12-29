@@ -5,7 +5,7 @@
               text-variant="black"
               title="List User"
               class="text-left">
-        
+
         <a href="/admin/user/add">
           <button class="btn-success">
             Add <i class="fas fa-plus-circle fa-lg"></i>
@@ -27,45 +27,46 @@
   </div>
 </template>
 <script>
-  import { mapGetters, mapActions } from 'vuex';
-  export default {
-      props: [],
-      name: 'UserList',
-      data() {
-        return {
-          fields: [
-            {
-              key: 'username',
-              label: 'Username'
-            },
-            {
-              key: 'email',
-              label: 'Email'
-            },
-            {
-              key: 'role',
-              label: 'Role'
-            },
-            {
-              key: 'action',
-              label: 'Actions'
-            }
-          ]
-        };
-      },
-      created() {
-        this.$store.dispatch('fetchListUser');
-        // console.log('list-berita');
-      },
-      methods: {
+import { mapGetters, mapActions } from 'vuex';
 
-      },
-      computed: {
-        ...mapGetters({
-          listUser: 'listUser',
-        })
-    },
-  };
+export default {
+  props: [],
+  name: 'UserList',
+  data() {
+    return {
+      fields: [
+        {
+          key: 'username',
+          label: 'Username',
+        },
+        {
+          key: 'email',
+          label: 'Email',
+        },
+        {
+          key: 'role',
+          label: 'Role',
+        },
+        {
+          key: 'action',
+          label: 'Actions',
+        },
+      ],
+    };
+  },
+  created() {
+    this.$store.dispatch('fetchListUser');
+    // console.log('list-berita');
+  },
+  methods: {
+
+  },
+  computed: {
+    ...mapGetters({
+      listUser: 'listUser',
+    }),
+  },
+};
 </script>
 <style type="text/css">
   .container-table {

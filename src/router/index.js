@@ -41,7 +41,7 @@ const router = new Router({
       children: [
         {
           path: 'rencana-kerja/list',
-          component: RencanaKerjaList
+          component: RencanaKerjaList,
         },
         {
           path: 'rencana-kerja/edit/:tujuanId',
@@ -114,7 +114,7 @@ const router = new Router({
           path: 'video/add',
           component: VideoAdd,
         },
-      ]
+      ],
     },
   ],
 });
@@ -130,6 +130,6 @@ router.beforeEach((to, from, next) => {
   }
 
   next();
-})
+});
 
 export default router;

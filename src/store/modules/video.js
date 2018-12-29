@@ -2,42 +2,42 @@ import { getListVideo, getVideo, postVideo } from '@/api/video';
 import router from '@/router';
 
 const state = {
-    listVideo: [],
-    video: {},
-}
+  listVideo: [],
+  video: {},
+};
 
 const mutations = {
   listVideo: (state, res) => {
     state.listVideo = res;
   },
   video: (state, res) => {
-    state.video = res
+    state.video = res;
   },
-}
+};
 
 const actions = {
   async fetchListVideo(context) {
-    let res = await getListVideo()
-    context.commit('listVideo', res)
+    const res = await getListVideo();
+    context.commit('listVideo', res);
   },
   async fetchVideo(context, video_id) {
-    let res = await getVideo(video_id)
-    context.commit('video', res)
+    const res = await getVideo(video_id);
+    context.commit('video', res);
   },
   async uploadVideo(context, formData) {
-    let res = await postVideo(formData)
+    const res = await postVideo(formData);
     // context.commit('isVideoUploaded', res)
-    router.push('/admin/video/list')
+    router.push('/admin/video/list');
   },
-}
+};
 
 const getters = {
-    listVideo(state){
-        return state.listVideo
-    },
-    video(state) {
-        return state.video
-    },
-}
+  listVideo(state) {
+    return state.listVideo;
+  },
+  video(state) {
+    return state.video;
+  },
+};
 
-export default { state, mutations, actions, getters }
+export default { state, mutations, actions, getters };

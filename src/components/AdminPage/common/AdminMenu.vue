@@ -49,22 +49,22 @@
   </div>
 </template>
 <script>
-import {base_url} from '@/store/config'
+import { base_url } from '@/store/config';
 
 export default {
   name: 'AdminMenu',
   data() {
     return {
       active: '',
-      menus: ['Rencana Kerja', 'Berita', 'Unit Kerja']
+      menus: ['Rencana Kerja', 'Berita', 'Unit Kerja'],
     };
   },
   created() {
   },
   methods: {
     navActive(menu) {
-      this.active = menu
-    }
+      this.active = menu;
+    },
   },
 };
 </script>

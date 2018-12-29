@@ -1,10 +1,10 @@
 <template>
   <div class="rencana-kerja-edit">
-    <div class="container text-left">    
+    <div class="container text-left">
       <br>
       <div class="row">
         <div class="col-sm-12 linkapp-container">
-          <div class="container text-left">    
+          <div class="container text-left">
             <br>
             <div class="row">
               <div class="col-sm-12 linkapp-container">
@@ -48,70 +48,69 @@
   </div>
 </template>
 <script>
-  import TujuanForm from '@/components/AdminPage/RencanaKerja/Form/TujuanForm';
-  import IndikatorForm from '@/components/AdminPage/RencanaKerja/Form/IndikatorForm';
-  import KegiatanForm from '@/components/AdminPage/RencanaKerja/Form/KegiatanForm';
-  import ResikoForm from '@/components/AdminPage/RencanaKerja/Form/ResikoForm';
-  import { mapGetters } from 'vuex';
-  import {base_url} from '@/store/config';
-  import router from '@/router';
-  export default {
-    props: ['tujuanId'],
-    components: {TujuanForm, IndikatorForm, KegiatanForm, ResikoForm},
-    name: 'RencanaKerjaEdit',
-    data() {
-      return {
-        step: 0,
+import TujuanForm from '@/components/AdminPage/RencanaKerja/Form/TujuanForm';
+import IndikatorForm from '@/components/AdminPage/RencanaKerja/Form/IndikatorForm';
+import KegiatanForm from '@/components/AdminPage/RencanaKerja/Form/KegiatanForm';
+import ResikoForm from '@/components/AdminPage/RencanaKerja/Form/ResikoForm';
+import { mapGetters } from 'vuex';
+import { base_url } from '@/store/config';
+import router from '@/router';
+
+export default {
+  props: ['tujuanId'],
+  components: { TujuanForm, IndikatorForm, KegiatanForm, ResikoForm },
+  name: 'RencanaKerjaEdit',
+  data() {
+    return {
+      step: 0,
+    };
+  },
+  created() {
+    if (this.tujuanId != '1') {
+      this.$store.dispatch('getTujuan', this.tujuanId);
+      console.log('tujuan');
+    }
+  },
+  methods: {
+    next() {
+      this.step += 1;
+    },
+    back() {
+      this.step -= 1;
+    },
+    save() {
+      console.log(JSON.stringify(this.tujuan));
+      const header = new Headers({
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        mode: 'no-cors',
+      });
+      const opt = {
+        method: 'POST',
+        headers: header,
+        body: JSON.stringify(this.tujuan),
       };
-    },
-    created() {
-        if (this.tujuanId != '1') {
-          this.$store.dispatch('getTujuan', this.tujuanId);
-          console.log('tujuan')
-        }
-    },
-    methods: {
-      next() {
-        this.step += 1
-      },
-      back() {
-        this.step -= 1
-      },
-      save() {
-        console.log(JSON.stringify(this.tujuan))
-        let header = new Headers({
-          'Accept': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'mode': 'no-cors'
+      fetch(`${base_url}/rencana-kerja`, opt)
+        .then((response) => {
+          if (response.status == 200) {
+            console.log(response);
+            return response.json();
+          }
+        }).then((res) => {
+          console.log(res);
+          router.push(`/admin/tujuan/${res.tujuan_id}`);
+        }).catch((err) => {
+          console.log('err', err);
         });
-        const opt = {
-          method: 'POST',
-          headers: header,
-          body: JSON.stringify(this.tujuan)
-        }
-        fetch(`${base_url}/rencana-kerja`, opt)
-          .then((response) => {
-            if(response.status == 200){
-              console.log(response)
-              return response.json();
-            } 
-            
-          }).then((res) => {
-            console.log(res);
-            router.push(`/admin/tujuan/${res.tujuan_id}`)
-            
-          }).catch((err)=>{
-            console.log('err', err);
-          });
-      }
     },
-    computed: {
-        ...mapGetters({
-          tujuan: 'tujuan',
-          riskFormList: 'riskFormList',
-        })
-    },
-  };
+  },
+  computed: {
+    ...mapGetters({
+      tujuan: 'tujuan',
+      riskFormList: 'riskFormList',
+    }),
+  },
+};
 </script>
 <style type="text/css">
   .sub-field {

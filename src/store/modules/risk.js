@@ -2,7 +2,7 @@ import { base_url, staticToken } from '../config';
 import { getListRencanaKerja, getRencanaKerja } from '@/api/rencanakerja';
 
 const state = {
-  tujuan: {'id': '', 'indikators':[{'kegiatans':[]}]},
+  tujuan: { id: '', indikators: [{ kegiatans: [] }] },
   token: staticToken,
   riskFormList: [
     'sumber_resiko',
@@ -37,11 +37,11 @@ const state = {
 
 const actions = {
   async getTujuan({ commit }, tujuanId) {
-    let res = await getRencanaKerja(tujuanId)
+    const res = await getRencanaKerja(tujuanId);
     commit('TUJUAN', res);
   },
   async getListTujuan({ commit }) {
-    let res = await getListRencanaKerja()
+    const res = await getListRencanaKerja();
     commit('LIST_TUJUAN', res);
   },
 };

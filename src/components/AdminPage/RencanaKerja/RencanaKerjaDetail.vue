@@ -294,27 +294,27 @@
   <!-- </div> -->
 </template>
 <script>
-  import { mapGetters } from 'vuex';
-  export default {
-    props: ['tujuanId'],
-    name: 'RencanaKerjaDetail',
-    data() {
-      return {
-        // tujuan: 'test',
-      };
-    },
-    created() {
-        this.$store.dispatch('getTujuan', this.tujuanId);
-        console.log('tujuan')
+import { mapGetters } from 'vuex';
 
-    },
-    computed: {
-        ...mapGetters({
-          tujuan: 'tujuan',
-          riskFormList: 'riskFormList',
-        })
-    },
-    methods: {
+export default {
+  props: ['tujuanId'],
+  name: 'RencanaKerjaDetail',
+  data() {
+    return {
+      // tujuan: 'test',
+    };
+  },
+  created() {
+    this.$store.dispatch('getTujuan', this.tujuanId);
+    console.log('tujuan');
+  },
+  computed: {
+    ...mapGetters({
+      tujuan: 'tujuan',
+      riskFormList: 'riskFormList',
+    }),
+  },
+  methods: {
     //     createTujuan() {
     //         const opt = {
     //           method: 'POST',
@@ -328,7 +328,7 @@
     //           .then((response) => {
     //             if(response.status == 200){
     //               return response.json();
-    //             } 
+    //             }
     //           }).then((res) => {
     //             console.log('tujuan', res);
     //             this.tujuan = res;
@@ -336,9 +336,9 @@
     //             console.log('err', err);
     //           });
     //         }
-      
-    },
-  };
+
+  },
+};
 </script>
 <style type="text/css">
   .top-bordered {
