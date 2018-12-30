@@ -210,7 +210,7 @@ def search_tag_rencana_kerja(**kwargs):
     keyword = kwargs['keyword']
 
 def get_list_rencana_kerja():
-    tujuan_list = Tujuan.objects.all()
+    tujuan_list = Tujuan.objects.all().order_by('-updated_at')
     return tujuan_list.to_json()
 
 def create_init_user_data(app):

@@ -118,17 +118,19 @@ class BeritaListView(object):
         # user = User.objects.get(username=self.identity)
         print(query_param)
         if query_param:
-            beritas = Berita.objects.search_text(query_param).to_json()
+            beritas = Berita.objects.search_text(
+                query_param).order_by('-updated_at').to_json()
         else:
-            beritas = Berita.objects.to_json()
+            beritas = Berita.objects.order_by('-updated_at').to_json()
         print(beritas)
         return beritas
 
     def get_title(self, query_param=None):
         if query_param:
-            beritas = Berita.objects.only('title').search_text(query_param).to_json()
+            beritas = Berita.objects.only('title').search_text(
+                query_param).order_by('-updated_at').to_json()
         else:
-            beritas = Berita.objects.only('title').to_json()
+            beritas = Berita.objects.only('title').order_by('-updated_at').to_json()
         return beritas
 
 
@@ -184,16 +186,18 @@ class UnitKerjaListView(object):
 
     def get(self, query_param):
         if query_param:
-            list_unit_kerja = UnitKerja.objects.search_text(query_param).to_json()
+            list_unit_kerja = UnitKerja.objects.search_text(
+                query_param).order_by('-updated_at').to_json()
         else:
-            list_unit_kerja = UnitKerja.objects.to_json()
+            list_unit_kerja = UnitKerja.objects.order_by('-updated_at').to_json()
         return list_unit_kerja
 
     def get_title(self, query_param=None):
         if query_param:
-            title_unit_kerja = UnitKerja.objects.only('name').search_text(query_param).to_json()
+            title_unit_kerja = UnitKerja.objects.only(
+                'name').search_text(query_param).order_by('-updated_at').to_json()
         else:
-            title_unit_kerja = UnitKerja.objects.only('name').to_json()
+            title_unit_kerja = UnitKerja.objects.only('name').order_by('-updated_at').to_json()
         return title_unit_kerja
 
 
@@ -264,9 +268,10 @@ class VideoListView(object):
     def get_list(self, query_param):
         try:
             if query_param:
-                result = Video.objects.search_text(query_param).to_json()
+                result = Video.objects.search_text(
+                    query_param).order_by('-updated_at').to_json()
             else:
-                result = Video.objects.to_json()
+                result = Video.objects.order_by('-updated_at').to_json()
         except Exception as e:
             return e.__str__(), StatusCodes.HTTP_400_BAD_REQUEST
 
@@ -311,9 +316,9 @@ class ImageListView(object):
     def get_list(self, search_text):
         try:
             if search_text:
-                result = Image.objects.search_text(search_text)
+                result = Image.objects.search_text(search_text).order_by('-updated_at').to_json()
             else:
-                result = Image.objects.to_json()
+                result = Image.objects.order_by('-updated_at').to_json()
         except Exception as e:
             return e.__str__(), StatusCodes.HTTP_400_BAD_REQUEST
 
