@@ -2,10 +2,14 @@ import swal from 'sweetalert';
 import api from './index';
 import router from '@/router';
 
-
-const getUnitKerjas = async function () {
+const getListUnitKerja = async function () {
   const { data: unitKerjas } = await api.get('/list-unitkerja');
   return unitKerjas;
+};
+
+const getTitlesUnitKerja = async function () {
+  const { data: titles } = await api.get('/title-unitkerja');
+  return titles;
 };
 
 const getUnitKerja = async function (unitkerja_id) {
@@ -35,6 +39,4 @@ const postUnitKerja = async function (formData) {
   }
 };
 
-
-export { getUnitKerjas, postUnitKerja, getUnitKerja };
-
+export { getListUnitKerja, getTitlesUnitKerja, postUnitKerja, getUnitKerja };

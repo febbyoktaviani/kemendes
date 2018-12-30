@@ -1,9 +1,9 @@
-import { getListBerita, getBerita, postBerita } from '@/api/berita';
+import { getListBerita, getBerita, postBerita, getTitlesBerita } from '@/api/berita';
 import router from '@/router';
-
 
 const state = {
   listBerita: [],
+  beritaTitles: [],
   berita: {},
   is_uploaded: false,
 };
@@ -11,6 +11,9 @@ const state = {
 const mutations = {
   LIST_BERITA: (state, res) => {
     state.listBerita = res;
+  },
+  TITLES_BERITA: (state, res) => {
+    state.beritaTitles = res;
   },
   GET_BERITA: (state, res) => {
     state.berita = res;
@@ -24,6 +27,10 @@ const actions = {
   async fetchListBerita(context) {
     const res = await getListBerita();
     context.commit('LIST_BERITA', res);
+  },
+  async fetchTitlesBerita(context) {
+    const res = await getTitlesBerita();
+    context.commit('TITLES_BERITA', res);
   },
   async fetchBerita(context, berita_id) {
     const res = await getBerita(berita_id);

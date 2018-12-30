@@ -8,10 +8,14 @@ import RencanaKerjaDetail from '@/components/AdminPage/RencanaKerja/RencanaKerja
 import RencanaKerjaEdit from '@/components/AdminPage/RencanaKerja/RencanaKerjaEdit';
 import RencanaKerjaAdd from '@/components/AdminPage/RencanaKerja/RencanaKerjaAdd';
 // Berita
+import BeritaPage from '@/components/WebPage/BeritaPage'
+import BeritaListPage from '@/components/WebPage/BeritaListPage'
 import BeritaList from '@/components/AdminPage/Berita/BeritaList';
 import BeritaEdit from '@/components/AdminPage/Berita/BeritaEdit';
 import BeritaAdd from '@/components/AdminPage/Berita/BeritaAdd';
 // Unit Kerja
+import UnitKerjaPage from '@/components/WebPage/UnitKerjaPage'
+import UnitKerjaListPage from '@/components/WebPage/UnitKerjaListPage'
 import UnitKerjaList from '@/components/AdminPage/UnitKerja/UnitKerjaList';
 import UnitKerjaEdit from '@/components/AdminPage/UnitKerja/UnitKerjaEdit';
 import UnitKerjaAdd from '@/components/AdminPage/UnitKerja/UnitKerjaAdd';
@@ -134,6 +138,22 @@ const router = new Router({
         },
       ],
     },
+    {
+      path: '/berita',
+      component: BeritaListPage
+    },
+    {
+      path: '/berita/:id',
+      component: BeritaPage
+    },
+    {
+      path: '/unitkerja',
+      component: UnitKerjaListPage
+    },
+    {
+      path: '/unitkerja/:id',
+      component: UnitKerjaPage
+    }
   ],
 });
 

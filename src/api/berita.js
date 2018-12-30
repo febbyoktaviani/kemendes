@@ -7,6 +7,11 @@ const getListBerita = async function () {
   return ListBerita;
 };
 
+const getTitlesBerita = async function () {
+  const { data: titles } = await api.get('/title-berita');
+  return titles;
+};
+
 const getBerita = async function (berita_id) {
   console.log('api', berita_id);
   const { data: berita } = await api.get(`/berita/${berita_id}`);
@@ -21,4 +26,4 @@ const postBerita = async function (formData) {
   return berita;
 };
 
-export { getListBerita, getBerita, postBerita };
+export { getListBerita, getBerita, postBerita, getTitlesBerita };
