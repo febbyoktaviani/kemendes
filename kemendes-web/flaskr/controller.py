@@ -334,25 +334,31 @@ class ImageListView(object):
 
     def post(self, data, file):
         try:
-            if not file:
-                return 'Image could not be empty', StatusCodes.HTTP_400_BAD_REQUEST
-
-            image_url = upload_file(file)
-            if data.get('id'):
+            is_shown = True if data.get('is_shown') == 'true' else False
+            is_slider = True if data.get('is_slider') == 'true' else False
+            if data.get('id'): 
                 image_obj = Image.objects.get(id=data.get('id'))
+                if file:
+                    image_url = upload_file(file)
+                else:
+                    image_url = image_obj.image_url
                 image_obj.update(title=data.get('title'),
-                                 image_url=file_url,
+                                 image_url=image_url,
                                  description=data.get('description'),
-                                 is_shown=data.get('is_shown'),
-                                 is_slider=data.get('is_slider'))
+                                 is_shown=is_shown,
+                                 is_slider=is_slider)
             else:
+                if not file:
+                    return 'Image Could Not be blank', StatusCodes.HTTP_400_BAD_REQUEST
+                image_url = upload_file(file)
                 image_obj = Image(title=data.get('title'),
                                   description=data.get('description'),
-                                  image_url=file_url,
-                                  is_shown=data.get('is_shown'),
-                                  is_slider=data_get('is_slider'))
+                                  image_url=image_url,
+                                  is_shown=is_shown,
+                                  is_slider=is_slider)
                 image_obj.save()
         except Exception as e:
+            print(e)
             return e.__str__(), StatusCodes.HTTP_400_BAD_REQUEST
 
         return image_obj.to_json()

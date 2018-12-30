@@ -233,7 +233,7 @@ def create_app(test_config=None):
         return image_view.get_list(search_text)
 
     @app.route('/image/<image_id>', methods=['GET'])
-    def image(video_id):
+    def image(image_id):
         image_view = ImageListView(app)
         return image_view.get(image_id)
 
@@ -241,7 +241,11 @@ def create_app(test_config=None):
     @jwt_required
     def post_image():
         image_view = ImageListView(app)
-        return image_view.post(request.form)
+        if 'image' in request.files:
+            image = request.files['image']
+        else:
+            image = None
+        return image_view.post(request.form, image)
 ###################################### END API GALERY ##################################################
 
 ###################################### API Document ##################################################

@@ -8,7 +8,7 @@
           <b-form-group label="Name"
                         :label-cols="2"
                         horizontal>
-            <b-form-input type="text" v-model="galery.name"></b-form-input>
+            <b-form-input type="text" v-model="galery.title"></b-form-input>
           </b-form-group>
           <b-form-group :label-cols="2"
                         size="lg"
@@ -23,8 +23,8 @@
             <b-form-file v-model="image"
                          v-on:change="onFileChanged(image)"
                          placeholder="Choose a file..."></b-form-file>
-            <div class="mt-3">Selected file: {{ image && image.name}}</div>
-            <b-img :src="image && getImageUrl(image)" fluid/>
+            <div class="mt-3">Selected file: {{ galery.image_url ? getImageUrl(galery.image_url) : image && image.name}}</div>
+            <b-img :src="galery.image_url ? getImageUrl(galery.image_url) : image && getImageUrl(image)" fluid/>
           </b-form-group>
           <br>
           <b-form-group class="text-right">
@@ -36,55 +36,49 @@
   </div>
 </template>
 <script>
-  import { mapGetters } from 'vuex';
-  import swal from 'sweetalert';
-  export default {
-    props: ['imageId'],
-    name: 'GaleryEdit',
-    data() {
-      return {
-        galery: {
-          name: '',
-          is_slider: false,
-          is_shown: true,
-        },
-        image: null,
-      };
+import { mapGetters } from 'vuex';
+import swal from 'sweetalert';
+import { getImageUrl } from '@/helpers/util';
+export default {
+  props: ['imageId'],
+  name: 'GaleryEdit',
+  data() {
+    return {
+      image: null,
+    };
+  },
+  created() {
+    this.$store.dispatch('fetchGalery', this.imageId)
+  },
+  computed: {
+    ...mapGetters({
+      galery: 'galery'
+    })
+    
+  },
+  methods: {
+    onFileChanged(event) {
+      const file = event.target.files[0]
+      this.image = file
+      console.log(file)
     },
-    created() {
-
-    },
-    computed: {
-      
-    },
-    methods: {
-      onFileChanged(event) {
-        const file = event.target.files[0]
-        this.image = file
-        console.log(file)
-      },
-      onUpload() {
-        if (!this.image) {
-          swal({
-            title:'Error Upload!',
-            text: 'image could not be empty!!',
-            icon: 'error',
-            button: 'OK',
-          })
-        }
-        const formData = new FormData()
+    onUpload() {
+      const formData = new FormData()
+      formData.append('id', this.imageId)
+      if (this.image) {
         formData.append('image', this.image, this.image.name)
-        formData.append('name', this.galery.name)
-        formData.append('is_slider', this.galery.is_slider)
-        formData.append('is_shown', this.galery.is_shown)
-        console.log('frm', formData)
-        this.$store.dispatch('uploadGalery', formData)
-      },
-      getImageUrl(image) {
-        return URL.createObjectURL(image)
       }
+      formData.append('title', this.galery.title)
+      formData.append('is_slider', this.galery.is_slider)
+      formData.append('is_shown', this.galery.is_shown)
+      console.log('frm', formData)
+      this.$store.dispatch('uploadGalery', formData)
     },
-  };
+    getImageUrl(image) {
+      return getImageUrl(image)
+    }
+  },
+};
 </script>
 <style type="text/css">
   .container-table {

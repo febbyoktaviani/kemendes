@@ -11,7 +11,13 @@
           </button>
         </a>
         <br/><br>
-        <b-table striped hover :fields="fields" :items="listBerita">
+        <b-table striped
+                 hover
+                 :fields="fields"
+                 :items="listBerita"
+                 :current-page="currentPage"
+                 :per-page="perPage"
+                 :small="true">
           <template slot="created_at" slot-scope="data">
             {{ toDate(data.item.created_at.$date) }}
           </template>
@@ -21,6 +27,8 @@
             </a>
           </template>
         </b-table>
+        <b-pagination :total-rows="listBerita.length" align="center" v-model="currentPage" :per-page="perPage">
+        </b-pagination>
       </b-card>
     </b-container>
   </div>
@@ -33,6 +41,8 @@ export default {
   name: 'BeritaList',
   data() {
     return {
+      currentPage: 1,
+      perPage: 20,
       fields: [
         {
           key: 'title',

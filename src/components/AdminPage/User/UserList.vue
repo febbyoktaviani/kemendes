@@ -4,7 +4,10 @@
       <b-card bg-variant="sand"
               text-variant="black"
               title="List User"
-              class="text-left">
+              class="text-left"
+              :current-page="currentPage"
+              :per-page="perPage"
+              :small="true">
 
         <a href="/admin/user/add">
           <button class="btn-success">
@@ -22,6 +25,11 @@
             </a>
           </template>
         </b-table>
+        <b-pagination :total-rows="listUser.length"
+                      align="center"
+                      v-model="currentPage"
+                      :per-page="perPage">
+        </b-pagination>
       </b-card>
     </b-container>
   </div>
@@ -34,6 +42,8 @@ export default {
   name: 'UserList',
   data() {
     return {
+      currentPage: 1,
+      perPage: 20,
       fields: [
         {
           key: 'username',

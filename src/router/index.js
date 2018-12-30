@@ -23,6 +23,10 @@ import UserEdit from '@/components/AdminPage/User/UserEdit';
 import VideoList from '@/components/AdminPage/Video/VideoList';
 import VideoAdd from '@/components/AdminPage/Video/VideoAdd';
 import VideoEdit from '@/components/AdminPage/Video/VideoEdit';
+// Galery
+import GaleryList from '@/components/AdminPage/Galery/GaleryList';
+import GaleryEdit from '@/components/AdminPage/Galery/GaleryEdit';
+import GaleryAdd from '@/components/AdminPage/Galery/GaleryAdd';
 
 Vue.use(Router);
 
@@ -113,6 +117,20 @@ const router = new Router({
         {
           path: 'video/add',
           component: VideoAdd,
+        },
+        // Galery
+        {
+          path: 'galery/list',
+          component: GaleryList,
+        },
+        {
+          path: 'galery/edit/:imageId',
+          component: GaleryEdit,
+          props: true,
+        },
+        {
+          path: 'galery/add',
+          component: GaleryAdd,
         },
       ],
     },

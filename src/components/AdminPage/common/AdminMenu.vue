@@ -34,7 +34,7 @@
               <i class="fas fa-video fa-2x"></i>
               <h5>Video</h5>
             </b-nav-item>
-            <b-nav-item href="/admin/video/list">
+            <b-nav-item href="/admin/galery/list">
               <i class="fas fa-camera fa-2x"></i>
               <h5>Galery</h5>
             </b-nav-item>

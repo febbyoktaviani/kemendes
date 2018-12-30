@@ -11,7 +11,13 @@
           </button>
         </a>
         <br/><br>
-        <b-table striped hover :fields="fields" :items="ListTujuan">
+        <b-table striped
+                 hover
+                 :fields="fields"
+                 :items="ListTujuan"
+                 :current-page="currentPage"
+                 :small="true"
+                 :per-page="perPage">
           <template slot="action" slot-scope="data">
             <a :href="'/admin/rencana-kerja/detail/'+data.item._id.$oid">
               <i class="far fa-eye fa-lg"></i>
@@ -22,6 +28,7 @@
             </a>
           </template>
         </b-table>
+        <b-pagination :total-rows="ListTujuan.length" align="center" v-model="currentPage" :per-page="perPage"></b-pagination>
       </b-card>
     </b-container>
   </div>
@@ -34,6 +41,8 @@ export default {
   name: 'RencanaKerjaList',
   data() {
     return {
+      currentPage: 1,
+      perPage: 20,
       fields: [
         'name',
         'unit_pemilik_resiko',

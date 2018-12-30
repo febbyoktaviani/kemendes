@@ -8,7 +8,7 @@
           <b-form-group label="Name"
                         :label-cols="2"
                         horizontal>
-            <b-form-input type="text" v-model="galery.name"></b-form-input>
+            <b-form-input type="text" v-model="galery.title"></b-form-input>
           </b-form-group>
           <b-form-group :label-cols="2"
                         size="lg"
@@ -44,7 +44,7 @@
     data() {
       return {
         galery: {
-          name: '',
+          title: '',
           is_slider: false,
           is_shown: true,
         },
@@ -68,7 +68,7 @@
         }
         const formData = new FormData()
         formData.append('image', this.image, this.image.name)
-        formData.append('name', this.galery.name)
+        formData.append('title', this.galery.title)
         formData.append('is_slider', this.galery.is_slider)
         formData.append('is_shown', this.galery.is_shown)
         console.log('frm', formData)

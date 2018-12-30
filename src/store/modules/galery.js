@@ -21,7 +21,7 @@ const actions = {
     context.commit('listGalery', res);
   },
   async fetchGalery(context, image_id) {
-    const res = await getVideo(image_id);
+    const res = await getGalery(image_id);
     context.commit('galery', res);
   },
   async uploadGalery(context, formData) {
