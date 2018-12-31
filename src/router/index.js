@@ -139,20 +139,28 @@ const router = new Router({
       ],
     },
     {
-      path: '/berita',
-      component: BeritaListPage
-    },
-    {
       path: '/berita/:id',
       component: BeritaPage
     },
     {
-      path: '/unitkerja',
-      component: UnitKerjaListPage
+      path: '/berita',
+      redirect: '/berita/'
+    },
+    {
+      path: '/berita',
+      component: BeritaListPage
     },
     {
       path: '/unitkerja/:id',
       component: UnitKerjaPage
+    },
+    {
+      path: '/unitkerja',
+      redirect: '/unitkerja/'
+    },
+    {
+      path: '/unitkerja/',
+      component: UnitKerjaListPage
     }
   ],
 });
