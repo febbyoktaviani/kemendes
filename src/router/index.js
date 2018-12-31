@@ -144,10 +144,6 @@ const router = new Router({
     },
     {
       path: '/berita',
-      redirect: '/berita/'
-    },
-    {
-      path: '/berita',
       component: BeritaListPage
     },
     {
@@ -156,10 +152,6 @@ const router = new Router({
     },
     {
       path: '/unitkerja',
-      redirect: '/unitkerja/'
-    },
-    {
-      path: '/unitkerja/',
       component: UnitKerjaListPage
     }
   ],
