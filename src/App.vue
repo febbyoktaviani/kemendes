@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Menu/>
+    <Menu v-if="!isAdminPage()"/>
     <router-view></router-view>
   </div>
 </template>
@@ -12,23 +12,12 @@ export default {
   name: "App",
   components: {
     Menu
-  }
-  // data() {
-  //   return {
-  //     berita: [
-  //       {
-  //         title: "Berita 1",
-  //         image: "",
-  //         content: "content berita 1"
-  //       },
-  //       {
-  //         title: "Berita 2",
-  //         image: "",
-  //         content: "content berita 2"
-  //       }
-  //     ]
-  //   };
-  // }
+  },
+  methods: {
+    isAdminPage() {
+      return this.$route.path.includes('admin');
+    },
+  },
 };
 </script>
 

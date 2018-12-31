@@ -75,8 +75,8 @@ export default {
   .text-boldtosca {
     color: #008080;
   }
-  /*.navbar {
-    width: 80%;
+  .navbar {
+    width: 100%;
     align-self: center;
     margin-left: auto;
     margin-right: auto;
@@ -87,6 +87,6 @@ export default {
   }
   .navbar-nav>a:hover {
     color: white;
-  }*/
+  }
 </style>
 

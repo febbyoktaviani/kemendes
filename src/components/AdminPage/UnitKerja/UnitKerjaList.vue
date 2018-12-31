@@ -38,7 +38,7 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   props: [],
@@ -63,7 +63,8 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch('fetchUnitKerjaList');
+    console.log('created')
+    this.$store.dispatch('fetchListUnitKerja');
     // console.log('list-berita');
   },
   methods: {

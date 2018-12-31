@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <b-card :img-src="unitKerja.bagan" img-alt="Image" img-top tag="article" class="mb-2">
+      <b-card :img-src="getImageUrl(unitKerja.bagan)" img-alt="Image" img-top tag="article" class="mb-2">
         <h3>{{unitKerja.name}}</h3>
         <span v-html="unitKerja.profil"></span>
         <!-- <br>
@@ -15,6 +15,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import { getImageUrl } from '@/helpers/util';
 
 export default {
   computed: {
@@ -28,6 +29,9 @@ export default {
     }),
     splitPar(content) {
       return content.split("\n");
+    },
+    getImageUrl(image) {
+      return getImageUrl(image)
     }
   },
   async mounted() {

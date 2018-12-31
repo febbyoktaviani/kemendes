@@ -25,7 +25,7 @@
                          v-on:change="onFileChanged(image)"
                          placeholder="Choose a file..."></b-form-file>
             <div class="mt-3">Selected image: {{unitkerja.bagan ? unitkerja.bagan : bagan && bagan.name}}</div>
-            <b-img :src="bagan ? getImageUrl(bagan) : getImageUrl(unitkerja.bagan)" fluid/>
+            <b-img :src="url_new ? url_new : getImageUrl(unitkerja.bagan)" fluid/>
           </b-form-group>
           <br>
           <b-form-group class="text-right">
@@ -60,7 +60,9 @@ export default {
     },
     onUpload() {
       const formData = new FormData();
-      formData.append('bagan', this.bagan, this.bagan.name);
+      if (this.bagan) {
+        formData.append('bagan', this.bagan, this.bagan.name);
+      }
       formData.append('id', this.unitkerja._id.$oid);
       formData.append('name', this.unitkerja.name);
       formData.append('profil', this.unitkerja.profil);

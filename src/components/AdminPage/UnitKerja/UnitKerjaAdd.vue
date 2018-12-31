@@ -20,8 +20,8 @@
                         :label-cols="2"
                         size="lg"
                         horizontal>
-            <b-form-file v-model="unitkerja.bagan"
-                         v-on:change="onFileChanged(image)"
+            <b-form-file v-model="bagan"
+                         v-on:change="onFileChanged(bagan)"
                          placeholder="Choose a file..."></b-form-file>
             <div class="mt-3">Selected image: {{ bagan && bagan.name}}</div>
             <b-img :src="bagan && getImageUrl(bagan)" fluid/>
