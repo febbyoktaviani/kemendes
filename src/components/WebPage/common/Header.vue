@@ -1,6 +1,6 @@
 <template>
   <div class='header'>
-    <b-container fluid class="bg-info text-light p-3">
+    <b-container fluid class="bg-mintleaf text-light p-3">
       <b-row>
         <b-col cols="6">
           <p><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;<b>Jl. TMP Kalibata No.17, DKI Jakarta</b></p>
@@ -109,5 +109,8 @@ export default {
   }
   .white {
     color: white;
+  }
+  .bg-mintleaf {
+    background-color: #479c96;
   }
 </style>

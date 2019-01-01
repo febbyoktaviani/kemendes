@@ -81,4 +81,22 @@ export default {
   .bg-sand {
     background-color: #f3faf2;
   }
+  .danger {
+    color: #EB5A5F;
+  }
+  .danger>a:hover {
+    color: red;
+  }
+  .green {
+    color: #3ea76a;
+  }
+  .green>a:hover {
+    color: green;
+  }
+  .ocean {
+    color: #3a8ba2;
+  }
+  .ocean>a:hover {
+    color: #0a6e8b;
+  }
 </style>

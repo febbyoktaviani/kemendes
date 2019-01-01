@@ -24,11 +24,34 @@
               <p class="card-text">
                 {{ galery.title }}
               </p>
-              <b-button :href="'/admin/galery/edit/'+galery._id.$oid" variant="primary">edit</b-button>
+              <b-row>
+                <b-col :cols="2" class="danger">
+                  <a href="#"
+                     class="danger"
+                     v-on:click="onModalDelete(galery._id.$oid)"
+                     v-b-tooltip.hover title="delete">
+                    <i class="fas fa-trash-alt fa-lg"></i>
+                  </a>
+                </b-col>
+                <b-col :cols="2" class="green">
+                  <a href="'/admin/galery/edit/'+galery._id.$oid"
+                     v-b-tooltip.hover title="edit"
+                     class="green">
+                    <i class="fas fa-edit fa-lg"></i>
+                  </a>
+                </b-col>
+              </b-row>
             </b-card>
           </b-col>
         </b-row>
       </b-card>
+      <b-modal ref="modalDelete" hide-footer title="Delete Image" warning>
+        <div class="d-block text-center">
+          <h3>Are you sure want to delete this image?</h3>
+        </div>
+        <b-btn class="mt-3" variant="outline-success" block @click="onDelete()">Confirm
+        </b-btn>
+      </b-modal>
     </b-container>
   </div>
 </template>
@@ -40,6 +63,7 @@ export default {
   data() {
     return {
       image: null,
+      deleteId: null,
     };
   },
   created() {
@@ -76,7 +100,14 @@ export default {
     },
     getImageUrl(image) {
       return getImageUrl(image)
-    }
+    },
+    onModalDelete(imageId) {
+      this.deleteId = imageId
+      this.$refs.modalDelete.show()
+    },
+    onDelete() {
+      alert(this.deleteId)
+    },
   },
 };
 </script>

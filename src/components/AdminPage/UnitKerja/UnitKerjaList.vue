@@ -23,9 +23,23 @@
             {{ toDate(data.item.created_at.$date) }}
           </template>
           <template slot="action" slot-scope="data">
-            <a :href="'/admin/unit-kerja/edit/'+data.item._id.$oid">
-              <i class="fas fa-edit fa-lg"></i>
-            </a>
+            <b-row>
+              <b-col :cols="1" class="green">
+                <a :href="'/admin/unit-kerja/edit/'+data.item._id.$oid"
+                   class="green"
+                   v-b-tooltip.hover title="delete">
+                  <i class="fas fa-edit fa-lg"></i>
+                </a>
+              </b-col>
+              <b-col :cols="1" class="danger">
+                <a href="#"
+                   class="danger"
+                   v-b-tooltip.hover title="delete"
+                   v-on:click="onModalDelete(data.item._id.$oid)">
+                  <i class="fas fa-trash-alt fa-lg"></i>
+                </a>
+              </b-col>
+            </b-row>
           </template>
         </b-table>
         <b-pagination :total-rows="listUnitKerja.length"
@@ -34,6 +48,13 @@
                       :per-page="perPage">
         </b-pagination>
       </b-card>
+      <b-modal ref="modalDelete" hide-footer title="Delete Image" warning>
+        <div class="d-block text-center">
+          <h3>Are you sure want to delete this image?</h3>
+        </div>
+        <b-btn class="mt-3" variant="outline-success" block @click="onDelete()">Confirm
+        </b-btn>
+      </b-modal>
     </b-container>
   </div>
 </template>
@@ -75,7 +96,15 @@ export default {
       // return date
       return `${date_str} ${time_str}`;
     },
-
+    onModalDelete(deleteId) {
+      this.deleteId = deleteId
+      this.$refs.modalDelete.show()
+    },
+    onDelete() {
+      alert(this.deleteId)
+      this.deleteId = null;
+      this.$refs.modalDelete.hide()
+    },
   },
   computed: {
     ...mapGetters({

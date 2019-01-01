@@ -98,7 +98,7 @@ export default {
           }
         }).then((res) => {
           console.log(res);
-          router.push(`/admin/tujuan/${res.tujuan_id}`);
+          router.push(`/admin/rencana-kerja/detail/${res.tujuan_id}`);
         }).catch((err) => {
           console.log('err', err);
         });

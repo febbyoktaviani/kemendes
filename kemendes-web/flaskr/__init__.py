@@ -103,6 +103,7 @@ def create_app(test_config=None):
             return role.post(request.form)
         except Exception as e:
             return e.__str__(), 500
+
 ##################################################### BERITA #####################################
     # post berita
     @app.route('/post-berita', methods=['POST'])
@@ -141,6 +142,12 @@ def create_app(test_config=None):
         search_text = request.args.get('search')
         print(search_text)
         return berita.get_title(search_text)
+
+    @app.route('/delete-berita/<berita_id>', methods=['PUT'])
+    @jwt_required
+    def delete_berita(berita_id):
+        berita_view = BeritaView(app)
+        return berita_view.delete(berita_id)
 
 ##################################################### END API BERITA ###############################
 

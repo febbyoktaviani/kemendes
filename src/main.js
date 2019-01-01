@@ -4,6 +4,7 @@ import Vue from 'vue';
 import vSelect from 'vue-select';
 import App from './App';
 import Header from './components/WebPage/common/Header';
+import Footer from './components/WebPage/common/Footer';
 import store from './store';
 import router from './router';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -56,4 +57,12 @@ new Vue({
   router,
   components: { Header },
   template: '<Header/>',
+});
+
+new Vue({
+  el: '#footer',
+  store,
+  router,
+  components: { Footer },
+  template: '<Footer/>',
 });

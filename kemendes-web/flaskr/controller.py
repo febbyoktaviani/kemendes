@@ -156,6 +156,11 @@ class BeritaView(object):
         berita = Berita.objects.get(id=berita_id).to_json()
         return berita
 
+    def delete(self, berita_id):
+        berita = Berita.objects.get(id=berita_id)
+        berita.delete()
+        return 'success delete berita', StatusCodes.HTTP_204_NO_CONTENT
+
 
 class UnitKerjaView(object):
     def __init__(self, app):
@@ -176,7 +181,12 @@ class UnitKerjaView(object):
 
     def get(self, unit_kerja_id):
         unit_kerja = UnitKerja.objects.get(id=unit_kerja_id).to_json()
-        return unit_kerja  
+        return unit_kerja
+
+    def delete(self, unit_kerja_id):
+        unit_kerja = UnitKerja.objects.get(id=unit_kerja_id)
+        unit_kerja.delete()
+        return 'success delete unit kerja', StatusCodes.HTTP_204_NO_CONTENT
 
 
 class UnitKerjaListView(object):
@@ -221,6 +231,9 @@ class RiskFormView(object):
             print('error', e)
             return {'status': 'failed'}, StatusCodes.HTTP_400_BAD_REQUEST
         return json.dumps({'status': 'success', 'tujuan_id': tujuan_id})
+
+    def delete(tujuan_id):
+        pass
 
 
 class RencanaKerjaListView(object):
@@ -306,6 +319,9 @@ class VideoListView(object):
             return e.__str__(), StatusCodes.HTTP_400_BAD_REQUEST
 
         return video_obj.to_json()
+
+    def delete(self, video_id):
+        return
 
 
 class ImageListView(object):

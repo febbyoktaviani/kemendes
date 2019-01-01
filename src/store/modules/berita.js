@@ -43,6 +43,9 @@ const actions = {
     context.commit('UPLOAD_BERITA', res);
     router.push('/admin/berita/list');
   },
+  async deleteBerita(context, berita_id) {
+    return
+  }
 };
 
 const getters = {
