@@ -430,11 +430,10 @@ export default {
       alert('hai')
     },
     print() {
-      this.isPrinted = 'panel-body'
-      alert('hai')
       var el = this.$refs.printed;
       var wb = XLSX.utils.table_to_book(el)
       console.log(wb)
+
       XLSX.writeFile(wb, 'sample-excel.xls', {})
       // console.log(el)
       // html2canvas(el, {

@@ -26,7 +26,7 @@
               <i class="fas fa-building fa-2x"></i>
               <h5>Unit kerja</h5>
             </b-nav-item>
-            <b-nav-item href="/admin">
+            <b-nav-item href="/admin/download/list">
               <i class="fas fa-file-download fa-2x"></i>
               <h5>Document</h5>
             </b-nav-item>

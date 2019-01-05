@@ -31,6 +31,10 @@ import VideoEdit from '@/components/AdminPage/Video/VideoEdit';
 import GaleryList from '@/components/AdminPage/Galery/GaleryList';
 import GaleryEdit from '@/components/AdminPage/Galery/GaleryEdit';
 import GaleryAdd from '@/components/AdminPage/Galery/GaleryAdd';
+// Download
+import DownloadList from '@/components/AdminPage/Download/DownloadList';
+import DownloadEdit from '@/components/AdminPage/Download/DownloadEdit';
+import DownloadAdd from '@/components/AdminPage/Download/DownloadAdd';
 
 Vue.use(Router);
 
@@ -135,6 +139,20 @@ const router = new Router({
         {
           path: 'galery/add',
           component: GaleryAdd,
+        },
+        // Download
+        {
+          path: 'download/list',
+          component: DownloadList,
+        },
+        {
+          path: 'download/edit/:imageId',
+          component: DownloadEdit,
+          props: true,
+        },
+        {
+          path: 'download/add',
+          component: DownloadAdd,
         },
       ],
     },
