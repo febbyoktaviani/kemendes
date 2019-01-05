@@ -1,4 +1,4 @@
-import { getListBerita, getBerita, postBerita, getTitlesBerita } from '@/api/berita';
+import { getListBerita, getBerita, postBerita, getTitlesBerita, deleteBerita } from '@/api/berita';
 import router from '@/router';
 
 const state = {
@@ -43,8 +43,9 @@ const actions = {
     context.commit('UPLOAD_BERITA', res);
     router.push('/admin/berita/list');
   },
-  async deleteBerita(context, berita_id) {
-    return
+  async removeBerita(context, berita_id) {
+    const res = await deleteBerita(berita_id);
+    router.push('/admin/berita/list');
   }
 };
 

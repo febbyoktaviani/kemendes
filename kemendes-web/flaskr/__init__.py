@@ -21,6 +21,7 @@ def create_app(test_config=None):
 
     # set the absolute path to the static folder
     app.config['UPLOAD_FOLDER'] = app.root_path + '/static'
+    app.config['UPLOAD_FILE'] = app.root_path + '/static/files'
     jwt = JWTManager(app)
     connect(
         host = os.getenv('DATABASE')
@@ -183,6 +184,12 @@ def create_app(test_config=None):
             file = None
         return unit_kerja.post(request.form, file)
 
+    @app.route('/delete-unitkerja/<unit_kerja_id>', methods=['PUT'])
+    @jwt_required
+    def delete_unitkerja(unit_kerja_id):
+        unit_kerja_view = UnitKerjaView(app)
+        return unit_kerja_view.delete(unit_kerja_id)
+
 ########################################### END API UNITKERJA #####################################
 
     @app.route('/rencana-kerja', methods=['GET', 'POST'])
@@ -253,6 +260,12 @@ def create_app(test_config=None):
         else:
             image = None
         return image_view.post(request.form, image)
+
+    @app.route('/delete-image/<image_id>', methods=['PUT'])
+    def delete_image(image_id):
+        image_view = ImageListView(app)
+        return image_view.delete(image_id)
+
 ###################################### END API GALERY ##################################################
 
 ###################################### API Document ##################################################

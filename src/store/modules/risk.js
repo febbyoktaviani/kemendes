@@ -23,7 +23,7 @@ const state = {
     'penanggung_jawab',
     'target_waktu',
     'komunikasi',
-    'rencana pemantauan',
+    'rencana_pemantauan',
   ],
   kemungkinan_dropdown: [
     { text: 'Sangat jarang', value: 1 },

@@ -26,4 +26,9 @@ const postBerita = async function (formData) {
   return berita;
 };
 
-export { getListBerita, getBerita, postBerita, getTitlesBerita };
+const deleteBerita = async function (berita_id) {
+  const { data: message } = await api.put(`/delete-berita/${berita_id}`);
+  return message;
+};
+
+export { getListBerita, getBerita, postBerita, getTitlesBerita, deleteBerita };

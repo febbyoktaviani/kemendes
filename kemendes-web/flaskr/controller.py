@@ -158,6 +158,9 @@ class BeritaView(object):
 
     def delete(self, berita_id):
         berita = Berita.objects.get(id=berita_id)
+        # delete files
+        img_path = berita.image
+        delete_file(img_path)
         berita.delete()
         return 'success delete berita', StatusCodes.HTTP_204_NO_CONTENT
 
@@ -185,6 +188,8 @@ class UnitKerjaView(object):
 
     def delete(self, unit_kerja_id):
         unit_kerja = UnitKerja.objects.get(id=unit_kerja_id)
+        bagan_url = unit_kerja.bagan
+        delete_file(bagan_url)
         unit_kerja.delete()
         return 'success delete unit kerja', StatusCodes.HTTP_204_NO_CONTENT
 
@@ -378,6 +383,13 @@ class ImageListView(object):
             return e.__str__(), StatusCodes.HTTP_400_BAD_REQUEST
 
         return image_obj.to_json()
+
+    def delete(self, image_id):
+        image_obj = Image.objects.get(image_id)
+        image_url = image.image_url
+        delete_file(image_url)
+        image_obj.delete()
+        return 'success delete image', StatusCodes.HTTP_204_NO_CONTENT
 
 
 class DownloadListView(object):

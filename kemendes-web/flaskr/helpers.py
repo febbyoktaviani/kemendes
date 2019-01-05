@@ -34,4 +34,11 @@ def upload_file(file):
     file.save(file_url)
     return served_url
 
+def delete_file(filepath):
+    head, tail = os.path.split(filepath)
+    full_path = os.path.join(app.config['UPLOAD_FOLDER'], tail)
+    if os.path.isfile(full_path):
+        os.remove(full_path)
+
+
     

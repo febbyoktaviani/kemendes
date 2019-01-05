@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <b-container fluid class="bg-leaf text-light p-3">
-      <b-row align-v="start">
+      <b-row align-v="start" class="ml-4">
         <b-col>
           <b-row align-v="start">
             <h5><strong>POPULAR ARTICLE</strong></h5>

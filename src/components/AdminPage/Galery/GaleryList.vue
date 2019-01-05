@@ -18,6 +18,7 @@
                     :img-src="getImageUrl(galery.image_url)"
                     img-alt="Image"
                     img-top
+                    img-fluid
                     tag="article"
                     style="max-width: 20rem;"
                     class="mb-2">
@@ -111,3 +112,5 @@ export default {
   },
 };
 </script>
+<style>
+</style>

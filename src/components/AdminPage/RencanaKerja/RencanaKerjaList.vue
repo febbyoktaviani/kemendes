@@ -12,6 +12,7 @@
         </a>
         <br/><br>
         <b-table striped
+                 responsive
                  hover
                  :fields="fields"
                  :items="ListTujuan"

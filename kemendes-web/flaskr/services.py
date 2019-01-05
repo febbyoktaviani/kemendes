@@ -69,11 +69,13 @@ def get_rencana_kerja(id):
             data_kegiatan['id'] = kegiatan.id.__str__()
             data_kegiatan['name'] = kegiatan.name
             data_kegiatan['resiko_kegiatan'] = []
+            data_kegiatan['rowspan'] = 1
             data_indikator['count_kegiatan'] += 1
             resiko_kegiatan = ResikoKegiatan.objects.filter(kegiatan=kegiatan)
             for rs in resiko_kegiatan:
                 data_rs = json.loads(rs.to_json())
                 data_rs['id'] = rs.id.__str__()
+                data_kegiatan['rowspan'] += 1
                 data_kegiatan['resiko_kegiatan'].append(data_rs)
                 data_indikator['count_resiko'] += 1
             data_indikator['kegiatans'].append(data_kegiatan)
