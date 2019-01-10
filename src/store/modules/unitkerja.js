@@ -1,4 +1,4 @@
-import { getListUnitKerja, getUnitKerja, postUnitKerja, getTitlesUnitKerja } from '@/api/unitkerja';
+import { getListUnitKerja, getUnitKerja, postUnitKerja, getTitlesUnitKerja, deleteUnitKerja } from '@/api/unitkerja';
 import router from '@/router';
 
 const state = {
@@ -42,6 +42,10 @@ const actions = {
     context.commit('uploadUnitKerja', res);
     router.push('/admin/unit-kerja/list');
   },
+  async removeUnitKerja(context, unitkerja_id) {
+    const res = await deleteUnitKerja(unitkerja_id);
+    router.go()
+  }
 };
 
 const getters = {

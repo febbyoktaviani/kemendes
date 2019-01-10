@@ -1,4 +1,5 @@
 import api from './index';
+import router from '@/router';
 
 const getListGalery = async function() {
     let { data: ListGalery } = await api.get('/list-image')
@@ -15,5 +16,14 @@ const postGalery = async function(formData) {
     return galery
   }
 
+const deleteGalery = async function (image_id) {
+  const response = await api.put(`/delete-image/${image_id}`);
+  console.log('delete-image', response)
+  if (response.status == 204) {
+    console.log(router)
+    router.go();
+  }
+};
 
-export { getListGalery, getGalery, postGalery }
+
+export { getListGalery, getGalery, postGalery, deleteGalery }

@@ -101,7 +101,7 @@ export default {
       this.$refs.modalDelete.show()
     },
     onDelete() {
-      alert(this.deleteId)
+      this.$store.dispatch('removeUnitKerja', this.deleteId);
       this.deleteId = null;
       this.$refs.modalDelete.hide()
     },

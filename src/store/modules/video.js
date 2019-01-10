@@ -1,4 +1,4 @@
-import { getListVideo, getVideo, postVideo } from '@/api/video';
+import { getListVideo, getVideo, postVideo, deleteVideo } from '@/api/video';
 import router from '@/router';
 
 const state = {
@@ -29,6 +29,10 @@ const actions = {
     // context.commit('isVideoUploaded', res)
     router.push('/admin/video/list');
   },
+  async removeVideo(context, video_id) {
+    const res = await deleteVideo(video_id)
+    router.go()
+  }
 };
 
 const getters = {

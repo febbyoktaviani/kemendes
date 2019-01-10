@@ -39,4 +39,9 @@ const postUnitKerja = async function (formData) {
   }
 };
 
-export { getListUnitKerja, getTitlesUnitKerja, postUnitKerja, getUnitKerja };
+const deleteUnitKerja = async function (unitkerja_id) {
+  const { data: message } = await api.put(`/delete-unitkerja/${unitkerja_id}`);
+  return message;
+};
+
+export { getListUnitKerja, getTitlesUnitKerja, postUnitKerja, getUnitKerja, deleteUnitKerja };

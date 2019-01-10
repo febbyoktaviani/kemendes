@@ -17,5 +17,9 @@ const postVideo = async function (formData) {
   return video;
 };
 
+const deleteVideo = async function (video_id) {
+  const { data: message } = await api.put(`/delete-video/${video_id}`);
+  return message;
+};
 
-export { getListVideo, getVideo, postVideo };
+export { getListVideo, getVideo, postVideo, deleteVideo };

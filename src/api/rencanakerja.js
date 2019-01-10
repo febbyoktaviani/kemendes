@@ -12,11 +12,9 @@ const getRencanaKerja = async function (tujuan_id) {
   return rencanaKerja;
 };
 
-const postBerita = async function (formData) {
-  console.log('api post berita', formData);
-  const { data: berita } = await api.post('post-berita', formData);
-  console.log('api berita', berita);
-  return berita;
+const deleteRencanaKerja = async function (tujuan_id) {
+  const { data: message } = await api.put(`/delete-rencana-kerja/${tujuan_id}`);
+  return message;
 };
 
-export { getListRencanaKerja, getRencanaKerja, postBerita };
+export { getListRencanaKerja, getRencanaKerja, deleteRencanaKerja };

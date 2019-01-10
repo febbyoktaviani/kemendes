@@ -1,30 +1,28 @@
 <template>
   <div class="download-edit">
     <b-container class="text-left">
-      <h4>Edit Galery</h4>
+      <h4>Edit Download File</h4>
       <hr>
       <b-card bg-variant="sand">
         <b-form>
           <b-form-group label="Name"
                         :label-cols="2"
                         horizontal>
-            <b-form-input type="text" v-model="galery.title"></b-form-input>
+            <b-form-input type="text" v-model="download.name"></b-form-input>
           </b-form-group>
-          <b-form-group :label-cols="2"
-                        size="lg"
+          <b-form-group label="Description"
+                        :label-cols="2"
                         horizontal>
-            <b-form-checkbox type="checkbox" v-model="galery.is_slider">slider</b-form-checkbox>
-            <b-form-checkbox type="checkbox" v-model="galery.is_shown">tampilkan</b-form-checkbox>
+            <b-form-input type="text" v-model="download.description"></b-form-input>
           </b-form-group>
-          <b-form-group label="Image"
+          <b-form-group label="File"
                         :label-cols="2"
                         size="lg"
                         horizontal>
-            <b-form-file v-model="image"
-                         v-on:change="onFileChanged(image)"
+            <b-form-file v-model="file"
+                         v-on:change="onFileChanged(file)"
                          placeholder="Choose a file..."></b-form-file>
-            <div class="mt-3">Selected file: {{ galery.image_url ? getImageUrl(galery.image_url) : image && image.name}}</div>
-            <b-img :src="galery.image_url ? getImageUrl(galery.image_url) : image && getImageUrl(image)" fluid/>
+            <div class="mt-3">Selected image: {{download.file ? download.file : file && file.name}}</div>
           </b-form-group>
           <br>
           <b-form-group class="text-right">
@@ -40,39 +38,38 @@ import { mapGetters } from 'vuex';
 import swal from 'sweetalert';
 import { getImageUrl } from '@/helpers/util';
 export default {
-  props: ['imageId'],
+  props: ['downloadId'],
   name: 'DownloadEdit',
   data() {
     return {
-      image: null,
+      file: null,
     };
   },
   created() {
-    this.$store.dispatch('fetchGalery', this.imageId)
+    this.$store.dispatch('fetchDownload', this.downloadId)
   },
   computed: {
     ...mapGetters({
-      galery: 'galery'
+      download: 'download'
     })
     
   },
   methods: {
     onFileChanged(event) {
       const file = event.target.files[0]
-      this.image = file
+      this.file = file
       console.log(file)
     },
     onUpload() {
       const formData = new FormData()
       formData.append('id', this.imageId)
-      if (this.image) {
-        formData.append('image', this.image, this.image.name)
+      if (this.file) {
+        formData.append('file', this.file, this.file.name)
       }
-      formData.append('title', this.galery.title)
-      formData.append('is_slider', this.galery.is_slider)
-      formData.append('is_shown', this.galery.is_shown)
+      formData.append('name', this.download.title)
+      formData.append('description', this.download.description)
       console.log('frm', formData)
-      this.$store.dispatch('uploadGalery', formData)
+      this.$store.dispatch('uploadDownload', formData)
     },
     getImageUrl(image) {
       return getImageUrl(image)

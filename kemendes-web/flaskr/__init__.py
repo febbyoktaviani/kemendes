@@ -216,6 +216,13 @@ def create_app(test_config=None):
         print('get', result)
         return json.dumps(result)
 
+    @app.route('/delete-rencana-kerja/<tujuan_id>', methods=['PUT'])
+    @jwt_required
+    def delete_rencana_kerja(tujuan_id):
+        rencana_kerja = RiskFormView(app)
+        return rencana_kerja.delete(tujuan_id)
+        
+
 ###################################### API VIDEO ##################################################
     @app.route('/list-video', methods=['GET'])
     def list_video():
@@ -235,6 +242,12 @@ def create_app(test_config=None):
         print(request.form)
         video_view = VideoListView(app)
         return video_view.post(request.form)
+
+    @app.route('/delete-video/<video_id>', methods=['PUT'])
+    @jwt_required
+    def delete_video(video_id):
+        video_view = VideoListView(app)
+        return video_view.delete(video_id)
 ###################################### END API VIDEO ##################################################
 
 
@@ -262,30 +275,38 @@ def create_app(test_config=None):
         return image_view.post(request.form, image)
 
     @app.route('/delete-image/<image_id>', methods=['PUT'])
+    @jwt_required
     def delete_image(image_id):
+        print('img', image_id)
         image_view = ImageListView(app)
         return image_view.delete(image_id)
 
 ###################################### END API GALERY ##################################################
 
 ###################################### API Document ##################################################
-    @app.route('/list-document', methods=['GET'])
-    def list_document():
-        document_view = ImageListView(app)
+    @app.route('/list-download', methods=['GET'])
+    def list_download():
+        download_view = DownloadListView(app)
         search_text = request.args.get('search')
         print(search_text)
-        return image_view.get_list(search_text)
+        return download_view.get_list(search_text)
 
-    @app.route('/document/<document_id>', methods=['GET'])
-    def document(video_id):
-        image_view = ImageListView(app)
-        return image_view.get(image_id)
+    @app.route('/download/<download_id>', methods=['GET'])
+    def download(download_id):
+        download_view = DownloadListView(app)
+        return download_view.get(download_id)
 
-    @app.route('/post-document', methods=['POST'])
+    @app.route('/post-download', methods=['POST'])
     @jwt_required
-    def post_document():
-        image_view = ImageListView(app)
-        return image_view.post(request.form)
+    def post_download():
+        download_view = DownloadListView(app)
+        return download_view.post(request.form)
+
+    @app.route('/delete-download/<download_id>', methods=['PUT'])
+    def delete_download(download_id):
+        download_view = DownloadListView(app)
+        return download_view.delete(download_id)
+
 ###################################### END API GALERY ##################################################
 
     return app

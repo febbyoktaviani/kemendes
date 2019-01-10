@@ -7,6 +7,8 @@ import BeritaModule from './modules/berita';
 import UserModule from './modules/user';
 import VideoModule from './modules/video';
 import GaleryModule from './modules/galery';
+import DownloadModule from './modules/download';
+
 
 Vue.use(Vuex);
 
@@ -18,6 +20,7 @@ export default new Vuex.Store({
     berita: BeritaModule,
     user: UserModule,
     video: VideoModule,
-    galery: GaleryModule
+    galery: GaleryModule,
+    download: DownloadModule,
   },
 });

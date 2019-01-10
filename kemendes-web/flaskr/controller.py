@@ -10,6 +10,7 @@ from .model import *
 from .helpers import *
 from .services import create_berita
 from .services import create_unit_kerja
+from .services import delete_rencana_kerja
 from .services import get_rencana_kerja
 from .services import get_list_rencana_kerja
 from .services import update_rencana_kerja
@@ -237,8 +238,13 @@ class RiskFormView(object):
             return {'status': 'failed'}, StatusCodes.HTTP_400_BAD_REQUEST
         return json.dumps({'status': 'success', 'tujuan_id': tujuan_id})
 
-    def delete(tujuan_id):
-        pass
+    def delete(self, tujuan_id):
+        try:
+            delete_rencana_kerja(tujuan_id)
+        except Exception as e:
+            print('error', e)
+            return {'status': 'failed'}, StatusCodes.HTTP_400_BAD_REQUEST
+        return 'success delete rencana kerja', StatusCodes.HTTP_204_NO_CONTENT
 
 
 class RencanaKerjaListView(object):
@@ -326,7 +332,9 @@ class VideoListView(object):
         return video_obj.to_json()
 
     def delete(self, video_id):
-        return
+        video = Video.objects.get(id=video_id)
+        video.delete()
+        return 'success delete video', StatusCodes.HTTP_204_NO_CONTENT
 
 
 class ImageListView(object):
@@ -385,12 +393,65 @@ class ImageListView(object):
         return image_obj.to_json()
 
     def delete(self, image_id):
-        image_obj = Image.objects.get(image_id)
-        image_url = image.image_url
+        image_obj = Image.objects.get(id=image_id)
+        image_url = image_obj.image_url
         delete_file(image_url)
         image_obj.delete()
         return 'success delete image', StatusCodes.HTTP_204_NO_CONTENT
 
 
 class DownloadListView(object):
-    pass
+    def __init__(self, app):
+        self.app = app
+        self.identity = authenticate_user()
+
+    def get_list(self, search_text):
+        try:
+            if search_text:
+                result = Download.objects.search_text(search_text).order_by('-updated_at').to_json()
+            else:
+                result = Download.objects.order_by('-updated_at').to_json()
+        except Exception as e:
+            return e.__str__(), StatusCodes.HTTP_400_BAD_REQUEST
+
+        return result
+
+    def get(self, download_id):
+        try:
+            result = Download.objects.get(id=download_id).to_json()
+        except Exception as e:
+            return e.__str__(), StatusCodes.HTTP_400_BAD_REQUEST
+
+        return result
+
+    def post(self, data, file):
+        try:
+            if data.get('id'): 
+                download_obj = Download.objects.get(id=data.get('id'))
+                if file:
+                    doc_url = upload_file(file)
+                else:
+                    doc_url = download_obj.doc_url
+                download_obj.update(name=data.get('name'),
+                                    description=data.get('description'),
+                                    doc_url=doc_url)
+            else:
+                if not file:
+                    return 'Image Could Not be blank', StatusCodes.HTTP_400_BAD_REQUEST
+                doc_url = upload_file(file)
+                download_obj = Image(name=data.get('name'),
+                                     description=data.get('description'),
+                                     doc_url=doc_url)
+                download_obj.save()
+        except Exception as e:
+            print(e)
+            return e.__str__(), StatusCodes.HTTP_400_BAD_REQUEST
+
+        return download_obj.to_json()
+
+    def delete(self, download_id):
+        download_obj = Image.objects.get(id=download_id)
+        doc_url = download_obj.doc_url
+        delete_file(doc_url)
+        download_obj.delete()
+        return 'success delete image', StatusCodes.HTTP_204_NO_CONTENT

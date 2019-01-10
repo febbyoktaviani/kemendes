@@ -1,4 +1,4 @@
-import { getListGalery, getGalery, postGalery } from '@/api/galery';
+import { getListGalery, getGalery, postGalery, deleteGalery } from '@/api/galery';
 import router from '@/router';
 
 const state = {
@@ -29,6 +29,9 @@ const actions = {
     // context.commit('isVideoUploaded', res)
     router.push('/admin/galery/list');
   },
+  async removeGalery(context, image_id) {
+    const res = await deleteGalery(image_id);
+  }
 };
 
 const getters = {

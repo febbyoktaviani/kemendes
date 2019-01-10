@@ -1,5 +1,6 @@
 import { base_url, staticToken } from '../config';
-import { getListRencanaKerja, getRencanaKerja } from '@/api/rencanakerja';
+import { getListRencanaKerja, getRencanaKerja, deleteRencanaKerja } from '@/api/rencanakerja';
+import router from '@/router';
 
 const state = {
   tujuan: { id: '', indikators: [{ kegiatans: [] }] },
@@ -33,6 +34,7 @@ const state = {
     { text: 'Pasti Terjadi/ sangat Sering', value: 5 },
   ],
   listTujuan: [],
+  rkDeleted: false,
 };
 
 const actions = {
@@ -44,6 +46,11 @@ const actions = {
     const res = await getListRencanaKerja();
     commit('LIST_TUJUAN', res);
   },
+  async removeRencanaKerja(context, tujuanId) {
+    const res = await deleteRencanaKerja(tujuanId);
+    context.commit('DELETE_RENCANA_KERJA', res)
+    router.go()
+  }
 };
 
 const mutations = {
@@ -53,6 +60,9 @@ const mutations = {
   LIST_TUJUAN: (state, res) => {
     state.listTujuan = JSON.parse(res);
   },
+  DELETE_RENCANA_KERJA: (state, res) => {
+    router.go()
+  } 
 };
 
 const getters = {

@@ -7,7 +7,7 @@
           <!-- </a> -->
         </div>
 
-        <b-navbar toggleable="md" type="dark" variant="info" class="navbar">
+        <b-navbar toggleable="md" type="muted" variant="tosca" class="navbar text-boldtosca text-center">
           <b-navbar-toggle target="nav_collapse">
             <b>MENU</b>
           </b-navbar-toggle>
@@ -94,6 +94,13 @@ export default {
 <style>
 a {
   color: inherit;
+}
+
+.bg-tosca {
+  background-color: #f3faf2;
+}
+.text-boldtosca {
+  color: #008080;
 }
 
 @media only screen and (min-width: 576px) {

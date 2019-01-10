@@ -107,7 +107,8 @@ export default {
       this.$refs.modalDelete.show()
     },
     onDelete() {
-      alert(this.deleteId)
+      this.$refs.modalDelete.hide()
+      this.$store.dispatch('removeGalery', this.deleteId)
     },
   },
 };

@@ -1,42 +1,45 @@
-import { getListGalery, getGalery, postGalery } from '@/api/galery';
+import { getListDownload, getDownload, postDownload, deleteDownload } from '@/api/download';
 import router from '@/router';
 
 const state = {
-  listGalery: [],
-  galery: {},
+  listDownload: [],
+  download: {},
 };
 
 const mutations = {
-  listGalery: (state, res) => {
-    state.listGalery = res;
+  listDownload: (state, res) => {
+    state.listDownload = res;
   },
-  galery: (state, res) => {
+  download: (state, res) => {
     state.galery = res;
   },
 };
 
 const actions = {
-  async fetchListGalery(context) {
-    const res = await getListGalery();
-    context.commit('listGalery', res);
+  async fetchListDownload(context) {
+    const res = await getListDownload();
+    context.commit('listDownload', res);
   },
-  async fetchGalery(context, image_id) {
-    const res = await getGalery(image_id);
-    context.commit('galery', res);
+  async fetchDownload(context, document_id) {
+    const res = await getDownload(document_id);
+    context.commit('download', res);
   },
-  async uploadGalery(context, formData) {
-    const res = await postGalery(formData);
+  async uploadDownload(context, formData) {
+    const res = await postDownload(formData);
     // context.commit('isVideoUploaded', res)
-    router.push('/admin/galery/list');
+    router.push('/admin/download/list');
   },
+  async removeDownload(context, document_id) {
+    const res = await deleteDownload(document_id);
+  }
 };
 
 const getters = {
-  listGalery(state) {
-    return state.listGalery;
+  listDownload(state) {
+    return state.listDownload;
   },
-  galery(state) {
-    return state.galery;
+  download(state) {
+    return state.download;
   },
 };
 

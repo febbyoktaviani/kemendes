@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <b-container fluid class="bg-leaf text-light p-3">
+    <b-container fluid class="bg-leaf text-light p-3 mt-5">
       <b-row align-v="start" class="ml-4">
         <b-col>
           <b-row align-v="start">

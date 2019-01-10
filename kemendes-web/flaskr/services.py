@@ -213,6 +213,19 @@ def update_rencana_kerja(data):
     deleted_indikators.delete()
     return tujuan.id.__str__()
 
+def delete_rencana_kerja(tujuan_id):
+    tujuan = Tujuan.objects.get(id=tujuan_id)
+    indikators = Indikator.objects.filter(tujuan=tujuan)
+    for indikator in indikators:
+        kegiatans = Kegiatan.objects.filter(indikator=indikator)
+        for kegiatan in kegiatans:
+            resiko_kegiatan = ResikoKegiatan.objects.filter(kegiatan=kegiatan)
+            resiko_kegiatan.delete()
+        kegiatans.delete()
+    indikators.delete()
+    tujuan.delete()
+    return
+
 def search_tag_rencana_kerja(**kwargs):
     tags = kwargs['tags']
     keyword = kwargs['keyword']
