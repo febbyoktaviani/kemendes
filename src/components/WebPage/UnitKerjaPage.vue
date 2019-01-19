@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container uker">
     <div class="row">
       <b-card :img-src="getImageUrl(unitKerja.bagan)" img-alt="Image" img-top tag="article" class="mb-2">
         <h3>{{unitKerja.name}}</h3>
@@ -41,4 +41,7 @@ export default {
 </script>
 
 <style>
+.uker {
+  padding: 3rem 0;
+}
 </style>

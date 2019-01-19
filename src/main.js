@@ -18,12 +18,15 @@ import { faCoffee,
   faPen,
   faLightbulb,
   faConciergeBell,
-  faMapMaredAlt,
-  faEnvelopO,
-  faPhoneVolume } from '@fortawesome/free-solid-svg-icons';
+  faMapMarker,
+  faUser,
+  faChalkboardTeacher,
+  faAngleUp,
+  faAngleDown} from '@fortawesome/free-solid-svg-icons';
 import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
+import Carousel3d from 'vue-carousel-3d';
 import VueHtml2Canvas from 'vue-html2canvas';
 
 Vue.use(BootstrapVue);
@@ -34,9 +37,14 @@ library.add(faCoffee,
   faClock,
   faGlobe,
   faHome,
+  faMapMarker,
+  faChalkboardTeacher,
   faCog,
+  faUser,
   faPen,
   faLightbulb,
+  faAngleDown,
+  faAngleUp,
   faConciergeBell);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);

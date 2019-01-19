@@ -24,6 +24,7 @@
     "npm": "^6.5.0",
     "sweetalert": "^2.1.2",
     "vue": "^2.5.2",
+    "vue-carousel-3d": "^0.1.23",
     "vue-html2canvas": "0.0.4",
     "vue-router": "^3.0.1",
     "vue-select": "^2.5.1",

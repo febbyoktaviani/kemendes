@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container berita">
     <div class="row">
       <b-card
         :key="`news${idx}`"
@@ -43,4 +43,7 @@ export default {
 </script>
 
 <style>
+.berita {
+  padding: 3rem 0;
+}
 </style>

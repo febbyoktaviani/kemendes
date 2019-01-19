@@ -23,23 +23,23 @@
             {{ toDate(data.item.created_at.$date) }}
           </template>
           <template slot="action" slot-scope="data">
-            <b-row>
-              <b-col :cols="1" class="green">
-                <a :href="'/admin/unit-kerja/edit/'+data.item._id.$oid"
-                   class="green"
-                   v-b-tooltip.hover title="delete">
-                  <i class="fas fa-edit fa-lg"></i>
-                </a>
-              </b-col>
-              <b-col :cols="1" class="danger">
-                <a href="#"
-                   class="danger"
-                   v-b-tooltip.hover title="delete"
-                   v-on:click="onModalDelete(data.item._id.$oid)">
-                  <i class="fas fa-trash-alt fa-lg"></i>
-                </a>
-              </b-col>
-            </b-row>
+              <b-dropdown right>
+                <b-dropdown-item>
+                  <a :href="'/admin/unit-kerja/edit/'+data.item._id.$oid"
+                    class="green">
+                    <i class="fas fa-edit fa-lg"></i>
+                    Edit
+                  </a>
+                </b-dropdown-item>
+                <b-dropdown-item>
+                  <a href="#"
+                    class="danger"
+                    v-on:click="onModalDelete(data.item._id.$oid)">
+                    <i class="fas fa-trash-alt fa-lg"></i>
+                    Hapus
+                  </a>
+              </b-dropdown-item>
+            </b-dropdown>
           </template>
         </b-table>
         <b-pagination :total-rows="listUnitKerja.length"
@@ -48,9 +48,9 @@
                       :per-page="perPage">
         </b-pagination>
       </b-card>
-      <b-modal ref="modalDelete" hide-footer title="Delete Image" warning>
+      <b-modal ref="modalDelete" hide-footer :title="'Hapus '+pageTitle" warning>
         <div class="d-block text-center">
-          <h3>Are you sure want to delete this image?</h3>
+          <h3>Apakah Anda yakin akan menghapus {{pageTitle}} ini?</h3>
         </div>
         <b-btn class="mt-3" variant="outline-success" block @click="onDelete()">Confirm
         </b-btn>
@@ -66,6 +66,7 @@ export default {
   name: 'UnitKerjaList',
   data() {
     return {
+      pageTitle: "Unit Kerja",
       currentPage: 1,
       perPage: 20,
       fields: [
