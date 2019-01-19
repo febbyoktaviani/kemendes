@@ -377,7 +377,7 @@ export default {
             rk_idx = kegiatan_pointer - i
             console.log('else kgidx', kg_idx, indikator.kegiatans, 'rkidx', rk_idx)
             table += `<tr>\
-              ${this.generateColumnSr(indikator.kegiatans[kg_idx-1].resiko_kegiatan[rk_idx])}\
+              ${this.generateColumnSr(indikator.kegiatans[kg_idx].resiko_kegiatan[rk_idx])}\
               </tr>`;
           }
         } else if(i == indikator_pointer && i != 1){

@@ -24,11 +24,11 @@
           <template slot="action" slot-scope="data">
             <b-dropdown right>
               <b-dropdown-item>
-                <a :href="'/admin/berita/edit/'+data.item._id.$oid"
+                <router-link :to="'/admin/berita/edit/'+data.item._id.$oid"
                   class="green">
                   <i class="fas fa-edit fa-lg"></i>
                   Edit
-                </a>
+                </router-link>
               </b-dropdown-item>
               <b-dropdown-item>
                 <a href="#"
