@@ -1,30 +1,9 @@
 <template>
   <div class="admin-home">
-    <AdminMenu />
-    <br/><br />
-    <b-container v-if="$route.path == '/admin'">
-      <b-row>
-        <b-col>
-          <b-card class="text-center"
-                  border-variant="sand"
-                  text-variant="boldtosca">
-            <i class="fas fa-swatchbook fa-3x"></i>
-            <h4>Rencana Kerja</h4>
-          </b-card>
-        </b-col>
-        <b-col>
-          <b-card class="text-center"
-                  border-variant="sand"
-                  text-variant="boldtosca">
-            <i class="fas fa-volume-up fa-3x"></i>
-            <h4>Berita</h4>
-          </b-card>
-        </b-col>
-        <b-col>3 of 3</b-col>
-        <b-col>4 of 4</b-col>
-      </b-row>
-    </b-container>
-    <router-view></router-view>
+      <AdminMenu />
+      <div class="content-wrapper">
+        <router-view></router-view>
+      </div>
   </div>
 </template>
 <script>
@@ -98,5 +77,8 @@ export default {
   }
   .ocean>a:hover {
     color: #0a6e8b;
+  }
+  .content-wrapper {
+    padding-top: 2rem;
   }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container berita">
     <div class="centered">
       <h4>BERITA</h4>
       <b-list-group class="list-group">
@@ -39,5 +39,8 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.berita {
+  padding: 3rem 0;
 }
 </style>
