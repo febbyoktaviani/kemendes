@@ -1,10 +1,10 @@
 let url = '';
 
-// if (process.env.NODE_ENV === 'development') {
-//   url = 'http://localhost:5000';
-// } else {
+if (process.env.NODE_ENV === 'development') {
+  url = 'http://localhost:5000';
+} else {
   url = 'http://kemendesapi.detase.men';
-// }
+}
 
 export const base_url = url;
 export const staticToken =
